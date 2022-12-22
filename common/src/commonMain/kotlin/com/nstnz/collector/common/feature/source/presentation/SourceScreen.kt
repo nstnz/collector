@@ -1,4 +1,4 @@
-package com.nstnz.collector.common.feature.main.presentation
+package com.nstnz.collector.common.feature.source.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,17 +15,16 @@ import com.nstnz.collector.common.design.topbar.NavBarComponent
 import com.nstnz.collector.common.texts.MainScreen_Title
 
 @Composable
-internal fun MainScreen(
-    viewState: MainScreenState,
+internal fun SourceScreen(
+    sourceName: String,
     onAddSourceClick: () -> Unit = {},
-    onSourceClick: () -> Unit = {}
 ) {
     GradientScaffold(
         topBar = {
             NavBarComponent(
                 modifier = Modifier.background(AppTheme.colors.backgroundSheetPrimary()),
                 titleColor = AppTheme.colors.primaryText(),
-                title = MainScreen_Title,
+                title = sourceName,
                 actions = {
                     IconButton(onClick = onAddSourceClick) {
 
@@ -45,7 +44,6 @@ internal fun MainScreen(
                 SourceDetailedPanel(
                     sourceName = i.toString(),
                     total = "$123456",
-                    onSourceClick = onSourceClick
                 )
                 SpacerComponent { x2 }
             }
@@ -84,9 +82,8 @@ private fun MainResultPanel() {
 private fun SourceDetailedPanel(
     sourceName: String,
     total: String,
-    onSourceClick: () -> Unit
 ) {
-    Row(
+    Column(
         Modifier
             .fillMaxWidth()
             .padding(horizontal = AppTheme.indents.x3)
@@ -95,28 +92,17 @@ private fun SourceDetailedPanel(
                 shape = AppTheme.shapes.x2
             )
             .padding(AppTheme.indents.x3)
-            .noEffectsClickable { onSourceClick() }
     ) {
-        Column(
-            Modifier
-                .weight(1f)
-        ) {
-            Text(
-                text = total,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.headingXlarge
-            )
-            SpacerComponent { x0_5 }
-            Text(
-                text = sourceName,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.bodyMedium
-            )
-        }
         Text(
-            text = ">",
+            text = total,
             color = AppTheme.colors.secondaryBackgroundText(),
             style = AppTheme.typography.headingXlarge
+        )
+        SpacerComponent { x0_5 }
+        Text(
+            text = sourceName,
+            color = AppTheme.colors.secondaryBackgroundText(),
+            style = AppTheme.typography.bodyMedium
         )
     }
 }

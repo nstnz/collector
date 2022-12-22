@@ -9,6 +9,7 @@ object Version {
     const val precompose = "1.3.9"
     const val ktor = "2.1.2"
     const val kodein = "7.16.0"
+    const val mokoMvvm = "0.13.0"
 }
 
 
@@ -55,4 +56,10 @@ object Ktor {
 
 object Kodein {
     const val kodein_core = "org.kodein.di:kodein-di:${Version.kodein}"
+}
+
+object Moko {
+    const val moko_core = "dev.icerock.moko:mvvm-core:${Version.mokoMvvm}"
+    const val moko_flow = "dev.icerock.moko:mvvm-flow:${Version.mokoMvvm}"
+    const val moko_flow_compose = "dev.icerock.moko:mvvm-flow-compose:${Version.mokoMvvm}"
 }

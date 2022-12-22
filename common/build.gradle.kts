@@ -31,7 +31,7 @@ kotlin {
         ios.deploymentTarget = iOSSdk.deploymentTarget
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "test"
+            baseName = "common"
             isStatic = true
         }
     }

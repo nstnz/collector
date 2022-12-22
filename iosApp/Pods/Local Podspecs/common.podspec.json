@@ -8,14 +8,14 @@
   "authors": "",
   "license": "",
   "summary": "Multiplatform Compose Shared Test Module",
-  "vendored_frameworks": "build/cocoapods/framework/test.framework",
+  "vendored_frameworks": "build/cocoapods/framework/common.framework",
   "libraries": "c++",
   "platforms": {
     "ios": "10.0"
   },
   "pod_target_xcconfig": {
     "KOTLIN_PROJECT_PATH": ":common",
-    "PRODUCT_MODULE_NAME": "test"
+    "PRODUCT_MODULE_NAME": "common"
   },
   "script_phases": [
     {

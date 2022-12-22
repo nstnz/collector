@@ -6,14 +6,14 @@ Pod::Spec.new do |spec|
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = 'Multiplatform Compose Shared Test Module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/test.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/common.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '10.0'
                 
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':common',
-        'PRODUCT_MODULE_NAME' => 'test',
+        'PRODUCT_MODULE_NAME' => 'common',
     }
                 
     spec.script_phases = [

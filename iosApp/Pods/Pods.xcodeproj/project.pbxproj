@@ -41,11 +41,11 @@
 		154669BB986956F03B55C315D356DEC4 /* common.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = common.release.xcconfig; sourceTree = "<group>"; };
 		1A2FB55B5C37861BC78ECD1420D818C3 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
-		423A6CDA19412CC7BEDD310EF0DBE61D /* test.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = test.framework; path = build/cocoapods/framework/test.framework; sourceTree = "<group>"; };
 		42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
 		482384ADFE4EF692B16FACB8C2021970 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		8B5E0B87BBE2D0EB976345E7CF017E09 /* common.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = common.debug.xcconfig; sourceTree = "<group>"; };
+		8E16D5BFC7C39DAE3A742E6ED97C0D4D /* common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = common.framework; path = build/cocoapods/framework/common.framework; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A43877303056397968EC90C7AAFE17E8 /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A79C2AA5C063914B2D1BD80187FDF6DE /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		054DD32E087EF3199398606EFF6E33A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E16D5BFC7C39DAE3A742E6ED97C0D4D /* common.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		19C750CF61A1FE8A9539B3E80EC3774F /* Pod */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,20 +92,12 @@
 		2A32B5AFCE1A23C9908C3181771D33E4 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				2C55A2EE25C2D7D7EDEAEBBE37DE7323 /* Frameworks */,
+				054DD32E087EF3199398606EFF6E33A3 /* Frameworks */,
 				19C750CF61A1FE8A9539B3E80EC3774F /* Pod */,
 				4E2256E2B9273D782A8CC2B9447BCEC6 /* Support Files */,
 			);
 			name = common;
 			path = ../../common;
-			sourceTree = "<group>";
-		};
-		2C55A2EE25C2D7D7EDEAEBBE37DE7323 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				423A6CDA19412CC7BEDD310EF0DBE61D /* test.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		310087C345B86EEF25A054485E0BB5CB /* Pods-iosApp */ = {

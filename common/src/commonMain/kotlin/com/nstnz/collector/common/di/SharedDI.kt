@@ -1,8 +1,10 @@
 package com.nstnz.collector.common.di
 
 import com.nstnz.collector.common.feature.auth.domain.UseCase2
+import com.nstnz.collector.common.feature.main.presentation.MainScreenViewModel
 import org.kodein.di.DI
 import org.kodein.di.bind
+import org.kodein.di.instance
 import org.kodein.di.provider
 import kotlin.native.concurrent.ThreadLocal
 
@@ -13,9 +15,11 @@ object SharedDI {
         println("Launch application")
     }
 
-    // USAGE: val loginUseCase by SharedDI.kodeinInjector.instance<UseCase>()
-
-    internal val kodeinInjector = DI {
+    internal val di = DI {
         bind<UseCase2>() with provider { UseCase2() }
+
+        bind<MainScreenViewModel>() with provider {
+            MainScreenViewModel(instance())
+        }
     }
 }
