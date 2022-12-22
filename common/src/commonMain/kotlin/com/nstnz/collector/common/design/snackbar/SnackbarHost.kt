@@ -142,7 +142,7 @@ class SnackbarHostState {
  * appearance based on the [SnackbarData] provided as a param
  */
 @Composable
-fun SnackbarHost(
+internal fun SnackbarHost(
 	hostState: SnackbarHostState,
 	modifier: Modifier = Modifier,
 	snackbar: @Composable (SnackbarData) -> Unit = { Snackbar(it) },
@@ -362,4 +362,4 @@ private const val SnackbarSlideOutMillis = 120
 private const val SnackbarInBetweenDelayMillis = 0
 
 @Composable
-fun rememberSnackBarHostState() = remember { SnackbarHostState() }
+internal fun rememberSnackBarHostState() = remember { SnackbarHostState() }

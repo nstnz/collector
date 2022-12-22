@@ -29,7 +29,7 @@ internal val LocalElevations = staticCompositionLocalOf<Elevations> {
     throw IllegalStateException("No Elevations provided")
 }
 
-object AppTheme {
+internal object AppTheme {
 
     val colors: Colors
         @Composable
@@ -57,7 +57,7 @@ object AppTheme {
 }
 
 @Composable
-fun AppTheme(
+internal fun AppTheme(
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(

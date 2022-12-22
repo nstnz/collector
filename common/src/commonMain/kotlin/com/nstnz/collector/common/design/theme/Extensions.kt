@@ -31,7 +31,7 @@ internal fun Colors.toMaterialColors(): androidx.compose.material.Colors =
 	)
 
 @Composable
-fun Modifier.noEffectsClickable(
+internal fun Modifier.noEffectsClickable(
 	interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 	onClick: () -> Unit,
 ) =

@@ -9,7 +9,7 @@ import com.nstnz.collector.common.design.theme.AppTheme
 import com.nstnz.collector.common.design.theme.Indents
 
 @Composable
-fun SpacerComponent(
+internal fun SpacerComponent(
 	sizeSelector: @Composable Indents.() -> Dp,
 ) {
 	Spacer(modifier = Modifier.size(AppTheme.indents.sizeSelector()))

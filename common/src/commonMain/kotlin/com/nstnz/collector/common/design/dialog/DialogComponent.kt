@@ -16,7 +16,7 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 
 @Composable
-fun DialogComponent(
+internal fun DialogComponent(
     title: String,
     description: String,
     okButtonText: String,

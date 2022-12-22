@@ -28,7 +28,7 @@ import com.nstnz.collector.common.design.theme.*
 
 @Suppress("LongMethod")
 @Composable
-fun TextInputComponent(
+internal fun TextInputComponent(
     modifier: Modifier = Modifier,
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,

@@ -11,7 +11,7 @@ import moe.tlaster.precompose.ui.LocalLifecycleOwner
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun <T> StateFlow<T>.collectAsStateLifecycleAware(): State<T> {
+internal fun <T> StateFlow<T>.collectAsStateLifecycleAware(): State<T> {
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val lifecycleAwareFlow = remember(this, lifecycleOwner) {

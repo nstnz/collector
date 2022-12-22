@@ -24,7 +24,7 @@ data class ScaffoldState(
 )
 
 @Composable
-fun rememberScaffoldState(
+internal fun rememberScaffoldState(
     drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
 ): ScaffoldState = remember {
@@ -32,7 +32,7 @@ fun rememberScaffoldState(
 }
 
 @Composable
-fun ScaffoldComponent(
+internal fun ScaffoldComponent(
     modifier: Modifier = Modifier,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
     topBar: @Composable () -> Unit = {},

@@ -16,7 +16,7 @@ import com.nstnz.collector.common.design.snackbar.SnackbarHost
 import com.nstnz.collector.common.design.snackbar.SnackbarHostState
 
 @Composable
-fun GradientScaffold(
+internal fun GradientScaffold(
 	gradient: Brush = AppTheme.gradients.backgroundScreen(),
 	modifier: Modifier = Modifier,
 	scaffoldState: ScaffoldState = rememberScaffoldState(),

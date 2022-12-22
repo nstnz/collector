@@ -18,7 +18,7 @@ import com.nstnz.collector.common.design.button.PrimaryButtonColors.backgroundCo
 import com.nstnz.collector.common.design.theme.AppTheme
 
 @Composable
-fun BottomButtonComponent(
+internal fun BottomButtonComponent(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier.fillMaxWidth(),

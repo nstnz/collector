@@ -54,7 +54,7 @@ import kotlin.math.roundToInt
  * Copy of [androidx.compose.material.OutlinedTextField] without hardcoded border width.
  */
 @Composable
-fun OutlinedTextField(
+internal fun OutlinedTextField(
 	value: String,
 	onValueChange: (String) -> Unit,
 	modifier: Modifier = Modifier,
@@ -107,7 +107,7 @@ fun OutlinedTextField(
 }
 
 @Composable
-fun OutlinedTextField(
+internal fun OutlinedTextField(
 	value: TextFieldValue,
 	onValueChange: (TextFieldValue) -> Unit,
 	modifier: Modifier = Modifier,

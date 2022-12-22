@@ -18,7 +18,7 @@ import com.nstnz.collector.common.design.theme.primaryText
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 
 @Composable
-fun SnackbarComponent(
+internal fun SnackbarComponent(
     title: String,
     description: String? = null,
     isError: Boolean,

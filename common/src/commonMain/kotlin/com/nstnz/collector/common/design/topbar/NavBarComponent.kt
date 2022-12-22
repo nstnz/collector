@@ -15,7 +15,7 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 
 @Composable
-fun DefaultNavComponent(
+internal fun DefaultNavComponent(
     onBackClick: () -> Unit
 ) {
     NavBarComponent(
@@ -35,7 +35,7 @@ fun DefaultNavComponent(
 }
 
 @Composable
-fun NavBarComponent(
+internal fun NavBarComponent(
     title: String,
     modifier: Modifier = Modifier,
     titleColor: Color = AppTheme.colors.primaryBackgroundText(),

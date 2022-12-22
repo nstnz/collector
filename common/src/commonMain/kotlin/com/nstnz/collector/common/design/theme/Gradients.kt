@@ -3,7 +3,7 @@ package com.nstnz.collector.common.design.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 
-object Gradients {
+internal object Gradients {
 
     @Composable
     fun backgroundScreen() = Brush.verticalGradient(

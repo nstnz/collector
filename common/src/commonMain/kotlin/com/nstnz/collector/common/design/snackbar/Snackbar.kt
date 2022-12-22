@@ -50,7 +50,7 @@ import kotlin.math.max
  * perform
  */
 @Composable
-fun Snackbar(
+internal fun Snackbar(
     modifier: Modifier = Modifier,
     action: @Composable (() -> Unit)? = null,
     actionOnNewLine: Boolean = false,
@@ -114,7 +114,7 @@ fun Snackbar(
  * of the shadow below the SnackBar
  */
 @Composable
-fun Snackbar(
+internal fun Snackbar(
     snackbarData: SnackbarData,
     modifier: Modifier = Modifier,
     actionOnNewLine: Boolean = false,
@@ -151,7 +151,7 @@ fun Snackbar(
 /**
  * Object to hold defaults used by [Snackbar]
  */
-object SnackbarDefaults {
+internal object SnackbarDefaults {
     val backgroundColor: Color
         @Composable
         get() = AppTheme.colors.backgroundSnackBar()

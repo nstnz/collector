@@ -18,7 +18,7 @@ import com.nstnz.collector.common.design.snackbar.SnackbarHostState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GradientModalBottomSheetScaffold(
+internal fun GradientModalBottomSheetScaffold(
     gradient: Brush = AppTheme.gradients.backgroundScreen(),
     modifier: Modifier = Modifier,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
