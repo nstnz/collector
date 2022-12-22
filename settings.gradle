@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "collector"
+
+apply from: "$rootDir/modules.gradle"
+
+modules.forEach { name, path ->
+    include(name)
+    project(name).projectDir = file(path)
+}

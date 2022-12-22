@@ -1,0 +1,4 @@
+ext.modules = [
+        ':androidApp': 'androidApp',
+        ':common': 'common',
+]
