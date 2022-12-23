@@ -8,17 +8,19 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
-import com.nstnz.collector.common.texts.MainScreen_Title
+import com.nstnz.collector.common.basic.texts.MainScreen_Title
 
 @Composable
 internal fun MainScreen(
     viewState: MainScreenState,
     onAddSourceClick: () -> Unit = {},
-    onSourceClick: () -> Unit = {}
+    onSourceClick: (String) -> Unit = {},
+    onConverterTabCLick: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -31,6 +33,13 @@ internal fun MainScreen(
 
                     }
                 }
+            )
+        },
+        bottomBar = {
+            NavigationBarComponent(
+                mainTabSelected = true,
+                mainTabClick = {},
+                converterTabClick = onConverterTabCLick
             )
         }
     ) {
@@ -84,7 +93,7 @@ private fun MainResultPanel() {
 private fun SourceDetailedPanel(
     sourceName: String,
     total: String,
-    onSourceClick: () -> Unit
+    onSourceClick: (String) -> Unit
 ) {
     Row(
         Modifier
@@ -95,7 +104,7 @@ private fun SourceDetailedPanel(
                 shape = AppTheme.shapes.x2
             )
             .padding(AppTheme.indents.x3)
-            .noEffectsClickable { onSourceClick() }
+            .noEffectsClickable { onSourceClick(sourceName) }
     ) {
         Column(
             Modifier

@@ -3,6 +3,7 @@ package com.nstnz.collector.common
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import platform.UIKit.UIImage
@@ -21,4 +22,9 @@ internal actual fun imageResource(id: String): ImageBitmap {
         }
     }
     return org.jetbrains.skia.Image.makeFromEncoded(byteArray).toComposeImageBitmap()
+}
+
+@Composable
+internal actual fun imageVector(id: String): ImageVector {
+    TODO()
 }

@@ -1,11 +1,13 @@
 package com.nstnz.collector.common.di
 
-import com.nstnz.collector.common.feature.auth.domain.UseCase2
-import com.nstnz.collector.common.feature.main.presentation.MainScreenViewModel
+import com.nstnz.collector.common.basic.router.Router
+import com.nstnz.collector.common.feature.converter.di.converterScreenDi
+import com.nstnz.collector.common.feature.core.di.coreDi
+import com.nstnz.collector.common.feature.main.di.mainScreenDi
+import com.nstnz.collector.common.feature.source.di.sourceScreenDi
 import org.kodein.di.DI
 import org.kodein.di.bind
-import org.kodein.di.instance
-import org.kodein.di.provider
+import org.kodein.di.singleton
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
@@ -16,10 +18,11 @@ object SharedDI {
     }
 
     internal val di = DI {
-        bind<UseCase2>() with provider { UseCase2() }
+        bind<Router>() with singleton { Router() }
 
-        bind<MainScreenViewModel>() with provider {
-            MainScreenViewModel(instance())
-        }
+        import(coreDi)
+        import(mainScreenDi)
+        import(sourceScreenDi)
+        import(converterScreenDi)
     }
 }

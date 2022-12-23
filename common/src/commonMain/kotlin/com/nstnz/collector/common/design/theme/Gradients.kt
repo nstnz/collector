@@ -10,4 +10,10 @@ object Gradients {
         0.0f to AppTheme.colors.gradientPartsTop(),
         1.0f to AppTheme.colors.gradientPartsBottom()
     )
+
+    @Composable
+    fun secondaryBackgroundScreen() = Brush.verticalGradient(
+        0.0f to AppTheme.colors.backgroundSheetPrimary(),
+        1.0f to AppTheme.colors.backgroundSheetPrimary()
+    )
 }

@@ -9,6 +9,13 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Android.context = this
+        Thread.setDefaultUncaughtExceptionHandler(TopExceptionHandler())
         SharedDI.init()
+    }
+}
+
+private class TopExceptionHandler: Thread.UncaughtExceptionHandler {
+    override fun uncaughtException(t: Thread, e: Throwable) {
+        println(e.toString())
     }
 }

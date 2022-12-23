@@ -5,13 +5,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nstnz.collector.common.design.theme.AppTheme
 import com.nstnz.collector.common.feature.main.presentation.MainScreen
 import com.nstnz.collector.common.feature.source.presentation.SourceScreen
+import com.nstnz.collector.common.feature.source.presentation.SourceScreenState
 
 @Composable
 @Preview
 private fun SourceScreenPreview() {
     AppTheme {
         SourceScreen(
-            sourceName = "Tinkoff"
+            viewState = SourceScreenState.Default("Tinkoff")
         )
     }
 }
