@@ -17,5 +17,6 @@ internal fun MainScreenHolder() {
         onConverterTabCLick = { viewModel.sendIntent(MainScreenIntent.ShowConverter) },
         onSettingsTabClick = { viewModel.sendIntent(MainScreenIntent.ShowSettingsScreen) },
         onAddCount = { viewModel.sendIntent(MainScreenIntent.ShowAddCount) },
+        onAddSource = { viewModel.sendIntent(MainScreenIntent.ShowAddSource) },
     )
 }

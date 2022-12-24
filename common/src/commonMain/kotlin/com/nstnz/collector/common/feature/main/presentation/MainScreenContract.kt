@@ -19,6 +19,7 @@ internal sealed interface MainScreenIntent : Intent {
     data class Update(val sourcesMainModel: SourcesMainModel) : MainScreenIntent
     object ShowSettingsScreen : MainScreenIntent
     object ShowAddCount : MainScreenIntent
+    object ShowAddSource : MainScreenIntent
 }
 
 internal sealed class MainScreenSingleEvent : SingleEvent

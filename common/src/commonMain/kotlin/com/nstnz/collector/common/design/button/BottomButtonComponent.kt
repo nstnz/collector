@@ -1,5 +1,6 @@
 package com.nstnz.collector.common.design.button
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -29,7 +30,6 @@ fun BottomButtonComponent(
 
     Surface(
         shape = buttonShape,
-        color = backgroundColor(PrimaryButtonColors, state),
         contentColor = PrimaryButtonColors.textColor,
         modifier = modifier
             .clickable(
@@ -39,6 +39,7 @@ fun BottomButtonComponent(
     ) {
         Box(
             Modifier
+                .background(AppTheme.gradients.accentGradient())
                 .height(AppTheme.indents.x7_5)
                 .indication(interactionSource, rememberRipple())
         ) {

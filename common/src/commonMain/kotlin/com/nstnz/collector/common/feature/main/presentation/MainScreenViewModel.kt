@@ -19,7 +19,7 @@ internal class MainScreenViewModel(
 
     override fun reduce(intent: MainScreenIntent, prevState: MainScreenState): MainScreenState =
         when (intent) {
-            is MainScreenIntent.Update -> MainScreenState.Default(intent.sourcesMainModel,)
+            is MainScreenIntent.Update -> MainScreenState.Default(intent.sourcesMainModel)
             else -> prevState
         }
 
@@ -46,6 +46,10 @@ internal class MainScreenViewModel(
         is MainScreenIntent.Update -> null
         is MainScreenIntent.ShowAddCount -> {
             router.navigateToAddCountScreen(null)
+            null
+        }
+        MainScreenIntent.ShowAddSource -> {
+            router.navigateToAddSourceScreen()
             null
         }
     }

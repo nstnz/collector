@@ -12,7 +12,11 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import com.nstnz.collector.common.basic.texts.MainScreen_AddSource
+import com.nstnz.collector.common.basic.texts.MainScreen_NoSources
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
@@ -20,6 +24,7 @@ import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
 import com.nstnz.collector.common.basic.texts.MainScreen_TotalSum
+import com.nstnz.collector.common.design.button.PrimaryButtonComponent
 import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
 
@@ -27,6 +32,7 @@ import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
 internal fun MainScreen(
     viewState: MainScreenState,
     onAddCount: () -> Unit = {},
+    onAddSource: () -> Unit = {},
     onSourceClick: (String) -> Unit = {},
     onConverterTabCLick: () -> Unit = {},
     onSettingsTabClick: () -> Unit = {},
@@ -58,7 +64,11 @@ internal fun MainScreen(
         }
     ) {
         when (viewState) {
-            is MainScreenState.Default -> MainScreenStateDefault(viewState, onSourceClick)
+            is MainScreenState.Default -> MainScreenStateDefault(
+                viewState,
+                onAddSource,
+                onSourceClick
+            )
             MainScreenState.Loading -> {}
         }
     }
@@ -67,6 +77,7 @@ internal fun MainScreen(
 @Composable
 private fun MainScreenStateDefault(
     viewState: MainScreenState.Default,
+    onAddSource: () -> Unit = {},
     onSourceClick: (String) -> Unit
 ) {
     Column(
@@ -81,15 +92,42 @@ private fun MainScreenStateDefault(
                 .verticalScroll(rememberScrollState())
         ) {
             SpacerComponent { x4 }
-            viewState.sourcesMainModel.sources.forEach {
-                SourceDetailedPanel(
-                    source = it,
-                    onSourceClick = onSourceClick
-                )
-                SpacerComponent { x2 }
+            if (viewState.sourcesMainModel.sources.isNotEmpty()) {
+                viewState.sourcesMainModel.sources.forEach {
+                    SourceDetailedPanel(
+                        source = it,
+                        onSourceClick = onSourceClick
+                    )
+                    SpacerComponent { x2 }
+                }
+            } else {
+                EmptySourcesComponent(onAddSource)
             }
             SpacerComponent { x4 }
         }
+    }
+}
+
+@Composable
+private fun EmptySourcesComponent(
+    onAddCount: () -> Unit = {},
+) {
+    Column(
+        Modifier.fillMaxSize().padding(horizontal = AppTheme.indents.x4),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SpacerComponent { x8 }
+        Text(
+            text = MainScreen_NoSources,
+            color = AppTheme.colors.primaryBackgroundText(),
+            style = AppTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center
+        )
+        SpacerComponent { x2 }
+        PrimaryButtonComponent(
+            text = MainScreen_AddSource,
+            onClick = onAddCount
+        )
     }
 }
 
@@ -172,7 +210,10 @@ private fun SourceDetailedPanel(
                 )
             }
             SpacerComponent { x2 }
-            Box(Modifier.fillMaxWidth().height(AppTheme.indents.x0_125).background(AppTheme.colors.overlayColor()))
+            Box(
+                Modifier.fillMaxWidth().height(AppTheme.indents.x0_125)
+                    .background(AppTheme.colors.overlayColor())
+            )
             SpacerComponent { x1 }
             source.funds.forEach {
                 Text(
