@@ -4,8 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
@@ -14,6 +17,8 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
+import com.nstnz.collector.common.basic.texts.MainScreen_TotalSum
+import com.nstnz.collector.common.design.card.CardComponent
 
 @Composable
 internal fun MainScreen(
@@ -26,12 +31,16 @@ internal fun MainScreen(
     GradientScaffold(
         topBar = {
             NavBarComponent(
-                modifier = Modifier.background(AppTheme.colors.backgroundSheetPrimary()),
-                titleColor = AppTheme.colors.primaryText(),
-                title = MainScreen_Title,
+                modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
+                title = "",
                 actions = {
                     IconButton(onClick = onAddCount) {
-
+                        Icon(
+                            Icons.Rounded.Add,
+                            null,
+                            modifier = Modifier.size(AppTheme.indents.x4_5),
+                            tint = AppTheme.colors.primaryBackgroundText()
+                        )
                     }
                 }
             )
@@ -45,12 +54,29 @@ internal fun MainScreen(
             )
         }
     ) {
+        when (viewState) {
+            is MainScreenState.Default -> MainScreenStateDefault(viewState, onSourceClick)
+            MainScreenState.Loading -> {}
+        }
+    }
+}
+
+@Composable
+private fun MainScreenStateDefault(
+    viewState: MainScreenState.Default,
+    onSourceClick: (String) -> Unit
+) {
+    Column(
+        Modifier
+            .fillMaxSize()
+    ) {
+        MainResultPanel(viewState.sourcesMainModel.sum.toString())
         Column(
             Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
-            MainResultPanel()
             SpacerComponent { x4 }
             for (i in 0 until 10) {
                 SourceDetailedPanel(
@@ -67,27 +93,32 @@ internal fun MainScreen(
 }
 
 @Composable
-private fun MainResultPanel() {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .background(
-                AppTheme.colors.backgroundSheetPrimary(),
-                shape = AppTheme.shapes.x4_5_bottom
+private fun MainResultPanel(
+    total: String
+) {
+    CardComponent {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    AppTheme.colors.backgroundPrimary(),
+                    shape = AppTheme.shapes.x4_5_bottom
+                )
+                .padding(AppTheme.indents.x3)
+        ) {
+            Text(
+                text = MainScreen_TotalSum,
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.bodyMedium
             )
-            .padding(AppTheme.indents.x3)
-    ) {
-        Text(
-            text = "123.34$",
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.headingMegaLarge
-        )
-        SpacerComponent { x0_5 }
-        Text(
-            text = "Hello",
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.bodyMedium
-        )
+            SpacerComponent { x0_5 }
+            Text(
+                text = total,
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.headingMegaLarge
+            )
+        }
+
     }
 }
 
@@ -102,7 +133,7 @@ private fun SourceDetailedPanel(
             .fillMaxWidth()
             .padding(horizontal = AppTheme.indents.x3)
             .background(
-                AppTheme.colors.backgroundSheetSecondary(),
+                AppTheme.colors.backgroundSecondary(),
                 shape = AppTheme.shapes.x2
             )
             .padding(AppTheme.indents.x3)

@@ -21,7 +21,7 @@ internal fun SourceScreen(
     GradientScaffold(
         topBar = {
             NavBarComponent(
-                modifier = Modifier.background(AppTheme.colors.backgroundSheetPrimary()),
+                modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
                 titleColor = AppTheme.colors.primaryText(),
                 title = viewState.sourceName,
                 actions = {
@@ -58,7 +58,7 @@ private fun MainResultPanel() {
         Modifier
             .fillMaxWidth()
             .background(
-                AppTheme.colors.backgroundSheetPrimary(),
+                AppTheme.colors.backgroundPrimary(),
                 shape = AppTheme.shapes.x4_5_bottom
             )
             .padding(AppTheme.indents.x3)
@@ -87,7 +87,7 @@ private fun SourceDetailedPanel(
             .fillMaxWidth()
             .padding(horizontal = AppTheme.indents.x3)
             .background(
-                AppTheme.colors.backgroundSheetSecondary(),
+                AppTheme.colors.backgroundSecondary(),
                 shape = AppTheme.shapes.x2
             )
             .padding(AppTheme.indents.x3)

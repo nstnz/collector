@@ -13,7 +13,13 @@ object Gradients {
 
     @Composable
     fun secondaryBackgroundScreen() = Brush.verticalGradient(
-        0.0f to AppTheme.colors.backgroundSheetPrimary(),
-        1.0f to AppTheme.colors.backgroundSheetPrimary()
+        0.0f to AppTheme.colors.backgroundPrimary(),
+        1.0f to AppTheme.colors.backgroundPrimary()
+    )
+
+    @Composable
+    fun accentGradient() = Brush.verticalGradient(
+        0.0f to AppTheme.colors.accentColor(),
+        1.0f to AppTheme.colors.accentPressedColor()
     )
 }

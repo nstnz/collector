@@ -8,23 +8,66 @@ object Colors
 
 @Composable
 @ReadOnlyComposable
-fun Colors.backgroundSheetPrimary(): Color = Color(0xFFFFFFFF)
+fun Colors.backgroundPrimary(): Color = Color(0xFFFFFFFF)
 
 @Composable
 @ReadOnlyComposable
-fun Colors.backgroundSheetSecondary(): Color = Color(0x33FFFFFF)
+fun Colors.backgroundSecondary(): Color = Color(0x33FFFFFF)
 
 @Composable
 @ReadOnlyComposable
-fun Colors.gradientPartsTop(): Color = Color(0xFFA5A4CB)
+fun Colors.gradientPartsTop(): Color = Color(0xFFF4F7FE)
 
 @Composable
 @ReadOnlyComposable
-fun Colors.gradientPartsBottom(): Color = Color(0xFF8989BB)
+fun Colors.gradientPartsBottom(): Color = Color(0xFFF4F7FE)
 
 @Composable
 @ReadOnlyComposable
-fun Colors.backgroundOverlayDimming(): Color = Color(0x11000000)
+fun Colors.overlayColor(): Color = Color(0x11000000)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.accentColor(): Color = Color(0xff5B53FF)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.accentPressedColor(): Color = Color(0xff514ae5)
+
+
+@Composable
+@ReadOnlyComposable
+fun Colors.primaryText(): Color = Color(0xFFFFFFFF)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.secondaryText(): Color = Color(0xCCFFFFFF)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.hintText(): Color = Color(0x99FFFFFF)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.dividerText(): Color = Color(0x44FFFFFF)
+
+
+@Composable
+@ReadOnlyComposable
+fun Colors.primaryBackgroundText(): Color = Color(0xFF000000)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.secondaryBackgroundText(): Color = Color(0xCC000000)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.hintBackgroundText(): Color = Color(0x99000000)
+
+@Composable
+@ReadOnlyComposable
+fun Colors.dividerBackgroundText(): Color = Color(0x44000000)
+
 
 @Composable
 @ReadOnlyComposable
@@ -34,25 +77,7 @@ fun Colors.backgroundSnackBar(): Color = Color(0xFF00FF00)
 @ReadOnlyComposable
 fun Colors.backgroundError(): Color = Color(0xFFFF0000)
 
-@Composable
-@ReadOnlyComposable
-fun Colors.primaryText(): Color = Color(0xFF000000)
 
-@Composable
-@ReadOnlyComposable
-fun Colors.secondaryBackgroundText(): Color = Color(0xCCFFFFFF)
-
-@Composable
-@ReadOnlyComposable
-fun Colors.hintBackgroundText(): Color = Color(0x99FFFFFF)
-
-@Composable
-@ReadOnlyComposable
-fun Colors.dividerBackgroundText(): Color = Color(0x44FFFFFF)
-
-@Composable
-@ReadOnlyComposable
-fun Colors.primaryBackgroundText(): Color = Color(0xFFFFFFFF)
 
 @Composable
 @ReadOnlyComposable

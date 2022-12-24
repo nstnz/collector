@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.nstnz.collector.common.design.theme.AppTheme
 import com.nstnz.collector.common.design.theme.backgroundError
-import com.nstnz.collector.common.design.theme.backgroundSheetPrimary
+import com.nstnz.collector.common.design.theme.backgroundPrimary
 import com.nstnz.collector.common.design.theme.primaryText
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 
@@ -38,7 +38,7 @@ fun SnackbarComponent(
             color = if (isError) {
                 AppTheme.colors.backgroundError()
             } else {
-                AppTheme.colors.backgroundSheetPrimary()
+                AppTheme.colors.backgroundPrimary()
             }
         ) {
             Column(

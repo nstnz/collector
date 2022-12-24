@@ -5,6 +5,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun Colors.toMaterialColors(): androidx.compose.material.Colors =
@@ -13,8 +19,8 @@ internal fun Colors.toMaterialColors(): androidx.compose.material.Colors =
 		primaryVariant = primaryText(),
 		secondary = primaryText(),
 		secondaryVariant = primaryText(),
-		background = backgroundSheetPrimary(),
-		surface = backgroundSheetPrimary(),
+		background = backgroundPrimary(),
+		surface = backgroundPrimary(),
 		error = backgroundError(),
 		onPrimary = primaryText(),
 		onSecondary = primaryText(),

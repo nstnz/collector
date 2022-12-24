@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.backgroundOverlayDimming
+import com.nstnz.collector.common.design.theme.overlayColor
 import com.nstnz.collector.common.design.snackbar.SnackbarComponent
 import com.nstnz.collector.common.design.snackbar.SnackbarHost
 import com.nstnz.collector.common.design.snackbar.SnackbarHostState
@@ -55,7 +55,7 @@ fun GradientModalBottomSheetScaffold(
             sheetShape = AppTheme.shapes.x4_5_top,
             sheetState = bottomSheetState,
             sheetBackgroundColor = Color.Transparent,
-            scrimColor = AppTheme.colors.backgroundOverlayDimming().copy(alpha = 0.8f),
+            scrimColor = AppTheme.colors.overlayColor().copy(alpha = 0.8f),
         ) {
             ScaffoldComponent(
                 modifier = modifier,

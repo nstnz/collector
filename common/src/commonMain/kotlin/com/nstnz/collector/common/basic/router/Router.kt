@@ -21,11 +21,11 @@ internal class Router() {
     }
 
     fun navigateToConverterScreen() {
-        navigator.navigate(Routes.Converter)
+        navigator.navigate(Routes.Converter, NavOptions(popUpTo = PopUpTo.First(inclusive = true)))
     }
 
     fun navigateToSettingsScreen() {
-        navigator.navigate(Routes.Settings)
+        navigator.navigate(Routes.Settings, NavOptions(popUpTo = PopUpTo.First(inclusive = true)))
     }
 
     fun navigateToAddSourceScreen() {

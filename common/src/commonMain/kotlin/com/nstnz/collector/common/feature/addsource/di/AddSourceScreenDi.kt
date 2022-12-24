@@ -10,7 +10,7 @@ import com.nstnz.collector.common.feature.source.domain.scenario.GetSourceScenar
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenViewModel
 import org.kodein.di.*
 
-internal val addSourceScreenDi = DI.Module(name = Routes.Source.name) {
+internal val addSourceScreenDi = DI.Module(name = Routes.AddSource.name) {
 
     bind<AddSourceScreenViewModel>() with provider {
         AddSourceScreenViewModel(

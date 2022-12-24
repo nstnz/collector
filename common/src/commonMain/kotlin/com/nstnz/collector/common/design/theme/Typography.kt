@@ -79,11 +79,13 @@ object Typography {
         fontSize = 22.0.sp,
         letterSpacing = 0.15000000596046448.sp,
         lineHeight = 30.0.sp,
+        fontWeight = FontWeight.Medium
     )
     val labelMedium = TextStyle(
-        fontSize = 16.0.sp,
+        fontSize = 18.0.sp,
         letterSpacing = 0.30000001192092896.sp,
         lineHeight = 24.0.sp,
+        fontWeight = FontWeight.Medium
     )
     val lablelXsmallAllCaps = TextStyle(
         fontSize = 10.0.sp,
