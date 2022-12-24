@@ -6,17 +6,17 @@ data class SourcesMainModel(
 ) {
 
     val sum: Float
-        get() = sources.sumOf { it.sum }.toFloat()
+        get() = sources.sumOf { it.sum.toDouble() }.toFloat()
 }
 
 data class SourceMainModel(
-    val name: String,
     val id: String,
+    val name: String,
     val funds: List<SourceFundMainModel>
 ) {
 
-    val sum: Double
-        get() = funds.sumOf { it.sum.toDouble() }
+    val sum: Float
+        get() = funds.sumOf { it.sum.toDouble() }.toFloat()
 }
 
 data class SourceFundMainModel(

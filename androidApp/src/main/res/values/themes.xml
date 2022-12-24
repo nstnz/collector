@@ -5,8 +5,8 @@
         <item name="colorPrimaryDark">#FFFFFFFF</item>
         <item name="colorPrimary">#FFFFFFFF</item>
         <item name="colorAccent">#00000000</item>
-        <item name="android:windowBackground">#8989BB</item>
-        <item name="android:navigationBarColor">#8989BB</item>
+        <item name="android:windowBackground">#FFFFFFFF</item>
+        <item name="android:navigationBarColor">#514ae5</item>
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 

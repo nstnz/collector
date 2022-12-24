@@ -9,6 +9,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ArrowForwardIos
+import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
@@ -19,6 +21,7 @@ import com.nstnz.collector.common.design.topbar.NavBarComponent
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
 import com.nstnz.collector.common.basic.texts.MainScreen_TotalSum
 import com.nstnz.collector.common.design.card.CardComponent
+import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
 
 @Composable
 internal fun MainScreen(
@@ -78,15 +81,13 @@ private fun MainScreenStateDefault(
                 .verticalScroll(rememberScrollState())
         ) {
             SpacerComponent { x4 }
-            for (i in 0 until 10) {
+            viewState.sourcesMainModel.sources.forEach {
                 SourceDetailedPanel(
-                    sourceName = i.toString(),
-                    total = "$123456",
+                    source = it,
                     onSourceClick = onSourceClick
                 )
                 SpacerComponent { x2 }
             }
-
             SpacerComponent { x4 }
         }
     }
@@ -124,41 +125,62 @@ private fun MainResultPanel(
 
 @Composable
 private fun SourceDetailedPanel(
-    sourceName: String,
-    total: String,
+    source: SourceMainModel,
     onSourceClick: (String) -> Unit
 ) {
-    Row(
+    CardComponent(
         Modifier
-            .fillMaxWidth()
             .padding(horizontal = AppTheme.indents.x3)
-            .background(
-                AppTheme.colors.backgroundSecondary(),
-                shape = AppTheme.shapes.x2
-            )
-            .padding(AppTheme.indents.x3)
-            .noEffectsClickable { onSourceClick(sourceName) }
+            .fillMaxWidth(),
+        shape = AppTheme.shapes.x2,
+        elevation = AppTheme.elevations.secondaryCard,
     ) {
         Column(
             Modifier
-                .weight(1f)
+                .fillMaxWidth()
+                .padding(
+                    bottom = AppTheme.indents.x3,
+                    top = AppTheme.indents.x3,
+                    start = AppTheme.indents.x3,
+                    end = AppTheme.indents.x2
+                )
+                .noEffectsClickable { onSourceClick(source.id) }
         ) {
-            Text(
-                text = total,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.headingXlarge
-            )
-            SpacerComponent { x0_5 }
-            Text(
-                text = sourceName,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.bodyMedium
-            )
+            Row {
+                Column(
+                    Modifier
+                        .weight(1f)
+                ) {
+                    Text(
+                        text = source.sum.toString(),
+                        color = AppTheme.colors.secondaryBackgroundText(),
+                        style = AppTheme.typography.headingXlarge
+                    )
+                    SpacerComponent { x0_5 }
+                    Text(
+                        text = source.name,
+                        color = AppTheme.colors.secondaryBackgroundText(),
+                        style = AppTheme.typography.bodyMedium
+                    )
+                }
+                Icon(
+                    Icons.Rounded.NavigateNext,
+                    null,
+                    modifier = Modifier.padding(top = AppTheme.indents.x0_5)
+                        .size(AppTheme.indents.x3),
+                    tint = AppTheme.colors.hintBackgroundText()
+                )
+            }
+            SpacerComponent { x2 }
+            Box(Modifier.fillMaxWidth().height(AppTheme.indents.x0_125).background(AppTheme.colors.overlayColor()))
+            SpacerComponent { x1 }
+            source.funds.forEach {
+                Text(
+                    text = it.sum.toString(),
+                    color = AppTheme.colors.hintBackgroundText(),
+                    style = AppTheme.typography.bodyMedium
+                )
+            }
         }
-        Text(
-            text = ">",
-            color = AppTheme.colors.secondaryBackgroundText(),
-            style = AppTheme.typography.headingXlarge
-        )
     }
 }
