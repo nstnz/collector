@@ -9,6 +9,8 @@ internal sealed interface AddSourceScreenState : State {
 }
 
 internal sealed interface AddSourceScreenIntent : Intent {
+    object GoBack: AddSourceScreenIntent
+    data class SaveSource(val name: String): AddSourceScreenIntent
 }
 
 internal sealed class AddSourceScreenSingleEvent : SingleEvent

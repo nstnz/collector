@@ -6,7 +6,7 @@ import com.nstnz.collector.common.feature.converter.presentation.ConverterScreen
 import org.kodein.di.*
 
 internal val converterScreenDi = DI.Module(name = Routes.Converter.name) {
-    bind<ConverterScreenViewModel>() with provider {
+    bind<ConverterScreenViewModel>() with multiton {
         ConverterScreenViewModel(instance(), instance())
     }
 

@@ -27,7 +27,7 @@ import com.nstnz.collector.common.design.topbar.NavBarComponent
 internal fun AddSourceScreen(
     viewState: AddSourceScreenState,
     onBackClick: () -> Unit = {},
-    onSaveClick: () -> Unit = {},
+    onSaveClick: (String) -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -49,7 +49,9 @@ internal fun AddSourceScreen(
         bottomBar = {
             BottomButtonComponent(
                 text = "Ololo",
-                onClick = onSaveClick
+                onClick = {
+                    onSaveClick("TODODOOD")
+                }
             )
         }
     ) {

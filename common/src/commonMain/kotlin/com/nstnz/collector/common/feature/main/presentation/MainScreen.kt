@@ -209,18 +209,20 @@ private fun SourceDetailedPanel(
                     tint = AppTheme.colors.hintBackgroundText()
                 )
             }
-            SpacerComponent { x2 }
-            Box(
-                Modifier.fillMaxWidth().height(AppTheme.indents.x0_125)
-                    .background(AppTheme.colors.overlayColor())
-            )
-            SpacerComponent { x1 }
-            source.funds.forEach {
-                Text(
-                    text = it.sum.toString(),
-                    color = AppTheme.colors.hintBackgroundText(),
-                    style = AppTheme.typography.bodyMedium
+            if (source.funds.isNotEmpty()) {
+                SpacerComponent { x2 }
+                Box(
+                    Modifier.fillMaxWidth().height(AppTheme.indents.x0_125)
+                        .background(AppTheme.colors.overlayColor())
                 )
+                SpacerComponent { x1 }
+                source.funds.forEach {
+                    Text(
+                        text = it.sum.toString(),
+                        color = AppTheme.colors.hintBackgroundText(),
+                        style = AppTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }

@@ -2,13 +2,10 @@ package com.nstnz.collector.common.feature.splash.di
 
 import com.nstnz.collector.common.basic.router.Routes
 import com.nstnz.collector.common.feature.splash.presentation.SplashScreenViewModel
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.instance
-import org.kodein.di.provider
+import org.kodein.di.*
 
 internal val splashScreenDi = DI.Module(name = Routes.Splash.name) {
-    bind<SplashScreenViewModel>() with provider {
+    bind<SplashScreenViewModel>() with multiton {
         SplashScreenViewModel(instance(), instance(), instance())
     }
 }

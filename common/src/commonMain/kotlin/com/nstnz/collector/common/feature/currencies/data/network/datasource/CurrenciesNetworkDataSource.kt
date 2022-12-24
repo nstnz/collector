@@ -52,9 +52,9 @@ internal class CurrenciesNetworkDataSource(
         val result = mutableListOf<RateModelDto>()
         if (response is NetworkResponse.Success) {
             val values =
-                json.decodeFromString<Map<String, Float>>(response.obj["rates"].toString())
+                json.decodeFromString<Map<String, Float?>>(response.obj["rates"].toString())
             result.addAll(values.map {
-                RateModelDto(it.key, it.value)
+                RateModelDto(it.key, it.value ?: 0f)
             })
         }
         return result

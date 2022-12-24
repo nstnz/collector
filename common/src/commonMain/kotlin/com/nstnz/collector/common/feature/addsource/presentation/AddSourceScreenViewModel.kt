@@ -2,12 +2,14 @@ package com.nstnz.collector.common.feature.addsource.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
+import com.nstnz.collector.common.feature.addsource.domain.usecase.SaveSourceDataUseCase
 import com.nstnz.collector.common.feature.source.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenIntent
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenSingleEvent
 
 internal class AddSourceScreenViewModel(
     private val router: Router,
+    private val saveSourceDataUseCase: SaveSourceDataUseCase,
 ) : CoroutinesViewModel<AddSourceScreenState, AddSourceScreenIntent, AddSourceScreenSingleEvent>() {
 
     override fun initialState(): AddSourceScreenState = AddSourceScreenState.Default
@@ -21,7 +23,15 @@ internal class AddSourceScreenViewModel(
     override suspend fun performSideEffects(
         intent: AddSourceScreenIntent,
         state: AddSourceScreenState
-    ): AddSourceScreenIntent? {
-        return null
+    ): AddSourceScreenIntent? = when (intent) {
+        AddSourceScreenIntent.GoBack -> {
+            router.back()
+            null
+        }
+        is AddSourceScreenIntent.SaveSource -> {
+            saveSourceDataUseCase(intent.name)
+            router.back()
+            null
+        }
     }
 }

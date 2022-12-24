@@ -43,15 +43,16 @@ CREATE TABLE SourceFundsDao(
 id TEXT NOT NULL PRIMARY KEY,
 sourceId TEXT NOT NULL,
 currencyCode TEXT NOT NULL,
-sum REAL NOT NULL
+sum REAL NOT NULL,
+isDefault INTEGER AS Boolean NOT NULL
 );
 
 getAllSourceFunds:
 SELECT * FROM SourceFundsDao WHERE sourceId = ?;
 
 insertSourceFund:
-INSERT OR REPLACE INTO SourceFundsDao(id, sourceId, currencyCode, sum)
-VALUES(?,?,?,?);
+INSERT OR REPLACE INTO SourceFundsDao(id, sourceId, currencyCode, sum, isDefault)
+VALUES(?,?,?,?,?);
 
 removeAllSourceFunds:
 DELETE FROM SourceFundsDao;

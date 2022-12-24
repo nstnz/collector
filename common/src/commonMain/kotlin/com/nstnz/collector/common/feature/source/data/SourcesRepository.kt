@@ -12,8 +12,13 @@ internal class SourcesRepository(
     private val sourceFundsDbDataSource: SourceFundsDbDataSource,
 ) {
 
-    suspend fun createSource(source: SourceModel) =
+    suspend fun createSource(source: SourceEntity) =
         sourcesDbDataSource.createSource(source.id, source.name)
+
+    suspend fun createOrUpdateSourceFund(sourceFund: SourceFundEntity) =
+        sourceFundsDbDataSource.updateSourceFund(
+            sourceFund = sourceFund
+        )
 
     suspend fun getSource(sourceId: String): SourceModel? =
         sourcesDbDataSource.getSource(sourceId)?.let {
