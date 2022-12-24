@@ -5,6 +5,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("kotlinx-serialization")
+    id("com.squareup.sqldelight")
     id("org.jetbrains.compose") version Version.compose
 }
 
@@ -20,6 +21,13 @@ android {
         compose = true
     }
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.nstnz.collector"
+        sourceFolders = listOf("sqldelight")
+    }
 }
 
 kotlin {
@@ -47,6 +55,7 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.runtime)
                 implementation(Kodein.kodein_core)
+                implementation(SqlDelight.sql_runtime)
                 api(precompose)
             }
         }
@@ -61,6 +70,7 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.runtime)
                 implementation(compose.uiTooling)
+                implementation(SqlDelight.sql_android)
                 implementation("androidx.customview:customview:1.2.0-alpha02")
                 implementation("androidx.customview:customview-poolingcontainer:1.0.0")
             }
@@ -68,6 +78,7 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation(Ktor.client_ios)
+                implementation(SqlDelight.sql_ios)
             }
         }
     }

@@ -1,15 +1,15 @@
-package com.nstnz.collector.common.feature.core.domain.usecase
+package com.nstnz.collector.common.feature.currencies.domain.usecase
 
-import com.nstnz.collector.common.feature.core.data.ExchangeRatesRepository
+import com.nstnz.collector.common.feature.currencies.data.ExchangeRatesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-internal class GetCurrenciesUseCase(
+internal class RefreshCurrenciesUseCase(
     private val exchangeRatesRepository: ExchangeRatesRepository,
     private val dispatcher: CoroutineDispatcher,
 ) {
 
     suspend operator fun invoke() = withContext(dispatcher) {
-        exchangeRatesRepository.getSupportedCurrencies()
+        exchangeRatesRepository.refreshSupportedCurrencies()
     }
 }

@@ -10,6 +10,7 @@ object Version {
     const val ktor = "2.1.2"
     const val kodein = "7.16.0"
     const val mokoMvvm = "0.13.0"
+    const val sqlDelightVersion = "1.5.3"
 }
 
 
@@ -56,6 +57,12 @@ object Ktor {
 
 object Kodein {
     const val kodein_core = "org.kodein.di:kodein-di:${Version.kodein}"
+}
+
+object SqlDelight {
+    const val sql_runtime = "com.squareup.sqldelight:runtime:${Version.sqlDelightVersion}"
+    const val sql_android = "com.squareup.sqldelight:android-driver:${Version.sqlDelightVersion}"
+    const val sql_ios = "com.squareup.sqldelight:native-driver:${Version.sqlDelightVersion}"
 }
 
 object Moko {

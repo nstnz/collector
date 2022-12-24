@@ -1,16 +1,17 @@
-package com.nstnz.collector.common.feature.core.data.network.datasource
+package com.nstnz.collector.common.feature.currencies.data.network.datasource
 
-import com.nstnz.collector.common.feature.core.data.network.model.CommonCurrencyModelDto
-import com.nstnz.collector.common.feature.core.data.network.model.CryptoCurrencyModelDto
-import com.nstnz.collector.common.feature.core.data.network.model.CurrencyModelDto
-import com.nstnz.collector.common.feature.core.data.retrieve
+import com.nstnz.collector.common.basic.data.network.model.NetworkResponse
+import com.nstnz.collector.common.feature.currencies.data.network.model.CommonCurrencyModelDto
+import com.nstnz.collector.common.feature.currencies.data.network.model.CryptoCurrencyModelDto
+import com.nstnz.collector.common.feature.currencies.data.network.model.CurrencyModelDto
+import com.nstnz.collector.common.feature.currencies.data.retrieve
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-internal class ExchangeRatesDataSource(
+internal class CurrenciesNetworkDataSource(
     private val httpClient: HttpClient,
     private val json: Json,
 ) {

@@ -1,6 +1,6 @@
-package com.nstnz.collector.common.feature.core.data
+package com.nstnz.collector.common.feature.currencies.data
 
-import com.nstnz.collector.common.feature.core.data.network.datasource.NetworkResponse
+import com.nstnz.collector.common.basic.data.network.model.NetworkResponse
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.json.Json

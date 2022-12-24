@@ -1,0 +1,15 @@
+CREATE TABLE CurrencyDao(
+code TEXT NOT NULL PRIMARY KEY,
+name TEXT,
+crypto INTEGER AS Boolean
+);
+
+insertCurrency:
+INSERT OR REPLACE INTO CurrencyDao(code, name, crypto)
+VALUES(?,?,?);
+
+getAllCurrencies:
+SELECT * FROM CurrencyDao;
+
+removeAllCurrencies:
+DELETE FROM CurrencyDao;

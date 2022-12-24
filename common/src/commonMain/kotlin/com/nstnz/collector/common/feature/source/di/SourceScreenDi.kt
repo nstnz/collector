@@ -1,7 +1,6 @@
 package com.nstnz.collector.common.feature.source.di
 
 import com.nstnz.collector.common.basic.router.Routes
-import com.nstnz.collector.common.feature.core.di.coreDi
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenViewModel
 import org.kodein.di.DI
 import org.kodein.di.bind

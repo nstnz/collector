@@ -2,8 +2,7 @@ package com.nstnz.collector.common.feature.main.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.auth.domain.UseCase2
-import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrenciesUseCase
+import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
 
 internal class MainScreenViewModel(
     private val router: Router,

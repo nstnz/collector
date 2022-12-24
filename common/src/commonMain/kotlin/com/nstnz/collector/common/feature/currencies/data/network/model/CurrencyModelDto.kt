@@ -1,4 +1,4 @@
-package com.nstnz.collector.common.feature.core.data.network.model
+package com.nstnz.collector.common.feature.currencies.data.network.model
 
 import kotlinx.serialization.Serializable
 
@@ -9,15 +9,15 @@ internal data class CryptoCurrencyModelDto(
     override val crypto: Boolean? = true
 ) : CurrencyModelDto {
 
-    override val code: String?
-        get() = symbol
+    override val code: String
+        get() = symbol.orEmpty()
 }
 
 @Serializable
 internal data class CommonCurrencyModelDto(
     override val crypto: Boolean = false,
     val description: String?,
-    override val code: String?,
+    override val code: String,
 ) : CurrencyModelDto {
 
     override val name: String?
@@ -28,5 +28,5 @@ internal data class CommonCurrencyModelDto(
 internal interface CurrencyModelDto {
     val crypto: Boolean?
     val name: String?
-    val code: String?
+    val code: String
 }
