@@ -3,7 +3,7 @@ package com.nstnz.collector.common.feature.currencies.data
 import com.nstnz.collector.common.feature.currencies.data.db.datasource.CurrenciesDbDataSource
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
 
-internal class ExchangeRatesRepository(
+internal class CurrenciesRepository(
     private val currenciesNetworkDataSource: CurrenciesNetworkDataSource,
     private val currenciesDbDataSource: CurrenciesDbDataSource,
 ) {

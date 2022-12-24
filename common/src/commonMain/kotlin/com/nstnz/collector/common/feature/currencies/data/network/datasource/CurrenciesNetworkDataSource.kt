@@ -4,7 +4,7 @@ import com.nstnz.collector.common.basic.data.network.model.NetworkResponse
 import com.nstnz.collector.common.feature.currencies.data.network.model.CommonCurrencyModelDto
 import com.nstnz.collector.common.feature.currencies.data.network.model.CryptoCurrencyModelDto
 import com.nstnz.collector.common.feature.currencies.data.network.model.CurrencyModelDto
-import com.nstnz.collector.common.feature.currencies.data.retrieve
+import com.nstnz.collector.common.basic.data.network.retrieve
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*

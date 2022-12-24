@@ -1,4 +1,4 @@
-package com.nstnz.collector.common.basic.data.network.model
+package com.nstnz.collector.common.basic.data.network
 
 import kotlinx.serialization.json.JsonObject
 

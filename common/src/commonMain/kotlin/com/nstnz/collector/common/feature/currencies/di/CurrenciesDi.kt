@@ -1,6 +1,6 @@
 package com.nstnz.collector.common.feature.currencies.di
 
-import com.nstnz.collector.common.feature.currencies.data.ExchangeRatesRepository
+import com.nstnz.collector.common.feature.currencies.data.CurrenciesRepository
 import com.nstnz.collector.common.feature.currencies.data.db.datasource.CurrenciesDbDataSource
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
@@ -25,8 +25,8 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
         )
     }
 
-    bind<ExchangeRatesRepository>() with provider {
-        ExchangeRatesRepository(
+    bind<CurrenciesRepository>() with provider {
+        CurrenciesRepository(
             instance(),
             instance()
         )
