@@ -4,12 +4,11 @@ import com.nstnz.collector.common.feature.currencies.data.CurrenciesRepository
 import com.nstnz.collector.common.feature.currencies.data.db.datasource.CurrenciesDbDataSource
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetExchangeRatesUseCase
+import com.nstnz.collector.common.feature.converter.domain.usecase.GetExchangeRatesUseCase
 import com.nstnz.collector.common.feature.currencies.domain.usecase.RefreshCurrenciesUseCase
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.instance
-import org.kodein.di.provider
+import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenViewModel
+import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesViewModelParams
+import org.kodein.di.*
 
 internal val currenciesDi = DI.Module(name = "Currencies") {
 
@@ -49,5 +48,9 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
             instance(),
             instance()
         )
+    }
+
+    bind<CurrenciesScreenViewModel>() with multiton { params: CurrenciesViewModelParams ->
+        CurrenciesScreenViewModel(params, instance(), instance())
     }
 }

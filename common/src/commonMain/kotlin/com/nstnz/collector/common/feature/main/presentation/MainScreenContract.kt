@@ -9,6 +9,7 @@ internal object MainScreenState : State
 internal sealed interface MainScreenIntent : Intent {
     data class ShowSource(val sourceId: String) : MainScreenIntent
     object ShowConverter : MainScreenIntent
+    object ShowSettingsScreen : MainScreenIntent
 }
 
 internal sealed class MainScreenSingleEvent : SingleEvent

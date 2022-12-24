@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,12 +20,13 @@ import com.nstnz.collector.common.basic.texts.MainScreen_Title
 @Composable
 internal fun ConverterScreen(
     viewState: ConverterScreenState,
-    onMainTabClick: () -> Unit = {}
+    onMainTabClick: () -> Unit = {},
+    onSettingsTabClick: () -> Unit = {},
+    onChangeCurrenciesClick: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
             NavBarComponent(
-                modifier = Modifier.background(AppTheme.colors.backgroundSheetPrimary()),
                 titleColor = AppTheme.colors.primaryText(),
                 title = ConverterScreen_Title,
             )
@@ -33,7 +35,8 @@ internal fun ConverterScreen(
             NavigationBarComponent(
                 converterTabSelected = true,
                 mainTabClick = onMainTabClick,
-                converterTabClick = {}
+                converterTabClick = {},
+                settingsTabClick = onSettingsTabClick
             )
         }
     ) {
@@ -42,84 +45,20 @@ internal fun ConverterScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            MainResultPanel()
-            SpacerComponent { x4 }
-            for (i in 0 until 10) {
-                SourceDetailedPanel(
-                    sourceName = i.toString(),
-                    total = "$123456",
-                    onSourceClick = {}
-                )
-                SpacerComponent { x2 }
-            }
-
-            SpacerComponent { x4 }
-        }
-    }
-}
-
-@Composable
-private fun MainResultPanel() {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .background(
-                AppTheme.colors.backgroundSheetPrimary(),
-                shape = AppTheme.shapes.x4_5_bottom
-            )
-            .padding(AppTheme.indents.x3)
-    ) {
-        Text(
-            text = "123.34$",
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.headingMegaLarge
-        )
-        SpacerComponent { x0_5 }
-        Text(
-            text = "Hello",
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.bodyMedium
-        )
-    }
-}
-
-@Composable
-private fun SourceDetailedPanel(
-    sourceName: String,
-    total: String,
-    onSourceClick: (String) -> Unit
-) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = AppTheme.indents.x3)
-            .background(
-                AppTheme.colors.backgroundSheetSecondary(),
-                shape = AppTheme.shapes.x2
-            )
-            .padding(AppTheme.indents.x3)
-            .noEffectsClickable { onSourceClick(sourceName) }
-    ) {
-        Column(
-            Modifier
-                .weight(1f)
-        ) {
-            Text(
-                text = total,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.headingXlarge
-            )
-            SpacerComponent { x0_5 }
-            Text(
-                text = sourceName,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.bodyMedium
+            Button(
+                onClick = onChangeCurrenciesClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(AppTheme.indents.x6)
+                    .background(AppTheme.colors.backgroundError()),
+                content = {
+                    Text(
+                        text = "To Currencies",
+                        color = AppTheme.colors.primaryText(),
+                        style = AppTheme.typography.headingMegaLarge
+                    )
+                }
             )
         }
-        Text(
-            text = ">",
-            color = AppTheme.colors.secondaryBackgroundText(),
-            style = AppTheme.typography.headingXlarge
-        )
     }
 }

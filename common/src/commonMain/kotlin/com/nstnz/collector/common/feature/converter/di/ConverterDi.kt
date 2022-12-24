@@ -6,6 +6,6 @@ import org.kodein.di.*
 
 internal val converterScreenDi = DI.Module(name = Routes.Converter.name) {
     bind<ConverterScreenViewModel>() with provider {
-        ConverterScreenViewModel(instance())
+        ConverterScreenViewModel(instance(), instance())
     }
 }

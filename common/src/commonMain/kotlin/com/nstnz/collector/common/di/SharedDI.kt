@@ -6,7 +6,9 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.converter.di.converterScreenDi
 import com.nstnz.collector.common.feature.currencies.di.currenciesDi
 import com.nstnz.collector.common.feature.main.di.mainScreenDi
+import com.nstnz.collector.common.feature.settings.di.settingsScreenDi
 import com.nstnz.collector.common.feature.source.di.sourceScreenDi
+import com.nstnz.collector.common.feature.splash.di.splashScreenDi
 import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.*
 import kotlinx.coroutines.CoroutineDispatcher
@@ -41,5 +43,7 @@ object SharedDI {
         import(mainScreenDi)
         import(sourceScreenDi)
         import(converterScreenDi)
+        import(splashScreenDi)
+        import(settingsScreenDi)
     }
 }

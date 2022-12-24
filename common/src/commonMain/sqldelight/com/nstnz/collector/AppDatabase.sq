@@ -1,15 +1,16 @@
-CREATE TABLE CurrencyDao(
+CREATE TABLE CurrenciesDao(
 code TEXT NOT NULL PRIMARY KEY,
 name TEXT,
-crypto INTEGER AS Boolean
+crypto INTEGER AS Boolean,
+isFavourite INTEGER AS Boolean
 );
 
 insertCurrency:
-INSERT OR REPLACE INTO CurrencyDao(code, name, crypto)
-VALUES(?,?,?);
+INSERT OR REPLACE INTO CurrenciesDao(code, name, crypto, isFavourite)
+VALUES(?,?,?,?);
 
 getAllCurrencies:
-SELECT * FROM CurrencyDao;
+SELECT * FROM CurrenciesDao;
 
 removeAllCurrencies:
-DELETE FROM CurrencyDao;
+DELETE FROM CurrenciesDao;

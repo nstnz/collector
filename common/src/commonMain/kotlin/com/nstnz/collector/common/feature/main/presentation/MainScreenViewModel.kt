@@ -28,5 +28,9 @@ internal class MainScreenViewModel(
             router.navigateToConverterScreen()
             null
         }
+        MainScreenIntent.ShowSettingsScreen -> {
+            router.navigateToSettingsScreen()
+            null
+        }
     }
 }

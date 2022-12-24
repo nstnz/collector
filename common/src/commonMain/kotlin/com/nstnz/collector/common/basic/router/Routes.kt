@@ -8,9 +8,7 @@ internal enum class Routes {
     Main,
     Source,
     Converter,
-    Settings;
-
-    fun getRoute(): String {
-        return this.name + "?$Arg1={$Arg1}&$Arg2={$Arg2}&$Arg3={$Arg3}"
-    }
+    Currencies,
+    Settings,
+    Splash
 }

@@ -19,10 +19,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.primaryBackgroundText
-import com.nstnz.collector.common.design.theme.primaryText
-import com.nstnz.collector.common.design.theme.transparent
+import com.nstnz.collector.common.design.theme.*
 
 @Composable
 internal fun BottomNavigation(
@@ -59,24 +56,11 @@ internal fun RowScope.BottomNavigationItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     text: String,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val ripple = rememberRipple(
-        bounded = false,
-        color = AppTheme.colors.primaryText()
-    )
-
-    Column(
+   Column(
         modifier
             .align(CenterVertically)
-            .selectable(
-                selected = selected,
-                onClick = onClick,
-                enabled = enabled,
-                role = Role.Tab,
-                interactionSource = interactionSource,
-                indication = ripple
-            )
+            .noEffectsClickable { onClick() }
             .weight(1f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -107,7 +91,7 @@ internal fun RowScope.BottomNavigationItem(
         Text(
             text = text,
             style = AppTheme.typography.labelXsmall,
-            color = if (selected) AppTheme.colors.primaryBackgroundText() else AppTheme.colors.primaryText()
+            color = if (selected) AppTheme.colors.backgroundError() else AppTheme.colors.primaryText()
         )
     }
 }

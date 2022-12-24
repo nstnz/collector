@@ -21,6 +21,7 @@ internal fun MainScreen(
     onAddSourceClick: () -> Unit = {},
     onSourceClick: (String) -> Unit = {},
     onConverterTabCLick: () -> Unit = {},
+    onSettingsTabClick: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -39,7 +40,8 @@ internal fun MainScreen(
             NavigationBarComponent(
                 mainTabSelected = true,
                 mainTabClick = {},
-                converterTabClick = onConverterTabCLick
+                converterTabClick = onConverterTabCLick,
+                settingsTabClick = onSettingsTabClick,
             )
         }
     ) {

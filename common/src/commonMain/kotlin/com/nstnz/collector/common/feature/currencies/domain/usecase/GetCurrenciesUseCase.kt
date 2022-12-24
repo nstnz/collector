@@ -11,5 +11,8 @@ internal class GetCurrenciesUseCase(
 
     suspend operator fun invoke() = withContext(dispatcher) {
         exchangeRatesRepository.getSupportedCurrencies()
+            .sortedBy { it.code }
+            .sortedBy { it.crypto }
+            .sortedByDescending { it.isFavourite }
     }
 }

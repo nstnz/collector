@@ -16,7 +16,8 @@ internal class CurrenciesDbDataSource(
         queries.insertCurrency(
             code = currencyModelDto.code,
             name = currencyModelDto.name,
-            crypto = currencyModelDto.crypto
+            crypto = currencyModelDto.crypto,
+            isFavourite = currencyModelDto.code == "USD" || currencyModelDto.code == "EUR"
         )
     }
 
@@ -24,11 +25,13 @@ internal class CurrenciesDbDataSource(
         code: String,
         name: String?,
         crypto: Boolean?,
+        isFavourite: Boolean?
     ): CurrencyEntity {
         return CurrencyEntity(
             code = code,
             name = name.orEmpty(),
             crypto = crypto ?: false,
+            isFavourite = isFavourite ?: false
         )
     }
 }

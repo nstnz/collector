@@ -15,8 +15,11 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.basic.router.Routes
 import com.nstnz.collector.common.di.SharedDI
 import com.nstnz.collector.common.feature.converter.presentation.ConverterScreenHolder
+import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenHolder
 import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
+import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenHolder
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenHolder
+import com.nstnz.collector.common.feature.splash.presentation.SplashScreenHolder
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
@@ -29,8 +32,9 @@ internal fun App() {
     router.init(navigator)
 
     Box(Modifier.fillMaxSize()) {
-        NavHost(navigator = navigator,
-            initialRoute = Routes.Main.name,
+        NavHost(
+            navigator = navigator,
+            initialRoute = Routes.Splash.name,
             navTransition = NavTransition(
                 createTransition = EnterTransition.None,
                 resumeTransition = EnterTransition.None,
@@ -47,8 +51,12 @@ internal fun App() {
                     when (route) {
                         Routes.Main -> MainScreenHolder()
                         Routes.Source -> SourceScreenHolder(arg1.toString())
-                        Routes.Settings -> TODO()
+                        Routes.Settings -> SettingsScreenHolder()
                         Routes.Converter -> ConverterScreenHolder()
+                        Routes.Currencies -> CurrenciesScreenHolder(
+                            arg1.toBoolean(), arg2.toBoolean()
+                        )
+                        Routes.Splash -> SplashScreenHolder()
                     }
                 }
             }

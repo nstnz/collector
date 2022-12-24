@@ -9,18 +9,22 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.AppTheme
 import com.nstnz.collector.common.basic.texts.ConverterScreen_Title
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
+import com.nstnz.collector.common.basic.texts.SettingsScreen_Title
 
 @Composable
 internal fun NavigationBarComponent(
     mainTabSelected: Boolean = false,
     converterTabSelected: Boolean = false,
+    settingsTabSelected: Boolean = false,
     mainTabClick: () -> Unit,
     converterTabClick: () -> Unit,
+    settingsTabClick: () -> Unit,
 ) {
     NavigationBarComponent(
         items = listOf(
+            ConverterNavigationItem(selected = converterTabSelected, onClick = converterTabClick),
             MainNavigationItem(selected = mainTabSelected, onClick = mainTabClick),
-            ConverterNavigationItem(selected = converterTabSelected, onClick = converterTabClick)
+            SettingsNavigationItem(selected = settingsTabSelected, onClick = settingsTabClick),
         )
     )
 }
@@ -74,4 +78,11 @@ private data class ConverterNavigationItem(
     override val onClick: () -> Unit = {},
     override val icon: String = "",
     override val text: String = ConverterScreen_Title,
+) : NavigationItem
+
+private data class SettingsNavigationItem(
+    override val selected: Boolean,
+    override val onClick: () -> Unit = {},
+    override val icon: String = "",
+    override val text: String = SettingsScreen_Title,
 ) : NavigationItem

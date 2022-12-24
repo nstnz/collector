@@ -24,6 +24,14 @@ internal class Router() {
         navigator.navigate(Routes.Converter)
     }
 
+    fun navigateToSettingsScreen() {
+        navigator.navigate(Routes.Settings)
+    }
+
+    fun navigateToCurrenciesScreen(multiCheck: Boolean, saveChanges: Boolean) {
+        navigator.navigate(Routes.Currencies, null, multiCheck, saveChanges)
+    }
+
     fun back() {
         navigator.goBack()
     }

@@ -10,4 +10,6 @@ data class CurrencyEntity(
     val name: String,
     @SerialName("crypto")
     val crypto: Boolean,
+    @SerialName("isFavourite")
+    val isFavourite: Boolean,
 )
