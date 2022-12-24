@@ -28,6 +28,14 @@ internal class Router() {
         navigator.navigate(Routes.Settings)
     }
 
+    fun navigateToAddSourceScreen() {
+        navigator.navigate(Routes.AddSource)
+    }
+
+    fun navigateToAddCountScreen(sourceId: String?) {
+        navigator.navigate(Routes.AddCount, null, sourceId)
+    }
+
     fun navigateToCurrenciesScreen(multiCheck: Boolean, saveChanges: Boolean) {
         navigator.navigate(Routes.Currencies, null, multiCheck, saveChanges)
     }

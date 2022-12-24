@@ -18,7 +18,7 @@ import com.nstnz.collector.common.basic.texts.MainScreen_Title
 @Composable
 internal fun MainScreen(
     viewState: MainScreenState,
-    onAddSourceClick: () -> Unit = {},
+    onAddCount: () -> Unit = {},
     onSourceClick: (String) -> Unit = {},
     onConverterTabCLick: () -> Unit = {},
     onSettingsTabClick: () -> Unit = {},
@@ -30,7 +30,7 @@ internal fun MainScreen(
                 titleColor = AppTheme.colors.primaryText(),
                 title = MainScreen_Title,
                 actions = {
-                    IconButton(onClick = onAddSourceClick) {
+                    IconButton(onClick = onAddCount) {
 
                     }
                 }

@@ -1,9 +1,7 @@
-package com.nstnz.collector.common.test
+package com.nstnz.collector.common
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -14,6 +12,8 @@ import com.nstnz.collector.common.basic.router.Arg2
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.basic.router.Routes
 import com.nstnz.collector.common.basic.di.SharedDI
+import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenHolder
+import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenHolder
 import com.nstnz.collector.common.feature.converter.presentation.ConverterScreenHolder
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenHolder
 import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
@@ -57,6 +57,8 @@ internal fun App() {
                             arg1.toBoolean(), arg2.toBoolean()
                         )
                         Routes.Splash -> SplashScreenHolder()
+                        Routes.AddSource -> AddSourceScreenHolder()
+                        Routes.AddCount -> AddCountScreenHolder(arg1.toString())
                     }
                 }
             }

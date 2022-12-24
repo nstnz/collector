@@ -12,8 +12,6 @@ import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
-import com.nstnz.collector.common.feature.main.presentation.MainScreenState
-import com.nstnz.collector.common.basic.texts.MainScreen_Title
 
 @Composable
 internal fun SourceScreen(

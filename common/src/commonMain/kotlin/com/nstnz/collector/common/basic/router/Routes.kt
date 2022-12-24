@@ -10,5 +10,7 @@ internal enum class Routes {
     Converter,
     Currencies,
     Settings,
-    Splash
+    Splash,
+    AddSource,
+    AddCount
 }

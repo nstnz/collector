@@ -7,7 +7,9 @@ import com.nstnz.collector.common.feature.main.domain.model.SourcesMainModel
 
 internal sealed interface MainScreenState : State {
     object Loading : MainScreenState
-    data class Default(val sourcesMainModel: SourcesMainModel) : MainScreenState
+    data class Default(
+        val sourcesMainModel: SourcesMainModel,
+    ) : MainScreenState
 }
 
 internal sealed interface MainScreenIntent : Intent {
@@ -16,6 +18,7 @@ internal sealed interface MainScreenIntent : Intent {
     object Load : MainScreenIntent
     data class Update(val sourcesMainModel: SourcesMainModel) : MainScreenIntent
     object ShowSettingsScreen : MainScreenIntent
+    object ShowAddCount : MainScreenIntent
 }
 
 internal sealed class MainScreenSingleEvent : SingleEvent

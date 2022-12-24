@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
+import com.nstnz.collector.common.App
 import com.nstnz.collector.common.design.theme.AppTheme
 
 internal val safeAreaState = mutableStateOf(PaddingValues())
