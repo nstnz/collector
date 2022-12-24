@@ -14,3 +14,44 @@ SELECT * FROM CurrenciesDao;
 
 removeAllCurrencies:
 DELETE FROM CurrenciesDao;
+
+
+
+
+CREATE TABLE SourcesDao(
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL
+);
+
+getSource:
+SELECT * FROM SourcesDao WHERE id = ?;
+
+insertSource:
+INSERT OR REPLACE INTO SourcesDao(id, name)
+VALUES(?,?);
+
+getAllSources:
+SELECT * FROM SourcesDao;
+
+removeAllSources:
+DELETE FROM SourcesDao;
+
+
+
+
+CREATE TABLE SourceFundsDao(
+id TEXT NOT NULL PRIMARY KEY,
+sourceId TEXT NOT NULL,
+currencyCode TEXT NOT NULL,
+sum REAL NOT NULL
+);
+
+getAllSourceFunds:
+SELECT * FROM SourceFundsDao WHERE sourceId = ?;
+
+insertSourceFund:
+INSERT OR REPLACE INTO SourceFundsDao(id, sourceId, currencyCode, sum)
+VALUES(?,?,?,?);
+
+removeAllSourceFunds:
+DELETE FROM SourceFundsDao;

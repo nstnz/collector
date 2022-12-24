@@ -11,11 +11,12 @@ object Version {
     const val kodein = "7.16.0"
     const val mokoMvvm = "0.13.0"
     const val sqlDelightVersion = "1.5.3"
+    const val prefs = "0.0.1"
 }
 
 
 object AndroidSdk {
-    const val min = 21
+    const val min = 24
     const val compile = 33
     const val target = compile
 }
@@ -57,6 +58,10 @@ object Ktor {
 
 object Kodein {
     const val kodein_core = "org.kodein.di:kodein-di:${Version.kodein}"
+}
+
+object Prefs {
+    const val prefs = "de.gal-digital:kmm-preferences:${Version.prefs}"
 }
 
 object SqlDelight {

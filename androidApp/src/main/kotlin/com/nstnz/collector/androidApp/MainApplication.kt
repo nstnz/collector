@@ -3,7 +3,8 @@ package com.nstnz.collector.androidApp
 import android.app.Application
 import com.nstnz.collector.common.Android
 import com.nstnz.collector.common.basic.data.db.dao.DatabaseDriverFactory
-import com.nstnz.collector.common.di.SharedDI
+import com.nstnz.collector.common.basic.di.SharedDI
+import de.galdigital.preferences.SharedPreferences
 
 class MainApplication : Application() {
 
@@ -12,7 +13,8 @@ class MainApplication : Application() {
         Android.context = this
         Thread.setDefaultUncaughtExceptionHandler(TopExceptionHandler())
         SharedDI.init(
-            databaseDriver = DatabaseDriverFactory(this).createDriver()
+            databaseDriver = DatabaseDriverFactory(this).createDriver(),
+            sharedPreferences = SharedPreferences(this)
         )
     }
 }

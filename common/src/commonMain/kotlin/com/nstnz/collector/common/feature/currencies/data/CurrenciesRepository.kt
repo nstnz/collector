@@ -2,10 +2,12 @@ package com.nstnz.collector.common.feature.currencies.data
 
 import com.nstnz.collector.common.feature.currencies.data.db.datasource.CurrenciesDbDataSource
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
+import com.nstnz.collector.common.feature.currencies.data.prefs.CurrenciesPrefs
 
 internal class CurrenciesRepository(
     private val currenciesNetworkDataSource: CurrenciesNetworkDataSource,
     private val currenciesDbDataSource: CurrenciesDbDataSource,
+    private val currenciesPrefs: CurrenciesPrefs,
 ) {
 
     suspend fun getRatesForSum(originCurrency: String, sum: Float, currencies: List<String>) =
@@ -19,4 +21,6 @@ internal class CurrenciesRepository(
             currenciesDbDataSource.saveCurrency(model)
         }
     }
+
+    suspend fun getDefaultCurrencyCode() = currenciesPrefs.defaultCurrencyCode
 }

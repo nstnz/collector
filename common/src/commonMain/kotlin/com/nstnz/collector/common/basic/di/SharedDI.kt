@@ -1,4 +1,4 @@
-package com.nstnz.collector.common.di
+package com.nstnz.collector.common.basic.di
 
 import com.nstnz.collector.AppDatabase
 import com.nstnz.collector.AppDatabaseQueries
@@ -10,6 +10,7 @@ import com.nstnz.collector.common.feature.settings.di.settingsScreenDi
 import com.nstnz.collector.common.feature.source.di.sourceScreenDi
 import com.nstnz.collector.common.feature.splash.di.splashScreenDi
 import com.squareup.sqldelight.db.SqlDriver
+import de.galdigital.preferences.SharedPreferences
 import io.ktor.client.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +22,15 @@ import kotlin.native.concurrent.ThreadLocal
 object SharedDI {
 
     private lateinit var databaseDriver: SqlDriver
+    private lateinit var sharedPreferences: SharedPreferences
 
     fun init(
-        databaseDriver: SqlDriver
+        databaseDriver: SqlDriver,
+        sharedPreferences: SharedPreferences,
     ) {
         println("Launch application")
-        this.databaseDriver = databaseDriver
+        SharedDI.databaseDriver = databaseDriver
+        SharedDI.sharedPreferences = sharedPreferences
     }
 
     internal val di = DI {
@@ -36,8 +40,9 @@ object SharedDI {
             val database = AppDatabase(databaseDriver)
             database.appDatabaseQueries
         }
-        bind<HttpClient>() with provider { HttpClient() }
-        bind<Json>() with provider { Json { ignoreUnknownKeys = true } }
+        bind<HttpClient>() with singleton { HttpClient() }
+        bind<Json>() with singleton { Json { ignoreUnknownKeys = true } }
+        bind<SharedPreferences>() with singleton { sharedPreferences }
 
         import(currenciesDi)
         import(mainScreenDi)

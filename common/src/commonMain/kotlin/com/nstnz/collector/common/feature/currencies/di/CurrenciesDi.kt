@@ -5,9 +5,12 @@ import com.nstnz.collector.common.feature.currencies.data.db.datasource.Currenci
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
 import com.nstnz.collector.common.feature.converter.domain.usecase.GetExchangeRatesUseCase
+import com.nstnz.collector.common.feature.currencies.data.prefs.CurrenciesPrefs
+import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
 import com.nstnz.collector.common.feature.currencies.domain.usecase.RefreshCurrenciesUseCase
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenViewModel
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesViewModelParams
+import de.galdigital.preferences.SharedPreferences
 import org.kodein.di.*
 
 internal val currenciesDi = DI.Module(name = "Currencies") {
@@ -23,22 +26,26 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
             instance()
         )
     }
+    bind<CurrenciesPrefs>() with provider {
+        CurrenciesPrefs(instance())
+    }
 
     bind<CurrenciesRepository>() with provider {
         CurrenciesRepository(
             instance(),
-            instance()
-        )
-    }
-
-    bind<GetExchangeRatesUseCase>() with provider {
-        GetExchangeRatesUseCase(
             instance(),
             instance()
         )
     }
+
     bind<GetCurrenciesUseCase>() with provider {
         GetCurrenciesUseCase(
+            instance(),
+            instance()
+        )
+    }
+    bind<GetMainCurrencyUseCase>() with provider {
+        GetMainCurrencyUseCase(
             instance(),
             instance()
         )

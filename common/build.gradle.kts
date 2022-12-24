@@ -56,6 +56,7 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(Kodein.kodein_core)
                 implementation(SqlDelight.sql_runtime)
+                implementation(Prefs.prefs)
                 api(precompose)
             }
         }
@@ -71,6 +72,7 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.uiTooling)
                 implementation(SqlDelight.sql_android)
+                implementation(Prefs.prefs)
                 implementation("androidx.customview:customview:1.2.0-alpha02")
                 implementation("androidx.customview:customview-poolingcontainer:1.0.0")
             }
@@ -79,6 +81,7 @@ kotlin {
             dependencies {
                 implementation(Ktor.client_ios)
                 implementation(SqlDelight.sql_ios)
+                implementation(Prefs.prefs)
             }
         }
     }

@@ -13,7 +13,7 @@ import com.nstnz.collector.common.basic.router.Arg1
 import com.nstnz.collector.common.basic.router.Arg2
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.basic.router.Routes
-import com.nstnz.collector.common.di.SharedDI
+import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.feature.converter.presentation.ConverterScreenHolder
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenHolder
 import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder

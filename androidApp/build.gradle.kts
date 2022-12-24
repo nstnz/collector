@@ -42,4 +42,5 @@ dependencies {
     implementation(Compose.ui)
     implementation(Compose.foundationLayout)
     implementation(Compose.material)
+    implementation(Prefs.prefs)
 }

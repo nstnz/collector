@@ -3,7 +3,7 @@ package com.nstnz.collector.common.feature.settings.presentation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
-import com.nstnz.collector.common.di.SharedDI
+import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
 import org.kodein.di.instance
 

@@ -11,7 +11,7 @@ import com.nstnz.collector.common.feature.main.presentation.MainScreenState
 private fun MainScreenPreview() {
     AppTheme {
         MainScreen(
-            MainScreenState
+            MainScreenState.Loading
         )
     }
 }

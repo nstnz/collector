@@ -21,4 +21,16 @@ internal class GetExchangeRatesUseCase(
             currencies = currencies.map { it.code }
         )
     }
+
+    suspend operator fun invoke(
+        originCurrency: String,
+        sum: Float,
+        currencies: List<String>
+    ) = withContext(dispatcher) {
+        currenciesRepository.getRatesForSum(
+            originCurrency = originCurrency,
+            sum = sum,
+            currencies = currencies
+        )
+    }
 }
