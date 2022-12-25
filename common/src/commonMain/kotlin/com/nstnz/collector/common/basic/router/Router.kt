@@ -1,5 +1,8 @@
 package com.nstnz.collector.common.basic.router
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import moe.tlaster.precompose.navigation.NavOptions
 import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.PopUpTo
@@ -7,6 +10,7 @@ import moe.tlaster.precompose.navigation.PopUpTo
 internal class Router() {
 
     private lateinit var navigator: Navigator
+    private var resultHandler by mutableStateOf<Any?>(null)
 
     fun init(navigator: Navigator) {
         this.navigator = navigator
@@ -39,11 +43,28 @@ internal class Router() {
         navigator.navigate(Routes.AddCount, null, sourceId)
     }
 
-    fun navigateToCurrenciesScreen(multiCheck: Boolean, saveChanges: Boolean) {
-        navigator.navigate(Routes.Currencies, null, multiCheck, saveChanges)
+    fun navigateToListSourceScreen(sourceId: String?, sourceFundId: String?) {
+        navigator.navigate(Routes.ListSource, null, sourceId, sourceFundId)
+    }
+
+    fun navigateToCurrenciesScreen(multiCheck: Boolean, saveChanges: Boolean, currency: String?) {
+        navigator.navigate(Routes.Currencies, null, multiCheck, saveChanges, currency)
     }
 
     fun back() {
         navigator.goBack()
+    }
+
+    fun backWithResult(result: Any?) {
+        resultHandler = result
+        navigator.goBack()
+    }
+
+    fun <T> getLastResult(): T? {
+        return (resultHandler as? T).also {
+            if (it != null) {
+                resultHandler = null
+            }
+        }
     }
 }

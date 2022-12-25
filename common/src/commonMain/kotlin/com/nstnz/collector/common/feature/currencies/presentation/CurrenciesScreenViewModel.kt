@@ -24,7 +24,11 @@ internal class CurrenciesScreenViewModel(
     ): CurrenciesScreenState = when (intent) {
         is CurrenciesScreenIntent.ShowCurrencies -> CurrenciesScreenState(
             list = intent.list,
-            checkedCurrencies = intent.list.filter { it.isFavourite },
+            checkedCurrencies = if (params.currentCurrency.isNotEmpty()) {
+                intent.list.filter { it.code == params.currentCurrency }
+            } else {
+                intent.list.filter { it.isFavourite }
+            },
             multiCheck = params.multiCheck,
             filteredList = intent.filteredList
         )
@@ -39,32 +43,41 @@ internal class CurrenciesScreenViewModel(
             val currencies = getCurrenciesUseCase.invoke()
             CurrenciesScreenIntent.ShowCurrencies(
                 list = currencies,
-                checkedCurrencies = currencies.filter { it.isFavourite },
+                checkedCurrencies = if (params.currentCurrency.isNotEmpty()) {
+                    currencies.filter { it.code == params.currentCurrency }
+                } else {
+                    currencies.filter { it.isFavourite }
+                },
                 filteredList = currencies
             )
         }
         is CurrenciesScreenIntent.ShowCurrencies -> null
         is CurrenciesScreenIntent.ClickCurrency -> {
-            val list = state.list.firstOrNull { it.code == intent.currency.code }?.let {
-                val index = state.list.indexOf(it)
-                state.list.toMutableList().apply {
-                    remove(it)
-                    add(index, it.copy(isFavourite = !it.isFavourite))
-                }
-            } ?: state.list
-            val filteredList =
-                state.filteredList.firstOrNull { it.code == intent.currency.code }?.let {
-                    val index = state.filteredList.indexOf(it)
-                    state.filteredList.toMutableList().apply {
+            if (params.multiCheck) {
+                val list = state.list.firstOrNull { it.code == intent.currency.code }?.let {
+                    val index = state.list.indexOf(it)
+                    state.list.toMutableList().apply {
                         remove(it)
                         add(index, it.copy(isFavourite = !it.isFavourite))
                     }
-                } ?: state.filteredList
-            CurrenciesScreenIntent.ShowCurrencies(
-                list = list,
-                checkedCurrencies = list.filter { it.isFavourite },
-                filteredList = filteredList
-            )
+                } ?: state.list
+                val filteredList =
+                    state.filteredList.firstOrNull { it.code == intent.currency.code }?.let {
+                        val index = state.filteredList.indexOf(it)
+                        state.filteredList.toMutableList().apply {
+                            remove(it)
+                            add(index, it.copy(isFavourite = !it.isFavourite))
+                        }
+                    } ?: state.filteredList
+                CurrenciesScreenIntent.ShowCurrencies(
+                    list = list,
+                    checkedCurrencies = list.filter { it.isFavourite },
+                    filteredList = filteredList
+                )
+            } else {
+                router.backWithResult(intent.currency)
+                null
+            }
         }
         is CurrenciesScreenIntent.SearchCurrency -> {
             val filteredList =
@@ -74,7 +87,11 @@ internal class CurrenciesScreenViewModel(
                 }
             CurrenciesScreenIntent.ShowCurrencies(
                 list = state.list,
-                checkedCurrencies = state.list.filter { it.isFavourite },
+                checkedCurrencies = if (params.currentCurrency.isNotEmpty()) {
+                    state.list.filter { it.code == params.currentCurrency }
+                } else {
+                    state.list.filter { it.isFavourite }
+                },
                 filteredList = filteredList
             )
         }

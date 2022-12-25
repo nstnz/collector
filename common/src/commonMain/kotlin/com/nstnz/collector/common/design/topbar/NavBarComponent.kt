@@ -1,12 +1,10 @@
 package com.nstnz.collector.common.design.topbar
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.contentColorFor
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,10 +12,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.primaryBackgroundText
-import com.nstnz.collector.common.design.theme.primaryText
-import com.nstnz.collector.common.design.theme.transparent
+import com.nstnz.collector.common.design.theme.*
+
+@Composable
+fun DefaultNavComponent(
+    onBackClick: () -> Unit
+) {
+    NavBarComponent(
+        modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
+        title = "",
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    Icons.Rounded.ArrowBackIosNew,
+                    null,
+                    modifier = Modifier.size(AppTheme.indents.x3_5),
+                    tint = AppTheme.colors.primaryBackgroundText()
+                )
+            }
+        }
+    )
+}
 
 @Composable
 fun NavBarComponent(

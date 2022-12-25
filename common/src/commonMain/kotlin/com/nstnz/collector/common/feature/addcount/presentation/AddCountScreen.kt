@@ -22,6 +22,7 @@ import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
+import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.design.topbar.NavBarComponent
 
 @Composable
@@ -29,24 +30,10 @@ internal fun AddCountScreen(
     viewState: AddCountScreenState,
     onBackClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
+    onSelectSourceClick: () -> Unit = {},
 ) {
     GradientScaffold(
-        topBar = {
-            NavBarComponent(
-                modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
-                title = "",
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            Icons.Rounded.ArrowBackIosNew,
-                            null,
-                            modifier = Modifier.size(AppTheme.indents.x3_5),
-                            tint = AppTheme.colors.primaryBackgroundText()
-                        )
-                    }
-                }
-            )
-        },
+        topBar = { DefaultNavComponent(onBackClick) },
         bottomBar = {
             BottomButtonComponent(
                 text = "Ololo",
@@ -99,7 +86,7 @@ private fun AddCountScreenDefaultState(
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
                 label = "Choose currency",
-                text = viewState.currency
+                text = viewState.currency.code
             )
             SpacerComponent { x2 }
             TextSelectorComponent(

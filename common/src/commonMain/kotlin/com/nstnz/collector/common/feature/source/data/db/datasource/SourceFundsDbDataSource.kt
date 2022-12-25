@@ -18,7 +18,8 @@ internal class SourceFundsDbDataSource(
             sourceId = sourceFund.sourceId,
             sum = sourceFund.sum.toDouble(),
             currencyCode = sourceFund.currencyCode,
-            isDefault = sourceFund.default
+            isDefault = sourceFund.default,
+            name = sourceFund.name
         )
     }
 
@@ -28,13 +29,15 @@ internal class SourceFundsDbDataSource(
         currencyCode: String,
         sum: Double,
         isDefault: Boolean,
+        name: String,
     ): SourceFundEntity {
         return SourceFundEntity(
             id = id,
             sourceId = sourceId,
             currencyCode = currencyCode,
             sum = sum.toFloat(),
-            default = isDefault
+            default = isDefault,
+            name = name
         )
     }
 }

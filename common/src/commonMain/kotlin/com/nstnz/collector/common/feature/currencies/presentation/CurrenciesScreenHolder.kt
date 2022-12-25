@@ -7,11 +7,16 @@ import com.nstnz.collector.common.basic.di.SharedDI
 import org.kodein.di.instance
 
 @Composable
-internal fun CurrenciesScreenHolder(multiCheck: Boolean, saveChanges: Boolean) {
+internal fun CurrenciesScreenHolder(
+    multiCheck: Boolean,
+    saveChanges: Boolean,
+    currentCurrency: String?
+) {
     val viewModel: CurrenciesScreenViewModel by SharedDI.di.instance(
         arg = CurrenciesViewModelParams(
             multiCheck,
-            saveChanges
+            saveChanges,
+            currentCurrency.orEmpty()
         )
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()

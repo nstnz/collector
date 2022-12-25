@@ -12,6 +12,9 @@ VALUES(?,?,?,?);
 getAllCurrencies:
 SELECT * FROM CurrenciesDao;
 
+getCurrency:
+SELECT * FROM CurrenciesDao WHERE code = ?;
+
 removeAllCurrencies:
 DELETE FROM CurrenciesDao;
 
@@ -44,15 +47,16 @@ id TEXT NOT NULL PRIMARY KEY,
 sourceId TEXT NOT NULL,
 currencyCode TEXT NOT NULL,
 sum REAL NOT NULL,
-isDefault INTEGER AS Boolean NOT NULL
+isDefault INTEGER AS Boolean NOT NULL,
+name TEXT NOT NULL
 );
 
 getAllSourceFunds:
 SELECT * FROM SourceFundsDao WHERE sourceId = ?;
 
 insertSourceFund:
-INSERT OR REPLACE INTO SourceFundsDao(id, sourceId, currencyCode, sum, isDefault)
-VALUES(?,?,?,?,?);
+INSERT OR REPLACE INTO SourceFundsDao(id, sourceId, currencyCode, sum, isDefault, name)
+VALUES(?,?,?,?,?,?);
 
 removeAllSourceFunds:
 DELETE FROM SourceFundsDao;

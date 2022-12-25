@@ -29,7 +29,7 @@ internal class GetSourceScenario(
                         sum = getExchangeRatesUseCase(
                             originCurrency = it.currencyCode,
                             sum = it.sum,
-                            currencies = listOf(defaultCurrency)
+                            currencies = listOf(defaultCurrency.code)
                         ).first().sum
                     )
                 }

@@ -2,16 +2,21 @@ package com.nstnz.collector.common.feature.addcount.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
+import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
+import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
+import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
 import com.nstnz.collector.common.feature.main.domain.usecase.GetSourcesDataUseCase
 import com.nstnz.collector.common.feature.source.domain.usecase.GetSourceDataUseCase
 
 internal class AddCountScreenViewModel(
     private val sourceId: String,
+    private val sourceFundId: String,
     private val router: Router,
     private val getSourceDataUseCase: GetSourceDataUseCase,
     private val getSourcesDataUseCase: GetSourcesDataUseCase,
     private val getMainCurrencyUseCase: GetMainCurrencyUseCase,
+    private val getCurrencyUseCase: GetCurrencyUseCase,
 ) : CoroutinesViewModel<AddCountScreenState, AddCountScreenIntent, AddCountScreenSingleEvent>() {
 
     init {
@@ -33,7 +38,6 @@ internal class AddCountScreenViewModel(
         else -> prevState
     }
 
-
     override suspend fun performSideEffects(
         intent: AddCountScreenIntent,
         state: AddCountScreenState
@@ -44,8 +48,9 @@ internal class AddCountScreenViewModel(
             } else {
                 getSourcesDataUseCase().firstOrNull()
             }
-            val fund = source?.funds?.firstOrNull { it.isDefault }
-            val currency = getMainCurrencyUseCase()
+            val fund = source?.funds?.firstOrNull { it.id == sourceFundId }
+                ?: source?.funds?.firstOrNull { it.isDefault }
+            val currency = getCurrencyUseCase(fund?.currencyCode) ?: getMainCurrencyUseCase()
             val sum = ""
             AddCountScreenIntent.Update(source, currency, sum, fund)
         }
@@ -68,6 +73,25 @@ internal class AddCountScreenViewModel(
                     intent.sum,
                     state.fund
                 )
+            } else {
+                null
+            }
+        }
+        AddCountScreenIntent.SelectSource -> {
+            router.navigateToListSourceScreen(sourceId, sourceFundId)
+            null
+        }
+        AddCountScreenIntent.OnResume -> {
+            if (state is AddCountScreenState.Default) {
+                val newCurrency = router.getLastResult<CurrencyEntity>()
+                newCurrency?.let {
+                    AddCountScreenIntent.Update(
+                        state.sourceModel,
+                        newCurrency,
+                        state.sum,
+                        state.fund
+                    )
+                }
             } else {
                 null
             }

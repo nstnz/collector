@@ -24,8 +24,10 @@ private fun CurrenciesScreenPreview() {
                     CurrencyEntity("EUR", "Arab", false, true),
                     CurrencyEntity("BTC", "Kksdjja asd", true, false),
                 ),
-                checkedCurrencies = emptyList(),
-                multiCheck = true
+                checkedCurrencies = listOf(
+                    CurrencyEntity("AED", "Arab Edt", false, false),
+                ),
+                multiCheck = false
             )
         )
     }

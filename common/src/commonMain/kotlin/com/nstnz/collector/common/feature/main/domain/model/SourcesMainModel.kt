@@ -1,7 +1,9 @@
 package com.nstnz.collector.common.feature.main.domain.model
 
+import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
+
 data class SourcesMainModel(
-    val currency: String,
+    val currency: CurrencyEntity,
     val sources: List<SourceMainModel>
 ) {
 

@@ -21,6 +21,10 @@ internal class CurrenciesDbDataSource(
         )
     }
 
+    fun getCurrency(code: String?): CurrencyEntity?{
+        return queries.getCurrency(code.orEmpty(), ::mapCurrency).executeAsOneOrNull()
+    }
+
     private fun mapCurrency(
         code: String,
         name: String?,

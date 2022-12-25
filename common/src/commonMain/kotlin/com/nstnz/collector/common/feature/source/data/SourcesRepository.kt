@@ -33,7 +33,7 @@ internal class SourcesRepository(
                         currencyCode = fund.currencyCode,
                         sum = fund.sum,
                         isDefault = fund.default,
-                        name = "TODO"
+                        name = fund.name
                     )
                 }
             )
@@ -52,7 +52,7 @@ internal class SourcesRepository(
                         currencyCode = fund.currencyCode,
                         sum = fund.sum,
                         isDefault = fund.default,
-                        name = "TODO"
+                        name = fund.name
                     )
                 }
             )

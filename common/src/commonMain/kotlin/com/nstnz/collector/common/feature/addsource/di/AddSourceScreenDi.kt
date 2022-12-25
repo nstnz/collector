@@ -25,6 +25,7 @@ internal val addSourceScreenDi = DI.Module(name = Routes.AddSource.name) {
         AddSourceScreenViewModel(
             instance(),
             instance(),
+            instance(),
         )
     }
 }

@@ -23,4 +23,10 @@ internal class CurrenciesRepository(
     }
 
     suspend fun getDefaultCurrencyCode() = currenciesPrefs.defaultCurrencyCode
+
+    suspend fun getDefaultCurrency() =
+        currenciesDbDataSource.getCurrency(currenciesPrefs.defaultCurrencyCode)
+
+    suspend fun getCurrencyByCode(code: String?) =
+        currenciesDbDataSource.getCurrency(code)
 }

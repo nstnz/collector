@@ -14,4 +14,6 @@ data class SourceFundEntity(
     val sum: Float,
     @SerialName("default")
     val default: Boolean,
+    @SerialName("name")
+    val name: String,
 )

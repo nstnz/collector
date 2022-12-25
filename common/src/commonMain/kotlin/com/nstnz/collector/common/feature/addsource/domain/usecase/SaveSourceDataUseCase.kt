@@ -15,7 +15,7 @@ internal class SaveSourceDataUseCase(
     private val dispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke(name: String) = withContext(dispatcher) {
+    suspend operator fun invoke(name: String, currency: String) = withContext(dispatcher) {
         val sourceId = randomUUID()
         sourcesRepository.createSource(
             SourceEntity(
@@ -27,9 +27,10 @@ internal class SaveSourceDataUseCase(
             SourceFundEntity(
                 id = randomUUID(),
                 sourceId = sourceId,
-                currencyCode = prefs.defaultCurrencyCode ?: "USD",
+                currencyCode = currency,
                 sum = 0f,
-                default = true
+                default = true,
+                name = "TODO"
             )
         )
         sourceId

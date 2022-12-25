@@ -2,7 +2,11 @@ package com.nstnz.collector.common.feature.addsource.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
+import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenIntent
+import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenState
 import com.nstnz.collector.common.feature.addsource.domain.usecase.SaveSourceDataUseCase
+import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
+import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
 import com.nstnz.collector.common.feature.source.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenIntent
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenSingleEvent
@@ -10,15 +14,29 @@ import com.nstnz.collector.common.feature.source.presentation.SourceScreenSingle
 internal class AddSourceScreenViewModel(
     private val router: Router,
     private val saveSourceDataUseCase: SaveSourceDataUseCase,
+    private val getMainCurrencyUseCase: GetMainCurrencyUseCase,
 ) : CoroutinesViewModel<AddSourceScreenState, AddSourceScreenIntent, AddSourceScreenSingleEvent>() {
 
-    override fun initialState(): AddSourceScreenState = AddSourceScreenState.Default
+    init {
+        sendIntent(AddSourceScreenIntent.Load)
+    }
+
+    override fun initialState(): AddSourceScreenState = AddSourceScreenState.Loading
 
     override fun reduce(
         intent: AddSourceScreenIntent,
         prevState: AddSourceScreenState
-    ): AddSourceScreenState =
-        prevState
+    ): AddSourceScreenState = when (intent) {
+        is AddSourceScreenIntent.Update -> AddSourceScreenState.Default(
+            intent.name,
+            intent.currency,
+        )
+        is AddSourceScreenIntent.ChangeName -> when (prevState) {
+            is AddSourceScreenState.Default -> prevState.copy(name = intent.name)
+            AddSourceScreenState.Loading -> prevState
+        }
+        else -> prevState
+    }
 
     override suspend fun performSideEffects(
         intent: AddSourceScreenIntent,
@@ -29,9 +47,42 @@ internal class AddSourceScreenViewModel(
             null
         }
         is AddSourceScreenIntent.SaveSource -> {
-            val sourceId = saveSourceDataUseCase(intent.name)
-            router.navigateToSourceScreen(sourceId, clearBackEntry = true)
+            if (state is AddSourceScreenState.Default) {
+                val sourceId = saveSourceDataUseCase(state.name, state.currency.code)
+                router.navigateToSourceScreen(sourceId, clearBackEntry = true)
+            }
             null
+        }
+        is AddSourceScreenIntent.ChangeCurrency -> {
+            if (state is AddSourceScreenState.Default) {
+                router.navigateToCurrenciesScreen(
+                    multiCheck = false,
+                    saveChanges = false,
+                    currency = state.currency.code
+                )
+            }
+            null
+        }
+        AddSourceScreenIntent.Load -> {
+            val currency = getMainCurrencyUseCase()
+            AddSourceScreenIntent.Update(
+                "", currency
+            )
+        }
+        is AddSourceScreenIntent.Update -> null
+        is AddSourceScreenIntent.ChangeName -> null
+        AddSourceScreenIntent.OnResume -> {
+            if (state is AddSourceScreenState.Default) {
+                val newCurrency = router.getLastResult<CurrencyEntity>()
+                newCurrency?.let {
+                    AddSourceScreenIntent.Update(
+                        state.name,
+                        newCurrency,
+                    )
+                }
+            } else {
+                null
+            }
         }
     }
 }

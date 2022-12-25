@@ -26,7 +26,7 @@ internal class ConverterScreenViewModel(
             null
         }
         ConverterScreenIntent.ChangeCurrencies -> {
-            router.navigateToCurrenciesScreen(multiCheck = true, saveChanges = false)
+            router.navigateToCurrenciesScreen(multiCheck = true, saveChanges = false, currency = null)
             null
         }
         ConverterScreenIntent.ShowSettingsScreen -> {

@@ -4,18 +4,15 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.nstnz.collector.common.basic.router.*
-import com.nstnz.collector.common.basic.router.Arg1
-import com.nstnz.collector.common.basic.router.Arg2
-import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.basic.router.Routes
 import com.nstnz.collector.common.basic.di.SharedDI
+import com.nstnz.collector.common.basic.router.*
 import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenHolder
 import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenHolder
 import com.nstnz.collector.common.feature.converter.presentation.ConverterScreenHolder
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenHolder
+import com.nstnz.collector.common.feature.listsource.presentation.ListSourceScreenHolder
 import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenHolder
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenHolder
@@ -54,11 +51,12 @@ internal fun App() {
                         Routes.Settings -> SettingsScreenHolder()
                         Routes.Converter -> ConverterScreenHolder()
                         Routes.Currencies -> CurrenciesScreenHolder(
-                            arg1.toBoolean(), arg2.toBoolean()
+                            arg1.toBoolean(), arg2.toBoolean(), arg3.orEmpty()
                         )
                         Routes.Splash -> SplashScreenHolder()
                         Routes.AddSource -> AddSourceScreenHolder()
-                        Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty())
+                        Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty(), arg2.orEmpty())
+                        Routes.ListSource -> ListSourceScreenHolder(arg1.orEmpty(), arg2.orEmpty())
                     }
                 }
             }
