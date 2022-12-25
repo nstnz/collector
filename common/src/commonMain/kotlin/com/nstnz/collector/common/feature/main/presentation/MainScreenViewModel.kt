@@ -11,10 +11,6 @@ internal class MainScreenViewModel(
     private val getSourcesScenario: GetSourcesScenario,
 ) : CoroutinesViewModel<MainScreenState, MainScreenIntent, MainScreenSingleEvent>() {
 
-    init {
-        sendIntent(MainScreenIntent.Load)
-    }
-
     override fun initialState(): MainScreenState = MainScreenState.Loading
 
     override fun reduce(intent: MainScreenIntent, prevState: MainScreenState): MainScreenState =

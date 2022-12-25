@@ -59,7 +59,7 @@ internal fun SourceScreen(
                     .fillMaxSize()
             ) {
                 HintPanel(
-                    viewState.sourceMainModel.sum.toString() + " ${viewState.sourceMainModel.defaultCurrency.code}",
+                    viewState.sourceMainModel.formattedSum,
                     viewState.sourceMainModel.name,
                 )
                 LazyColumn(
@@ -130,13 +130,13 @@ private fun SourceFundCell(
                 .padding(horizontal = AppTheme.indents.x3, vertical = AppTheme.indents.x2)
         ) {
             Text(
-                text = fund.originalSum.toString() + " ${fund.originalCurrency}",
+                text = fund.formattedOriginalSum,
                 color = AppTheme.colors.secondaryBackgroundText(),
                 style = AppTheme.typography.headingXlarge
             )
             SpacerComponent { x1 }
             Text(
-                text = fund.sum.toString() + " ${fund.defaultCurrency.code}",
+                text = fund.formattedSum,
                 color = AppTheme.colors.secondaryBackgroundText(),
                 style = AppTheme.typography.bodyMedium
             )

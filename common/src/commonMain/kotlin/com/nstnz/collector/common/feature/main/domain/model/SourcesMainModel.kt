@@ -9,6 +9,9 @@ data class SourcesMainModel(
 
     val sum: Float
         get() = sources.sumOf { it.sum.toDouble() }.toFloat()
+
+    val formattedSum: String
+        get() = "${sum} ${currency.code}"
 }
 
 data class SourceMainModel(
@@ -17,6 +20,9 @@ data class SourceMainModel(
     val defaultCurrency: CurrencyEntity,
     val funds: List<SourceFundMainModel>
 ) {
+
+    val formattedSum: String
+        get() = "${sum} ${defaultCurrency.code}"
 
     val sum: Float
         get() = funds.sumOf { it.sum.toDouble() }.toFloat()
@@ -28,4 +34,11 @@ data class SourceFundMainModel(
     val defaultCurrency: CurrencyEntity,
     val originalSum: Float,
     val originalCurrency: String,
-)
+) {
+
+    val formattedSum: String
+        get() = "${sum} ${defaultCurrency.code}"
+
+    val formattedOriginalSum: String
+        get() = "${originalSum} ${originalCurrency}"
+}

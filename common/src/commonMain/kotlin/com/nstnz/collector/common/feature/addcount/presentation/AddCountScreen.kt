@@ -105,13 +105,6 @@ private fun AddCountScreenDefaultState(
                 text = viewState.currency.code,
                 onClick = { onSelectCurrencyClick() }
             )
-            SpacerComponent { x2 }
-            TextSelectorComponent(
-                modifier = Modifier.fillMaxWidth(),
-                text = viewState.sourceModel?.name.orEmpty(),
-                label = "Choose source",
-                onClick = { onSelectSourceClick() }
-            )
             SpacerComponent { x4 }
         }
     }

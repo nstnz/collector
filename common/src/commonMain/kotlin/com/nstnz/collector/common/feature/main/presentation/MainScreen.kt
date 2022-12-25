@@ -84,7 +84,7 @@ private fun MainScreenStateDefault(
         Modifier
             .fillMaxSize()
     ) {
-        MainResultPanel(viewState.sourcesMainModel.sum.toString())
+        MainResultPanel(viewState.sourcesMainModel.formattedSum)
         Column(
             Modifier
                 .fillMaxWidth()
@@ -190,7 +190,7 @@ private fun SourceDetailedPanel(
                         .weight(1f)
                 ) {
                     Text(
-                        text = source.sum.toString(),
+                        text = source.formattedSum,
                         color = AppTheme.colors.secondaryBackgroundText(),
                         style = AppTheme.typography.headingXlarge
                     )
@@ -218,7 +218,7 @@ private fun SourceDetailedPanel(
                 SpacerComponent { x1 }
                 source.funds.forEach {
                     Text(
-                        text = it.sum.toString(),
+                        text = it.formattedSum,
                         color = AppTheme.colors.hintBackgroundText(),
                         style = AppTheme.typography.bodyMedium
                     )
