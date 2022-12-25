@@ -23,15 +23,16 @@ DELETE FROM CurrenciesDao;
 
 CREATE TABLE SourcesDao(
 id TEXT NOT NULL PRIMARY KEY,
-name TEXT NOT NULL
+name TEXT NOT NULL,
+currencyCode TEXT NOT NULL
 );
 
 getSource:
 SELECT * FROM SourcesDao WHERE id = ?;
 
 insertSource:
-INSERT OR REPLACE INTO SourcesDao(id, name)
-VALUES(?,?);
+INSERT OR REPLACE INTO SourcesDao(id, name, currencyCode)
+VALUES(?,?,?);
 
 getAllSources:
 SELECT * FROM SourcesDao;

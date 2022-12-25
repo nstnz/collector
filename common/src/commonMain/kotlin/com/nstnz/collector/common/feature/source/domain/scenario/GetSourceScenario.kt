@@ -21,11 +21,13 @@ internal class GetSourceScenario(
             SourceMainModel(
                 id = it.id,
                 name = it.name,
+                defaultCurrency = defaultCurrency,
                 funds = it.funds.map {
                     SourceFundMainModel(
                         id = it.id,
                         originalSum = it.sum,
                         originalCurrency = it.currencyCode,
+                        defaultCurrency = defaultCurrency,
                         sum = getExchangeRatesUseCase(
                             originCurrency = it.currencyCode,
                             sum = it.sum,

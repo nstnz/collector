@@ -8,18 +8,19 @@ import com.nstnz.collector.common.feature.source.domain.model.SourceFundModel
 import com.nstnz.collector.common.feature.source.domain.model.SourceModel
 
 internal sealed interface AddCountScreenState : State {
-    object Loading: AddCountScreenState
+    object Loading : AddCountScreenState
     data class Default(
         val sourceModel: SourceModel?,
         val currency: CurrencyEntity,
         val sum: String,
-        val fund: SourceFundModel?
+        val addMessageShown: Boolean
     ) : AddCountScreenState
 }
 
 internal sealed interface AddCountScreenIntent : Intent {
     object Load : AddCountScreenIntent
     object SelectSource : AddCountScreenIntent
+    object SelectCurrency : AddCountScreenIntent
     data class ChangeSum(val sum: String) : AddCountScreenIntent
     object GoBack : AddCountScreenIntent
     object OnResume : AddCountScreenIntent
@@ -27,14 +28,9 @@ internal sealed interface AddCountScreenIntent : Intent {
         val sourceModel: SourceModel?,
         val currency: CurrencyEntity,
         val sum: String,
-        val fund: SourceFundModel?
     ) : AddCountScreenIntent
-    data class Save(
-        val sourceModel: SourceModel,
-        val currency: CurrencyEntity,
-        val sum: String,
-        val fund: SourceFundModel
-    ) : AddCountScreenIntent
+
+    object Save : AddCountScreenIntent
 }
 
 internal sealed class AddCountScreenSingleEvent : SingleEvent

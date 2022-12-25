@@ -2,10 +2,7 @@ package com.nstnz.collector.common.design.button
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.accentColor
-import com.nstnz.collector.common.design.theme.hintText
-import com.nstnz.collector.common.design.theme.primaryText
+import com.nstnz.collector.common.design.theme.*
 
 internal sealed interface ButtonColors {
 
@@ -27,4 +24,16 @@ internal object PrimaryButtonColors : ButtonColors {
         @Composable get() = AppTheme.colors.primaryText()
     override val textColorDisabled: Color
         @Composable get() = AppTheme.colors.hintText()
+}
+
+internal object SecondaryButtonColors : ButtonColors {
+
+    override val backgroundColor: Color
+        @Composable get() = AppTheme.colors.gradientPartsTop()
+    override val backgroundColorDisabled: Color
+        @Composable get() = AppTheme.colors.gradientPartsTop()
+    override val textColor: Color
+        @Composable get() = AppTheme.colors.primaryBackgroundText()
+    override val textColorDisabled: Color
+        @Composable get() = AppTheme.colors.hintBackgroundText()
 }

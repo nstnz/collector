@@ -11,10 +11,6 @@ internal class SplashScreenViewModel(
     private val refreshCurrenciesUseCase: RefreshCurrenciesUseCase,
 ) : CoroutinesViewModel<SplashScreenState, SplashScreenIntent, SplashScreenSingleEvent>() {
 
-    init {
-        sendIntent(SplashScreenIntent.Load)
-    }
-
     override fun initialState(): SplashScreenState = SplashScreenState
 
     override fun reduce(

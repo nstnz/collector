@@ -20,7 +20,6 @@ internal class ListSourceScreenViewModel(
         is ListSourceScreenIntent.Update -> ListSourceScreenState.Default(
             intent.sources,
             sourceId,
-            sourceFundId
         )
         else -> prevState
     }

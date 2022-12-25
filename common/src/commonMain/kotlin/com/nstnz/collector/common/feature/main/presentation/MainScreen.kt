@@ -43,7 +43,7 @@ internal fun MainScreen(
                 modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
                 title = "",
                 actions = {
-                    IconButton(onClick = onAddCount) {
+                    IconButton(onClick = onAddSource) {
                         Icon(
                             Icons.Rounded.Add,
                             null,
@@ -91,7 +91,7 @@ private fun MainScreenStateDefault(
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
-            SpacerComponent { x4 }
+            SpacerComponent { x3 }
             if (viewState.sourcesMainModel.sources.isNotEmpty()) {
                 viewState.sourcesMainModel.sources.forEach {
                     SourceDetailedPanel(
@@ -103,7 +103,7 @@ private fun MainScreenStateDefault(
             } else {
                 EmptySourcesComponent(onAddSource)
             }
-            SpacerComponent { x4 }
+            SpacerComponent { x3 }
         }
     }
 }

@@ -8,4 +8,6 @@ data class SourceEntity(
     val id: String,
     @SerialName("name")
     val name: String,
+    @SerialName("currencyCode")
+    val currencyCode: String,
 )

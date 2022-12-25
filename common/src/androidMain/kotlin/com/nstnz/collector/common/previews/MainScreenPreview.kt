@@ -13,13 +13,15 @@ import com.nstnz.collector.common.feature.main.presentation.MainScreenState
 @Composable
 @Preview
 private fun MainScreenPreview() {
+    val currencyEntity = CurrencyEntity("USD", "", false, false)
     AppTheme {
         MainScreen(
             MainScreenState.Default(
                 SourcesMainModel(
-                    currency = CurrencyEntity("USD", "", false, false),
+                    currency = currencyEntity,
                     sources = listOf(
                         SourceMainModel(
+                            defaultCurrency = currencyEntity,
                             name = "Tinkoff",
                             id = "",
                             funds = listOf(
@@ -27,25 +29,29 @@ private fun MainScreenPreview() {
                                     id = "",
                                     originalCurrency = "RUB",
                                     originalSum = 123f,
-                                    sum = 44.653f
+                                    sum = 44.653f,
+                                    defaultCurrency = currencyEntity,
                                 ),
                                 SourceFundMainModel(
                                     id = "",
                                     originalCurrency = "BTC",
                                     originalSum = 123f,
-                                    sum = 0.6583453f
+                                    sum = 0.6583453f,
+                                    defaultCurrency = currencyEntity,
                                 ),
                             )
                         ),
                         SourceMainModel(
                             name = "Exmo",
                             id = "",
+                            defaultCurrency = currencyEntity,
                             funds = listOf(
                                 SourceFundMainModel(
                                     id = "",
                                     originalCurrency = "USD",
                                     originalSum = 123f,
-                                    sum = 2627723f
+                                    sum = 2627723f,
+                                    defaultCurrency = currencyEntity,
                                 ),
                             )
                         ),

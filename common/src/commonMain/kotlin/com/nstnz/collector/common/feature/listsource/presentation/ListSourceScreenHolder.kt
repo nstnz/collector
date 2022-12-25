@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
+import com.nstnz.collector.common.basic.router.OnLifecycleEvent
+import com.nstnz.collector.common.feature.splash.presentation.SplashScreenIntent
+import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
 @Composable
@@ -15,6 +18,13 @@ internal fun ListSourceScreenHolder(sourceId: String?, sourceFundId: String?) {
         )
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
+
+    OnLifecycleEvent { event ->
+        when (event) {
+            Lifecycle.State.Active -> viewModel.sendIntent(ListSourceScreenIntent.Load)
+            else -> Unit
+        }
+    }
 
     ListSourceScreen(
         viewState = viewState,

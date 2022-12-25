@@ -3,22 +3,24 @@ package com.nstnz.collector.common.feature.source.presentation
 import com.nstnz.collector.common.basic.presentation.Intent
 import com.nstnz.collector.common.basic.presentation.SingleEvent
 import com.nstnz.collector.common.basic.presentation.State
+import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
 import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
+import com.nstnz.collector.common.feature.source.domain.model.SourceModel
 
 internal sealed interface SourceScreenState : State {
-    val sourceName: String
-
-    data class Loading(
-        override val sourceName: String = ""
-    ) : SourceScreenState
+    object Loading : SourceScreenState
 
     data class Default(
-        override val sourceName: String
+        val sourceMainModel: SourceMainModel
     ) : SourceScreenState
 }
 
 internal sealed interface SourceScreenIntent : Intent {
+    object Load : SourceScreenIntent
+    object GoBack : SourceScreenIntent
+    object AddCount : SourceScreenIntent
     data class ShowAddCount(val sourceId: String) : SourceScreenIntent
+    data class Update(val sourceMainModel: SourceMainModel) : SourceScreenIntent
 }
 
 internal sealed class SourceScreenSingleEvent : SingleEvent

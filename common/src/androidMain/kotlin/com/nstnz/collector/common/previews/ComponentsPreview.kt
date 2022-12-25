@@ -8,6 +8,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.nstnz.collector.common.design.button.BottomButtonComponent
 import com.nstnz.collector.common.design.button.PrimaryButtonComponent
+import com.nstnz.collector.common.design.dialog.DialogComponent
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.input.internal.TextInputState
@@ -97,6 +98,15 @@ private fun ComponentsPreview2() {
                     settingsTabClick = { },
                     converterTabClick = { },
                     mainTabSelected = true
+                )
+            },
+            dialog = {
+                DialogComponent(
+                    "sfsdfsdf",
+                    "sjf dkjg kljg lkdjgs lkdjgslkjgsl kdjglskj glksdjglskd ghksdjf",
+                    "sakfj",
+                    "sdf",
+                    "safa"
                 )
             }
         ) {

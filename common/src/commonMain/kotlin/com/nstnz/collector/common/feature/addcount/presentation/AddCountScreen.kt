@@ -1,5 +1,8 @@
 package com.nstnz.collector.common.feature.addcount.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -17,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.nstnz.collector.common.design.button.BottomButtonComponent
 import com.nstnz.collector.common.design.card.CardComponent
+import com.nstnz.collector.common.design.dialog.DialogComponent
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
@@ -28,9 +32,11 @@ import com.nstnz.collector.common.design.topbar.NavBarComponent
 @Composable
 internal fun AddCountScreen(
     viewState: AddCountScreenState,
+    onChangeSum: (String) -> Unit = {},
     onBackClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
     onSelectSourceClick: () -> Unit = {},
+    onSelectCurrencyClick: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = { DefaultNavComponent(onBackClick) },
@@ -39,11 +45,14 @@ internal fun AddCountScreen(
                 text = "Ololo",
                 onClick = onSaveClick
             )
-        }
+        },
     ) {
         when (viewState) {
             is AddCountScreenState.Default -> AddCountScreenDefaultState(
-                viewState
+                viewState,
+                onChangeSum,
+                onSelectSourceClick,
+                onSelectCurrencyClick
             )
             AddCountScreenState.Loading -> {}
         }
@@ -54,7 +63,11 @@ internal fun AddCountScreen(
 @Composable
 private fun AddCountScreenDefaultState(
     viewState: AddCountScreenState.Default,
+    onChangeSum: (String) -> Unit = {},
+    onSelectSourceClick: () -> Unit = {},
+    onSelectCurrencyClick: () -> Unit = {},
 ) {
+    val sumTextValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }
     CardComponent {
         Column(
             Modifier
@@ -79,26 +92,25 @@ private fun AddCountScreenDefaultState(
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = "0",
                 label = "Enter sum",
-                value = TextFieldValue(viewState.sum),
-                onValueChange = {},
+                value = sumTextValue.value,
+                onValueChange = {
+                    sumTextValue.value = it
+                    onChangeSum(it.text)
+                },
             )
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
                 label = "Choose currency",
-                text = viewState.currency.code
+                text = viewState.currency.code,
+                onClick = { onSelectCurrencyClick() }
             )
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
                 text = viewState.sourceModel?.name.orEmpty(),
                 label = "Choose source",
-            )
-            SpacerComponent { x2 }
-            TextSelectorComponent(
-                modifier = Modifier.fillMaxWidth(),
-                text = viewState.fund?.name.orEmpty(),
-                label = "Choose account",
+                onClick = { onSelectSourceClick() }
             )
             SpacerComponent { x4 }
         }

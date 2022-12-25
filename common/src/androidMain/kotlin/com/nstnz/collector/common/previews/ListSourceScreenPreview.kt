@@ -20,10 +20,9 @@ private fun ListSourceScreenPreview() {
         ListSourceScreen(
             ListSourceScreenState.Default(
                 selectedSourceId = "2",
-                selectedSourceFundId = "32",
                 sources = listOf(
                     SourceModel(
-                        "1", "Tinkoff", funds = listOf(
+                        "1", "Tinkoff", "", funds = listOf(
                             SourceFundModel(
                                 id = "",
                                 name = "Ololo",
@@ -43,7 +42,7 @@ private fun ListSourceScreenPreview() {
                         )
                     ),
                     SourceModel(
-                        "2", "Tinkoff", funds = listOf(
+                        "2", "Tinkoff","", funds = listOf(
                             SourceFundModel(
                                 id = "",
                                 name = "Ololo",

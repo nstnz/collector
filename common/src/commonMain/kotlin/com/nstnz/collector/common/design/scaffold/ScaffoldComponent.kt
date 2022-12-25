@@ -50,6 +50,7 @@ fun ScaffoldComponent(
     drawerScrimColor: Color = DrawerDefaults.scrimColor,
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
+    dialog: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val child = @Composable { childModifier: Modifier ->
@@ -70,7 +71,8 @@ fun ScaffoldComponent(
                     snackbarHost(scaffoldState.snackbarHostState)
                 },
                 fab = floatingActionButton,
-                bottomBar = bottomBar
+                bottomBar = bottomBar,
+                dialog = dialog
             )
         }
     }
@@ -102,6 +104,7 @@ private fun ScaffoldLayout(
     snackbar: @Composable () -> Unit,
     fab: @Composable () -> Unit,
     bottomBar: @Composable () -> Unit,
+    dialog: @Composable () -> Unit = {},
 ) {
     SubcomposeLayout { constraints ->
         val layoutWidth = constraints.maxWidth
@@ -121,6 +124,12 @@ private fun ScaffoldLayout(
             }
 
             val snackbarHeight = snackbarPlaceables.maxByOrNull { it.height }?.height ?: 0
+
+            val dialogPlaceables = subcompose(ScaffoldLayoutContent.Dialog, dialog).map {
+                it.measure(looseConstraints)
+            }
+
+            val dialogHeight = dialogPlaceables.maxByOrNull { it.height }?.height ?: 0
 
             val fabPlaceables =
                 subcompose(ScaffoldLayoutContent.Fab, fab).mapNotNull { measurable ->
@@ -208,6 +217,10 @@ private fun ScaffoldLayout(
                     it.place(placement.left, layoutHeight - fabOffsetFromBottom!!)
                 }
             }
+
+            dialogPlaceables.forEach {
+                it.place(0, 0)
+            }
         }
     }
 }
@@ -230,6 +243,5 @@ private enum class ScaffoldLayoutContent {
     Snackbar,
     Fab,
     BottomBar,
-    Tooltip,
-    Tutorial,
+    Dialog,
 }

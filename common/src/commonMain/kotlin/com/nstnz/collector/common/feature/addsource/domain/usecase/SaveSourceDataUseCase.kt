@@ -11,7 +11,6 @@ import kotlinx.coroutines.withContext
 
 internal class SaveSourceDataUseCase(
     private val sourcesRepository: SourcesRepository,
-    private val prefs: CurrenciesPrefs,
     private val dispatcher: CoroutineDispatcher,
 ) {
 
@@ -20,17 +19,8 @@ internal class SaveSourceDataUseCase(
         sourcesRepository.createSource(
             SourceEntity(
                 id = sourceId,
-                name = name
-            )
-        )
-        sourcesRepository.createOrUpdateSourceFund(
-            SourceFundEntity(
-                id = randomUUID(),
-                sourceId = sourceId,
+                name = name,
                 currencyCode = currency,
-                sum = 0f,
-                default = true,
-                name = "TODO"
             )
         )
         sourceId

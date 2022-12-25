@@ -11,7 +11,6 @@ internal sealed interface ListSourceScreenState : State {
     data class Default(
         val sources: List<SourceModel>,
         val selectedSourceId: String,
-        val selectedSourceFundId: String
     ) : ListSourceScreenState
 }
 

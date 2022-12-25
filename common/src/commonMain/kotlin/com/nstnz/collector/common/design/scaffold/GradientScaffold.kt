@@ -28,6 +28,7 @@ fun GradientScaffold(
 			snackbar = { data -> SnackbarComponent(data.title, data.description, data.isError) }
 		)
 	},
+	dialog: @Composable () -> Unit = {},
 	content: @Composable (PaddingValues) -> Unit,
 ) {
 	Column(modifier = Modifier
@@ -41,6 +42,7 @@ fun GradientScaffold(
 			backgroundColor = Color.Transparent,
 			scaffoldState = scaffoldState,
 			snackbarHost = snackbarHost,
+			dialog = dialog
 		)
 	}
 }

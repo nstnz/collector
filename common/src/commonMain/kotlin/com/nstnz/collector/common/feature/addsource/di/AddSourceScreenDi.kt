@@ -18,7 +18,6 @@ internal val addSourceScreenDi = DI.Module(name = Routes.AddSource.name) {
         SaveSourceDataUseCase(
             instance(),
             instance(),
-            instance(),
         )
     }
     bind<AddSourceScreenViewModel>() with multiton {

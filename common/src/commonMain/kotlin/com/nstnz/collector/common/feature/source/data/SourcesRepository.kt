@@ -13,7 +13,7 @@ internal class SourcesRepository(
 ) {
 
     suspend fun createSource(source: SourceEntity) =
-        sourcesDbDataSource.createSource(source.id, source.name)
+        sourcesDbDataSource.createSource(source.id, source.name, source.currencyCode)
 
     suspend fun createOrUpdateSourceFund(sourceFund: SourceFundEntity) =
         sourceFundsDbDataSource.updateSourceFund(
@@ -26,6 +26,7 @@ internal class SourcesRepository(
             SourceModel(
                 id = it.id,
                 name = it.name,
+                currencyCode = it.currencyCode,
                 funds = results.map { fund ->
                     SourceFundModel(
                         id = fund.id,
@@ -45,6 +46,7 @@ internal class SourcesRepository(
             SourceModel(
                 id = it.id,
                 name = it.name,
+                currencyCode = it.currencyCode,
                 funds = results.map { fund ->
                     SourceFundModel(
                         id = fund.id,

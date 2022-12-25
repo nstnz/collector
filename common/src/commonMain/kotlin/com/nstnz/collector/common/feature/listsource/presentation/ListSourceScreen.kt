@@ -48,7 +48,6 @@ internal fun ListSourceScreen(
                         SourceCell(
                             source,
                             viewState.selectedSourceId,
-                            viewState.selectedSourceFundId,
                             onSelect
                         )
                         SpacerComponent { x2 }
@@ -92,7 +91,6 @@ private fun HintPanel() {
 private fun SourceCell(
     source: SourceModel,
     selectedSourceId: String,
-    selectedSourceFundId: String,
     onSelect: (source: SourceModel, fund: SourceFundModel) -> Unit
 ) {
     CardComponent(
@@ -105,33 +103,33 @@ private fun SourceCell(
             Modifier.fillMaxWidth()
                 .padding(horizontal = AppTheme.indents.x3, vertical = AppTheme.indents.x2)
         ) {
-            Text(
-                text = source.name,
-                color = if (selectedSourceId == source.id)
-                    AppTheme.colors.accentColor() else AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.headingXlarge
-            )
+            Row(Modifier.fillMaxWidth()) {
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = source.name,
+                    color = if (selectedSourceId == source.id)
+                        AppTheme.colors.accentColor() else AppTheme.colors.secondaryBackgroundText(),
+                    style = AppTheme.typography.headingXlarge
+                )
+                SpacerComponent { x1 }
+                Icon(
+                    Icons.Rounded.NavigateNext,
+                    null,
+                    modifier = Modifier.padding(top = AppTheme.indents.x1).size(AppTheme.indents.x3),
+                    tint = AppTheme.colors.hintBackgroundText()
+                )
+            }
 
             source.funds.forEachIndexed { index, fund ->
                 Column(Modifier.fillMaxWidth().clickable {
                     onSelect(source, fund)
                 }) {
                     SpacerComponent { x2 }
-                    Row(Modifier.fillMaxWidth()) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = fund.name,
-                            color = if (selectedSourceFundId == fund.id)
-                                AppTheme.colors.accentColor() else AppTheme.colors.hintBackgroundText(),
-                            style = AppTheme.typography.bodyMedium
-                        )
-                        Icon(
-                            Icons.Rounded.NavigateNext,
-                            null,
-                            modifier = Modifier.size(AppTheme.indents.x3),
-                            tint = AppTheme.colors.hintBackgroundText()
-                        )
-                    }
+                    Text(
+                        text = fund.sum.toString(),
+                        color = AppTheme.colors.hintBackgroundText(),
+                        style = AppTheme.typography.bodyMedium
+                    )
                     if (index != source.funds.lastIndex) {
                         SpacerComponent { x2 }
                         Box(

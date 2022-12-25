@@ -2,106 +2,144 @@ package com.nstnz.collector.common.feature.source.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
+import com.nstnz.collector.common.feature.main.domain.model.SourceFundMainModel
+import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
 
 @Composable
 internal fun SourceScreen(
     viewState: SourceScreenState,
-    onAddSourceClick: () -> Unit = {},
+    onAddCountClick: () -> Unit = {},
+    onBackClick: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
             NavBarComponent(
                 modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
-                titleColor = AppTheme.colors.primaryText(),
-                title = viewState.sourceName,
+                title = "",
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            Icons.Rounded.ArrowBackIosNew,
+                            null,
+                            modifier = Modifier.size(AppTheme.indents.x3_5),
+                            tint = AppTheme.colors.primaryBackgroundText()
+                        )
+                    }
+                },
                 actions = {
-                    IconButton(onClick = onAddSourceClick) {
-
+                    IconButton(onClick = onAddCountClick) {
+                        Icon(
+                            Icons.Rounded.Add,
+                            null,
+                            modifier = Modifier.size(AppTheme.indents.x4_5),
+                            tint = AppTheme.colors.primaryBackgroundText()
+                        )
                     }
                 }
             )
         }
     ) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            MainResultPanel()
-            SpacerComponent { x4 }
-            for (i in 0 until 10) {
-                SourceDetailedPanel(
-                    sourceName = i.toString(),
-                    total = "$123456",
+        if (viewState is SourceScreenState.Default) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+            ) {
+                HintPanel(
+                    viewState.sourceMainModel.sum.toString() + " ${viewState.sourceMainModel.defaultCurrency.code}",
+                    viewState.sourceMainModel.name,
                 )
-                SpacerComponent { x2 }
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(
+                        bottom = AppTheme.indents.x3,
+                        start = AppTheme.indents.x3,
+                        top = AppTheme.indents.x3,
+                        end = AppTheme.indents.x3,
+                    )
+                ) {
+                    items(count = viewState.sourceMainModel.funds.size) { index ->
+                        val fund = viewState.sourceMainModel.funds[index]
+                        SourceFundCell(
+                            fund
+                        )
+                        SpacerComponent { x2 }
+                    }
+                }
             }
-
-            SpacerComponent { x4 }
         }
     }
 }
 
 @Composable
-private fun MainResultPanel() {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .background(
-                AppTheme.colors.backgroundPrimary(),
-                shape = AppTheme.shapes.x4_5_bottom
+private fun HintPanel(
+    total: String,
+    title: String,
+) {
+    CardComponent {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    AppTheme.colors.backgroundPrimary(),
+                    shape = AppTheme.shapes.x4_5_bottom
+                )
+                .padding(AppTheme.indents.x3)
+        ) {
+            Text(
+                text = title,
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.bodyMedium
             )
-            .padding(AppTheme.indents.x3)
-    ) {
-        Text(
-            text = "123.34$",
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.headingMegaLarge
-        )
-        SpacerComponent { x0_5 }
-        Text(
-            text = "Hello",
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.bodyMedium
-        )
+            SpacerComponent { x0_5 }
+            Text(
+                text = total,
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.headingMegaLarge
+            )
+        }
+
     }
 }
 
 @Composable
-private fun SourceDetailedPanel(
-    sourceName: String,
-    total: String,
+private fun SourceFundCell(
+    fund: SourceFundMainModel,
 ) {
-    Column(
+    CardComponent(
         Modifier
-            .fillMaxWidth()
-            .padding(horizontal = AppTheme.indents.x3)
-            .background(
-                AppTheme.colors.backgroundSecondary(),
-                shape = AppTheme.shapes.x2
-            )
-            .padding(AppTheme.indents.x3)
+            .fillMaxWidth(),
+        shape = AppTheme.shapes.x2,
+        elevation = AppTheme.elevations.secondaryCard,
     ) {
-        Text(
-            text = total,
-            color = AppTheme.colors.secondaryBackgroundText(),
-            style = AppTheme.typography.headingXlarge
-        )
-        SpacerComponent { x0_5 }
-        Text(
-            text = sourceName,
-            color = AppTheme.colors.secondaryBackgroundText(),
-            style = AppTheme.typography.bodyMedium
-        )
+        Column(
+            Modifier.fillMaxWidth()
+                .padding(horizontal = AppTheme.indents.x3, vertical = AppTheme.indents.x2)
+        ) {
+            Text(
+                text = fund.originalSum.toString() + " ${fund.originalCurrency}",
+                color = AppTheme.colors.secondaryBackgroundText(),
+                style = AppTheme.typography.headingXlarge
+            )
+            SpacerComponent { x1 }
+            Text(
+                text = fund.sum.toString() + " ${fund.defaultCurrency.code}",
+                color = AppTheme.colors.secondaryBackgroundText(),
+                style = AppTheme.typography.bodyMedium
+            )
+        }
     }
 }

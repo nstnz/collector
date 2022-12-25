@@ -13,6 +13,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.nstnz.collector.common.design.button.BottomButtonComponent
@@ -46,6 +48,7 @@ internal fun AddSourceScreen(
         }
     ) {
         if (viewState is AddSourceScreenState.Default) {
+            val textValue = remember { mutableStateOf(TextFieldValue(viewState.name)) }
             CardComponent {
                 Column(
                     Modifier
@@ -70,8 +73,9 @@ internal fun AddSourceScreen(
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = "Name",
                         label = "Enter name",
-                        value = TextFieldValue(viewState.name),
+                        value = textValue.value,
                         onValueChange = {
+                            textValue.value = it
                             onChangeName(it.text)
                         },
                     )

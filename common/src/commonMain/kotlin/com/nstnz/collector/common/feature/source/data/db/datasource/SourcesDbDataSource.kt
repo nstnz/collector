@@ -14,20 +14,23 @@ internal class SourcesDbDataSource(
         return queries.getSource(sourceId, ::mapSource).executeAsOneOrNull()
     }
 
-    fun createSource(id: String, name: String) {
+    fun createSource(id: String, name: String, currencyCode: String) {
         queries.insertSource(
             id = id,
             name = name,
+            currencyCode = currencyCode,
         )
     }
 
     private fun mapSource(
         id: String,
-        name: String?,
+        name: String,
+        currencyCode: String,
     ): SourceEntity {
         return SourceEntity(
             id = id,
-            name = name.orEmpty()
+            name = name,
+            currencyCode = currencyCode
         )
     }
 }

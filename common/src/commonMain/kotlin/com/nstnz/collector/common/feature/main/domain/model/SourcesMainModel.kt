@@ -14,6 +14,7 @@ data class SourcesMainModel(
 data class SourceMainModel(
     val id: String,
     val name: String,
+    val defaultCurrency: CurrencyEntity,
     val funds: List<SourceFundMainModel>
 ) {
 
@@ -24,6 +25,7 @@ data class SourceMainModel(
 data class SourceFundMainModel(
     val id: String,
     val sum: Float,
+    val defaultCurrency: CurrencyEntity,
     val originalSum: Float,
     val originalCurrency: String,
 )
