@@ -14,7 +14,7 @@ import com.nstnz.collector.common.feature.source.presentation.SourceScreenState
 private fun AddCountScreenPreview() {
     AppTheme {
         AddCountScreen(
-            viewState = AddCountScreenState.Default
+            viewState = AddCountScreenState.Loading
         )
     }
 }

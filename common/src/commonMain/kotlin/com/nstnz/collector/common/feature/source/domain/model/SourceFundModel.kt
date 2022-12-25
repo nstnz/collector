@@ -5,4 +5,6 @@ data class SourceFundModel(
     val sourceId: String,
     val currencyCode: String,
     val sum: Float,
+    val isDefault: Boolean,
+    val name: String,
 )

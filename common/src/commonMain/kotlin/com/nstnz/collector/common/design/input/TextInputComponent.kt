@@ -152,7 +152,10 @@ private fun getTextColors() =
         focusedLabelColor = AppTheme.colors.accentColor(),
         unfocusedLabelColor = AppTheme.colors.secondaryBackgroundText(),
         placeholderColor = AppTheme.colors.hintBackgroundText(),
-        cursorColor = AppTheme.colors.accentColor()
+        cursorColor = AppTheme.colors.accentColor(),
+        disabledTextColor = AppTheme.colors.primaryBackgroundText(),
+        disabledBorderColor = AppTheme.colors.dividerBackgroundText(),
+        disabledLabelColor = AppTheme.colors.secondaryBackgroundText(),
     )
 
 @Composable

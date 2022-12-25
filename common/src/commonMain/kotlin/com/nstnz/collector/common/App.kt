@@ -50,7 +50,7 @@ internal fun App() {
 
                     when (route) {
                         Routes.Main -> MainScreenHolder()
-                        Routes.Source -> SourceScreenHolder(arg1.toString())
+                        Routes.Source -> SourceScreenHolder(arg1.orEmpty())
                         Routes.Settings -> SettingsScreenHolder()
                         Routes.Converter -> ConverterScreenHolder()
                         Routes.Currencies -> CurrenciesScreenHolder(
@@ -58,7 +58,7 @@ internal fun App() {
                         )
                         Routes.Splash -> SplashScreenHolder()
                         Routes.AddSource -> AddSourceScreenHolder()
-                        Routes.AddCount -> AddCountScreenHolder(arg1.toString())
+                        Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty())
                     }
                 }
             }

@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nstnz.collector.common.design.button.BottomButtonComponent
 import com.nstnz.collector.common.design.button.PrimaryButtonComponent
 import com.nstnz.collector.common.design.input.TextInputComponent
+import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.input.internal.TextInputState
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
@@ -31,11 +32,10 @@ private fun ComponentsPreview() {
                     PrimaryButtonComponent(text = "Ololo", onClick = { })
                     SpacerComponent { x2 }
 
-                    TextInputComponent(
+                    TextSelectorComponent(
                         modifier = Modifier.fillMaxWidth(),
-                        placeholder = "Placeholder1",
-                        value = TextFieldValue(""),
-                        onValueChange = {}
+                        label = "Olol",
+                        text = "Hello"
                     )
                     SpacerComponent { x2 }
                     TextInputComponent(

@@ -29,8 +29,8 @@ internal class AddSourceScreenViewModel(
             null
         }
         is AddSourceScreenIntent.SaveSource -> {
-            saveSourceDataUseCase(intent.name)
-            router.back()
+            val sourceId = saveSourceDataUseCase(intent.name)
+            router.navigateToSourceScreen(sourceId, clearBackEntry = true)
             null
         }
     }

@@ -6,6 +6,7 @@ import com.nstnz.collector.common.feature.source.data.SourcesRepository
 import com.nstnz.collector.common.feature.source.data.db.datasource.SourceFundsDbDataSource
 import com.nstnz.collector.common.feature.source.data.db.datasource.SourcesDbDataSource
 import com.nstnz.collector.common.feature.source.domain.scenario.GetSourceScenario
+import com.nstnz.collector.common.feature.source.domain.usecase.GetSourceDataUseCase
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenViewModel
 import org.kodein.di.*
 
@@ -30,6 +31,12 @@ internal val sourceScreenDi = DI.Module(name = Routes.Source.name) {
         GetSourceScenario(
             instance(),
             instance(),
+            instance(),
+            instance(),
+        )
+    }
+    bind<GetSourceDataUseCase>() with provider {
+        GetSourceDataUseCase(
             instance(),
             instance(),
         )

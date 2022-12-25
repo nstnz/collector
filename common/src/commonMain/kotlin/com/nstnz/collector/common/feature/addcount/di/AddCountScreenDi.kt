@@ -11,6 +11,9 @@ internal val addCountScreenDi = DI.Module(name = Routes.AddCount.name) {
         AddCountScreenViewModel(
             sourceId,
             instance(),
+            instance(),
+            instance(),
+            instance(),
         )
     }
 }

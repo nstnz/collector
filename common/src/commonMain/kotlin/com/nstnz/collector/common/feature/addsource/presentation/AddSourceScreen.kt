@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.nstnz.collector.common.design.button.BottomButtonComponent
 import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.input.TextInputComponent
+import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
@@ -81,6 +82,12 @@ internal fun AddSourceScreen(
                     label = "Enter name",
                     value = TextFieldValue(""),
                     onValueChange = {},
+                )
+                SpacerComponent { x2 }
+                TextSelectorComponent(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = "Default currency",
+                    text = ""
                 )
                 SpacerComponent { x4 }
             }
