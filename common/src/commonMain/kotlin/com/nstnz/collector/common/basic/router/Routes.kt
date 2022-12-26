@@ -13,5 +13,5 @@ internal enum class Routes {
     Splash,
     AddSource,
     AddCount,
-    ListSource
+    EditSource
 }

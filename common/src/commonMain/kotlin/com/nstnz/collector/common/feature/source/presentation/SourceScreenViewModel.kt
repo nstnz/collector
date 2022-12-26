@@ -46,5 +46,9 @@ internal class SourceScreenViewModel(
             router.back()
             null
         }
+        SourceScreenIntent.EditSource -> {
+            router.navigateToEditSourceScreen(sourceId)
+            null
+        }
     }
 }

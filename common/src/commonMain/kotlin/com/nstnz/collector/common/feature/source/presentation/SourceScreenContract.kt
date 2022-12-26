@@ -18,6 +18,7 @@ internal sealed interface SourceScreenState : State {
 internal sealed interface SourceScreenIntent : Intent {
     object Load : SourceScreenIntent
     object GoBack : SourceScreenIntent
+    object EditSource : SourceScreenIntent
     object AddCount : SourceScreenIntent
     data class ShowAddCount(val sourceId: String) : SourceScreenIntent
     data class Update(val sourceMainModel: SourceMainModel) : SourceScreenIntent

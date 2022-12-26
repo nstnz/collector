@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nstnz.collector.common.design.card.CardComponent
@@ -24,6 +25,7 @@ internal fun SourceScreen(
     viewState: SourceScreenState,
     onAddCountClick: () -> Unit = {},
     onBackClick: () -> Unit = {},
+    onEditClick: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -41,6 +43,14 @@ internal fun SourceScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = onEditClick) {
+                        Icon(
+                            Icons.Rounded.Edit,
+                            null,
+                            modifier = Modifier.size(AppTheme.indents.x4_5),
+                            tint = AppTheme.colors.primaryBackgroundText()
+                        )
+                    }
                     IconButton(onClick = onAddCountClick) {
                         Icon(
                             Icons.Rounded.Add,

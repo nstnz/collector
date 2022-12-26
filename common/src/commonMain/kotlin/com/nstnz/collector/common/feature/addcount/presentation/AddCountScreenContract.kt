@@ -19,7 +19,6 @@ internal sealed interface AddCountScreenState : State {
 
 internal sealed interface AddCountScreenIntent : Intent {
     object Load : AddCountScreenIntent
-    object SelectSource : AddCountScreenIntent
     object SelectCurrency : AddCountScreenIntent
     data class ChangeSum(val sum: String) : AddCountScreenIntent
     object GoBack : AddCountScreenIntent

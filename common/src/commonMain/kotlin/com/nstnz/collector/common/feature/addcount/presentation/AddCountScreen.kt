@@ -35,7 +35,6 @@ internal fun AddCountScreen(
     onChangeSum: (String) -> Unit = {},
     onBackClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
-    onSelectSourceClick: () -> Unit = {},
     onSelectCurrencyClick: () -> Unit = {},
 ) {
     GradientScaffold(
@@ -51,7 +50,6 @@ internal fun AddCountScreen(
             is AddCountScreenState.Default -> AddCountScreenDefaultState(
                 viewState,
                 onChangeSum,
-                onSelectSourceClick,
                 onSelectCurrencyClick
             )
             AddCountScreenState.Loading -> {}
@@ -64,7 +62,6 @@ internal fun AddCountScreen(
 private fun AddCountScreenDefaultState(
     viewState: AddCountScreenState.Default,
     onChangeSum: (String) -> Unit = {},
-    onSelectSourceClick: () -> Unit = {},
     onSelectCurrencyClick: () -> Unit = {},
 ) {
     val sumTextValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }

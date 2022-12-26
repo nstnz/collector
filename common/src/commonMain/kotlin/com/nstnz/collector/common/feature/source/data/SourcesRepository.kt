@@ -12,8 +12,11 @@ internal class SourcesRepository(
     private val sourceFundsDbDataSource: SourceFundsDbDataSource,
 ) {
 
-    suspend fun createSource(source: SourceEntity) =
+    suspend fun createOrUpdateSource(source: SourceEntity) =
         sourcesDbDataSource.createSource(source.id, source.name, source.currencyCode)
+
+    suspend fun deleteSource(sourceId: String) =
+        sourcesDbDataSource.deleteSource(sourceId)
 
     suspend fun createOrUpdateSourceFund(sourceFund: SourceFundEntity) =
         sourceFundsDbDataSource.updateSourceFund(

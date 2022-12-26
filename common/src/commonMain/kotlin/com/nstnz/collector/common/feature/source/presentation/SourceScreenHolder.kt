@@ -26,5 +26,6 @@ internal fun SourceScreenHolder(
         viewState,
         onBackClick = {viewModel.sendIntent(SourceScreenIntent.GoBack)},
         onAddCountClick = {viewModel.sendIntent(SourceScreenIntent.AddCount)},
+        onEditClick = {viewModel.sendIntent(SourceScreenIntent.EditSource)},
     )
 }

@@ -22,6 +22,12 @@ internal class SourcesDbDataSource(
         )
     }
 
+    fun deleteSource(id: String) {
+        queries.deleteSource(
+            id = id,
+        )
+    }
+
     private fun mapSource(
         id: String,
         name: String,

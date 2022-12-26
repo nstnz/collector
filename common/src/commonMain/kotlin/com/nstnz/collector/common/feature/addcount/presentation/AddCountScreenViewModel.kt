@@ -3,9 +3,7 @@ package com.nstnz.collector.common.feature.addcount.presentation
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.addcount.domain.SaveCountUseCase
-import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenIntent
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
 import com.nstnz.collector.common.feature.main.domain.usecase.GetSourcesDataUseCase
@@ -88,10 +86,6 @@ internal class AddCountScreenViewModel(
             } else {
                 null
             }
-        }
-        AddCountScreenIntent.SelectSource -> {
-            router.navigateToListSourceScreen(sourceId)
-            null
         }
         AddCountScreenIntent.SelectCurrency -> {
             if (state is AddCountScreenState.Default) {

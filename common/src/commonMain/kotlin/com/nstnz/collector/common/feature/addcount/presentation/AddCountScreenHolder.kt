@@ -32,7 +32,6 @@ internal fun AddCountScreenHolder(
         viewState,
         onBackClick = { viewModel.sendIntent(AddCountScreenIntent.GoBack) },
         onSaveClick = { viewModel.sendIntent(AddCountScreenIntent.Save) },
-        onSelectSourceClick = { viewModel.sendIntent(AddCountScreenIntent.SelectSource) },
         onSelectCurrencyClick = { viewModel.sendIntent(AddCountScreenIntent.SelectCurrency) },
         onChangeSum = { viewModel.sendIntent(AddCountScreenIntent.ChangeSum(it)) },
     )

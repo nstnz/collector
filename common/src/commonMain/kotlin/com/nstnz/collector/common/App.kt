@@ -12,7 +12,7 @@ import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenHo
 import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenHolder
 import com.nstnz.collector.common.feature.converter.presentation.ConverterScreenHolder
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenHolder
-import com.nstnz.collector.common.feature.listsource.presentation.ListSourceScreenHolder
+import com.nstnz.collector.common.feature.editsource.presentation.EditSourceScreenHolder
 import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenHolder
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenHolder
@@ -56,7 +56,7 @@ internal fun App() {
                         Routes.Splash -> SplashScreenHolder()
                         Routes.AddSource -> AddSourceScreenHolder()
                         Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty(), arg2.orEmpty())
-                        Routes.ListSource -> ListSourceScreenHolder(arg1.orEmpty(), arg2.orEmpty())
+                        Routes.EditSource -> EditSourceScreenHolder(arg1.orEmpty())
                     }
                 }
             }
