@@ -1,6 +1,7 @@
 package com.nstnz.collector.common.feature.source.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -26,6 +27,7 @@ internal fun SourceScreen(
     onAddCountClick: () -> Unit = {},
     onBackClick: () -> Unit = {},
     onEditClick: () -> Unit = {},
+    onCountClick: (String) -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -84,7 +86,8 @@ internal fun SourceScreen(
                     items(count = viewState.sourceMainModel.funds.size) { index ->
                         val fund = viewState.sourceMainModel.funds[index]
                         SourceFundCell(
-                            fund
+                            fund,
+                            onCountClick
                         )
                         SpacerComponent { x2 }
                     }
@@ -128,6 +131,7 @@ private fun HintPanel(
 @Composable
 private fun SourceFundCell(
     fund: SourceFundMainModel,
+    onCountClick: (String) -> Unit = {},
 ) {
     CardComponent(
         Modifier
@@ -137,6 +141,7 @@ private fun SourceFundCell(
     ) {
         Column(
             Modifier.fillMaxWidth()
+                .clickable { onCountClick(fund.id) }
                 .padding(horizontal = AppTheme.indents.x3, vertical = AppTheme.indents.x2)
         ) {
             Text(

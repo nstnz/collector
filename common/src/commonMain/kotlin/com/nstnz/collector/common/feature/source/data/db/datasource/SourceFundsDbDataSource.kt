@@ -23,6 +23,17 @@ internal class SourceFundsDbDataSource(
         )
     }
 
+    fun getSourceFund(sourceFundId: String) =
+        queries.getSourceFund(
+            sourceFundId, ::mapSourceFund
+        ).executeAsOneOrNull()
+
+    fun deleteSourceFund(sourceFundId: String) {
+        queries.deleteSourceFund(
+            id = sourceFundId
+        )
+    }
+
     private fun mapSourceFund(
         id: String,
         sourceId: String,

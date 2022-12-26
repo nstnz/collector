@@ -36,12 +36,6 @@ internal class AddCountScreenViewModel(
             intent.sum,
             false
         )
-        AddCountScreenIntent.Save -> {
-            when (prevState) {
-                is AddCountScreenState.Default -> prevState.copy(addMessageShown = true)
-                else -> prevState
-            }
-        }
         else -> prevState
     }
 

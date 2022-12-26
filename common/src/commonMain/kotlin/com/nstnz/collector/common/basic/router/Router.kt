@@ -47,6 +47,10 @@ internal class Router() {
         navigator.navigate(Routes.EditSource, null, sourceId)
     }
 
+    fun navigateToEditSourceFundScreen(sourceFundId: String?) {
+        navigator.navigate(Routes.EditCount, null, sourceFundId)
+    }
+
     fun navigateToCurrenciesScreen(multiCheck: Boolean, saveChanges: Boolean, currency: String?) {
         navigator.navigate(Routes.Currencies, null, multiCheck, saveChanges, currency)
     }

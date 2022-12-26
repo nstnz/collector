@@ -23,6 +23,16 @@ internal class SourcesRepository(
             sourceFund = sourceFund
         )
 
+    suspend fun getSourceFund(sourceFundId: String) =
+        sourceFundsDbDataSource.getSourceFund(
+            sourceFundId = sourceFundId
+        )
+
+    suspend fun deleteSourceFund(sourceFundId: String) =
+        sourceFundsDbDataSource.deleteSourceFund(
+            sourceFundId = sourceFundId
+        )
+
     suspend fun getSource(sourceId: String): SourceModel? =
         sourcesDbDataSource.getSource(sourceId)?.let {
             val results = sourceFundsDbDataSource.getAllSourceFunds(it.id)

@@ -58,6 +58,12 @@ name TEXT NOT NULL
 getAllSourceFunds:
 SELECT * FROM SourceFundsDao WHERE sourceId = ?;
 
+getSourceFund:
+SELECT * FROM SourceFundsDao WHERE id = ?;
+
+deleteSourceFund:
+DELETE FROM SourceFundsDao WHERE id = ?;
+
 insertSourceFund:
 INSERT OR REPLACE INTO SourceFundsDao(id, sourceId, currencyCode, sum, isDefault, name)
 VALUES(?,?,?,?,?,?);

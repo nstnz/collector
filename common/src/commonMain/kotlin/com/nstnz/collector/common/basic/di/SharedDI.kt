@@ -7,6 +7,7 @@ import com.nstnz.collector.common.feature.addcount.di.addCountScreenDi
 import com.nstnz.collector.common.feature.addsource.di.addSourceScreenDi
 import com.nstnz.collector.common.feature.converter.di.converterScreenDi
 import com.nstnz.collector.common.feature.currencies.di.currenciesDi
+import com.nstnz.collector.common.feature.editcount.di.editCountScreenDi
 import com.nstnz.collector.common.feature.editsource.di.editSourceScreenDi
 import com.nstnz.collector.common.feature.main.di.mainScreenDi
 import com.nstnz.collector.common.feature.settings.di.settingsScreenDi
@@ -47,6 +48,7 @@ object SharedDI {
         bind<Json>() with singleton { Json { ignoreUnknownKeys = true } }
         bind<SharedPreferences>() with singleton { sharedPreferences }
 
+        import(editCountScreenDi)
         import(editSourceScreenDi)
         import(addSourceScreenDi)
         import(currenciesDi)

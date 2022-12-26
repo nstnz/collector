@@ -19,6 +19,7 @@ internal sealed interface SourceScreenIntent : Intent {
     object Load : SourceScreenIntent
     object GoBack : SourceScreenIntent
     object EditSource : SourceScreenIntent
+    data class ShowCount(val sourceFundId: String) : SourceScreenIntent
     object AddCount : SourceScreenIntent
     data class ShowAddCount(val sourceId: String) : SourceScreenIntent
     data class Update(val sourceMainModel: SourceMainModel) : SourceScreenIntent

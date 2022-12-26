@@ -50,5 +50,9 @@ internal class SourceScreenViewModel(
             router.navigateToEditSourceScreen(sourceId)
             null
         }
+        is SourceScreenIntent.ShowCount -> {
+            router.navigateToEditSourceFundScreen(intent.sourceFundId)
+            null
+        }
     }
 }
