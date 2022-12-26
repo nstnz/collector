@@ -26,6 +26,7 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.design.topbar.NavBarComponent
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 
 @Composable
@@ -34,7 +35,7 @@ internal fun AddSourceScreen(
     onBackClick: () -> Unit = {},
     onSaveClick: (String) -> Unit = {},
     onChangeName: (String) -> Unit = {},
-    onChangeDefaultCurrency: (CurrencyEntity) -> Unit = {},
+    onChangeDefaultCurrency: (CurrencyDomainModel) -> Unit = {},
 ) {
     GradientScaffold(
         topBar = { DefaultNavComponent(onBackClick) },

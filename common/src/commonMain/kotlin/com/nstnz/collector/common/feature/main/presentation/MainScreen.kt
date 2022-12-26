@@ -9,7 +9,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,16 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.nstnz.collector.common.basic.texts.MainScreen_AddSource
 import com.nstnz.collector.common.basic.texts.MainScreen_NoSources
+import com.nstnz.collector.common.basic.texts.MainScreen_TotalSum
+import com.nstnz.collector.common.design.button.PrimaryButtonComponent
+import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
-import com.nstnz.collector.common.basic.texts.MainScreen_Title
-import com.nstnz.collector.common.basic.texts.MainScreen_TotalSum
-import com.nstnz.collector.common.design.button.PrimaryButtonComponent
-import com.nstnz.collector.common.design.card.CardComponent
-import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
+import com.nstnz.collector.common.feature.core.domain.model.SourceDomainModel
 
 @Composable
 internal fun MainScreen(
@@ -87,7 +85,7 @@ private fun MainScreenStateDefault(
         Modifier
             .fillMaxSize()
     ) {
-        MainResultPanel(viewState.sourcesMainModel.formattedSum, onChangeShownCurrency)
+        MainResultPanel(viewState.sourcesMainModel.originalFormattedSum, onChangeShownCurrency)
         Column(
             Modifier
                 .fillMaxWidth()
@@ -172,7 +170,7 @@ private fun MainResultPanel(
 
 @Composable
 private fun SourceDetailedPanel(
-    source: SourceMainModel,
+    source: SourceDomainModel,
     onSourceClick: (String) -> Unit
 ) {
     CardComponent(
@@ -199,7 +197,7 @@ private fun SourceDetailedPanel(
                         .weight(1f)
                 ) {
                     Text(
-                        text = source.formattedSum,
+                        text = source.originalFormattedSum,
                         color = AppTheme.colors.secondaryBackgroundText(),
                         style = AppTheme.typography.headingXlarge
                     )
@@ -218,16 +216,16 @@ private fun SourceDetailedPanel(
                     tint = AppTheme.colors.hintBackgroundText()
                 )
             }
-            if (source.funds.isNotEmpty()) {
+            if (source.counts.isNotEmpty()) {
                 SpacerComponent { x2 }
                 Box(
                     Modifier.fillMaxWidth().height(AppTheme.indents.x0_125)
                         .background(AppTheme.colors.overlayColor())
                 )
                 SpacerComponent { x1 }
-                source.funds.forEach {
+                source.counts.forEach {
                     Text(
-                        text = it.formattedSum,
+                        text = it.originalFormattedSum,
                         color = AppTheme.colors.hintBackgroundText(),
                         style = AppTheme.typography.bodyMedium
                     )

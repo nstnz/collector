@@ -2,19 +2,15 @@ package com.nstnz.collector.common.feature.addsource.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenIntent
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenState
 import com.nstnz.collector.common.feature.addsource.domain.usecase.SaveSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
-import com.nstnz.collector.common.feature.source.domain.scenario.GetSourceScenario
-import com.nstnz.collector.common.feature.source.presentation.SourceScreenIntent
-import com.nstnz.collector.common.feature.source.presentation.SourceScreenSingleEvent
+import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
 
 internal class AddSourceScreenViewModel(
     private val router: Router,
     private val saveSourceDataUseCase: SaveSourceDataUseCase,
-    private val getMainCurrencyUseCase: GetMainCurrencyUseCase,
+    private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
 ) : CoroutinesViewModel<AddSourceScreenState, AddSourceScreenIntent, AddSourceScreenSingleEvent>() {
 
     init {
@@ -64,16 +60,16 @@ internal class AddSourceScreenViewModel(
             null
         }
         AddSourceScreenIntent.Load -> {
-            val currency = getMainCurrencyUseCase()
+            val currency = getFavoriteCurrenciesUseCase()
             AddSourceScreenIntent.Update(
-                "", currency
+                "", currency.first()
             )
         }
         is AddSourceScreenIntent.Update -> null
         is AddSourceScreenIntent.ChangeName -> null
         AddSourceScreenIntent.OnResume -> {
             if (state is AddSourceScreenState.Default) {
-                val newCurrency = router.getLastResult<CurrencyEntity>()
+                val newCurrency = router.getLastResult<CurrencyDomainModel>()
                 newCurrency?.let {
                     AddSourceScreenIntent.Update(
                         state.name,

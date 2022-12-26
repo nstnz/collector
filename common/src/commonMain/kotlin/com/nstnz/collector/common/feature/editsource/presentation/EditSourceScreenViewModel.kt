@@ -2,20 +2,17 @@ package com.nstnz.collector.common.feature.editsource.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.addsource.domain.usecase.SaveSourceDataUseCase
-import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenIntent
-import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenState
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrencyUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.editsource.domain.usecase.DeleteSourceDataUseCase
 import com.nstnz.collector.common.feature.editsource.domain.usecase.EditSourceDataUseCase
-import com.nstnz.collector.common.feature.main.domain.usecase.GetSourcesDataUseCase
-import com.nstnz.collector.common.feature.source.domain.usecase.GetSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 
 internal class EditSourceScreenViewModel(
     private val sourceId: String,
     private val router: Router,
-    private val getSourceDataUseCase: GetSourceDataUseCase,
+    private val getSourceScenario: GetSourceScenario,
     private val getCurrencyUseCase: GetCurrencyUseCase,
     private val editSourceDataUseCase: EditSourceDataUseCase,
     private val deleteSourceDataUseCase: DeleteSourceDataUseCase,
@@ -51,8 +48,8 @@ internal class EditSourceScreenViewModel(
             null
         }
         EditSourceScreenIntent.Load -> {
-            val source = getSourceDataUseCase(sourceId)
-            val currency = getCurrencyUseCase(source?.currencyCode)
+            val source = getSourceScenario(sourceId)
+            val currency = getCurrencyUseCase(source?.originalCurrency?.code)
             currency?.let {
                 EditSourceScreenIntent.Update(
                     name = source?.name.orEmpty(),
@@ -88,7 +85,7 @@ internal class EditSourceScreenViewModel(
         }
         EditSourceScreenIntent.OnResume -> {
             if (state is EditSourceScreenState.Default) {
-                val newCurrency = router.getLastResult<CurrencyEntity>()
+                val newCurrency = router.getLastResult<CurrencyDomainModel>()
                 newCurrency?.let {
                     EditSourceScreenIntent.Update(
                         state.name,

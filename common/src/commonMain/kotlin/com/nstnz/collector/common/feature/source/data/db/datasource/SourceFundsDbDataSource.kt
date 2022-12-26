@@ -46,7 +46,7 @@ internal class SourceFundsDbDataSource(
             id = id,
             sourceId = sourceId,
             currencyCode = currencyCode,
-            sum = sum.toFloat(),
+            sum = sum,
             default = isDefault,
             name = name
         )

@@ -14,7 +14,7 @@ internal class EditCountDataUseCase(
     suspend operator fun invoke(
         sourceFundId: String,
         sourceId: String,
-        sum: Float,
+        sum: Double,
         currency: String,
         default: Boolean,
         name: String

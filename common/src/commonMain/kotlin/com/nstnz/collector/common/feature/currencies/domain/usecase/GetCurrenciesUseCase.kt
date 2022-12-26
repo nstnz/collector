@@ -1,5 +1,6 @@
 package com.nstnz.collector.common.feature.currencies.domain.usecase
 
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.CurrenciesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -14,5 +15,13 @@ internal class GetCurrenciesUseCase(
             .sortedBy { it.code }
             .sortedBy { it.crypto }
             .sortedByDescending { it.isFavourite }
+            .map {
+                CurrencyDomainModel(
+                    code = it.code,
+                    name = it.name,
+                    isFavourite = it.isFavourite,
+                    crypto = it.crypto
+                )
+            }
     }
 }

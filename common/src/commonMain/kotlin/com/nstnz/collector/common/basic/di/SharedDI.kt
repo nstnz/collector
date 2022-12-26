@@ -6,6 +6,7 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.addcount.di.addCountScreenDi
 import com.nstnz.collector.common.feature.addsource.di.addSourceScreenDi
 import com.nstnz.collector.common.feature.converter.di.converterScreenDi
+import com.nstnz.collector.common.feature.core.di.coreDi
 import com.nstnz.collector.common.feature.currencies.di.currenciesDi
 import com.nstnz.collector.common.feature.editcount.di.editCountScreenDi
 import com.nstnz.collector.common.feature.editsource.di.editSourceScreenDi
@@ -48,6 +49,7 @@ object SharedDI {
         bind<Json>() with singleton { Json { ignoreUnknownKeys = true } }
         bind<SharedPreferences>() with singleton { sharedPreferences }
 
+        import(coreDi)
         import(editCountScreenDi)
         import(editSourceScreenDi)
         import(addSourceScreenDi)

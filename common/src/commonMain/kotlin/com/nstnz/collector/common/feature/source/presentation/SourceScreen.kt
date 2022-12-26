@@ -19,8 +19,7 @@ import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.NavBarComponent
-import com.nstnz.collector.common.feature.main.domain.model.SourceFundMainModel
-import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
+import com.nstnz.collector.common.feature.core.domain.model.SourceCountDomainModel
 
 @Composable
 internal fun SourceScreen(
@@ -73,7 +72,7 @@ internal fun SourceScreen(
                     .fillMaxSize()
             ) {
                 HintPanel(
-                    viewState.sourceMainModel.formattedSum,
+                    viewState.sourceMainModel.originalFormattedSum,
                     viewState.sourceMainModel.name,
                     onChangeShownCurrency
                 )
@@ -86,8 +85,8 @@ internal fun SourceScreen(
                         end = AppTheme.indents.x3,
                     )
                 ) {
-                    items(count = viewState.sourceMainModel.funds.size) { index ->
-                        val fund = viewState.sourceMainModel.funds[index]
+                    items(count = viewState.sourceMainModel.counts.size) { index ->
+                        val fund = viewState.sourceMainModel.counts[index]
                         SourceFundCell(
                             fund,
                             onCountClick
@@ -139,7 +138,7 @@ private fun HintPanel(
 
 @Composable
 private fun SourceFundCell(
-    fund: SourceFundMainModel,
+    fund: SourceCountDomainModel,
     onCountClick: (String) -> Unit = {},
 ) {
     CardComponent(
@@ -154,13 +153,13 @@ private fun SourceFundCell(
                 .padding(horizontal = AppTheme.indents.x3, vertical = AppTheme.indents.x2)
         ) {
             Text(
-                text = fund.formattedOriginalSum,
+                text = fund.originalFormattedSum,
                 color = AppTheme.colors.secondaryBackgroundText(),
                 style = AppTheme.typography.headingXlarge
             )
             SpacerComponent { x1 }
             Text(
-                text = fund.formattedSum,
+                text = fund.originalFormattedSum,
                 color = AppTheme.colors.secondaryBackgroundText(),
                 style = AppTheme.typography.bodyMedium
             )

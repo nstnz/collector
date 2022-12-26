@@ -18,14 +18,14 @@ private fun CurrenciesScreenPreview() {
             viewState = CurrenciesScreenState(
                 list = emptyList(),
                 filteredList = listOf(
-                    CurrencyEntity("AED", "Arab Edt", false, false),
-                    CurrencyEntity("RUB", "DdjkKAS Edt", false, true),
-                    CurrencyEntity("USD", "JHskjd Edt", false, false),
-                    CurrencyEntity("EUR", "Arab", false, true),
-                    CurrencyEntity("BTC", "Kksdjja asd", true, false),
+                    getMockCurrencyDomainModel("AED"),
+                    getMockCurrencyDomainModel("USD"),
+                    getMockCurrencyDomainModel("DTC"),
+                    getMockCurrencyDomainModel("EUR"),
+                    getMockCurrencyDomainModel("AED"),
                 ),
                 checkedCurrencies = listOf(
-                    CurrencyEntity("AED", "Arab Edt", false, false),
+                    getMockCurrencyDomainModel("EUR"),
                 ),
                 multiCheck = false
             )

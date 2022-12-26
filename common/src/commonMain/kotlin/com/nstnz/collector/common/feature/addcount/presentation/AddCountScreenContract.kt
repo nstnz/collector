@@ -3,17 +3,16 @@ package com.nstnz.collector.common.feature.addcount.presentation
 import com.nstnz.collector.common.basic.presentation.Intent
 import com.nstnz.collector.common.basic.presentation.SingleEvent
 import com.nstnz.collector.common.basic.presentation.State
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.source.domain.model.SourceFundModel
-import com.nstnz.collector.common.feature.source.domain.model.SourceModel
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
+import com.nstnz.collector.common.feature.core.domain.model.SourceCountDomainModel
+import com.nstnz.collector.common.feature.core.domain.model.SourceDomainModel
 
 internal sealed interface AddCountScreenState : State {
     object Loading : AddCountScreenState
     data class Default(
-        val sourceModel: SourceModel?,
-        val currency: CurrencyEntity,
+        val sourceModel: SourceDomainModel?,
+        val currency: CurrencyDomainModel,
         val sum: String,
-        val addMessageShown: Boolean
     ) : AddCountScreenState
 }
 
@@ -24,8 +23,8 @@ internal sealed interface AddCountScreenIntent : Intent {
     object GoBack : AddCountScreenIntent
     object OnResume : AddCountScreenIntent
     data class Update(
-        val sourceModel: SourceModel?,
-        val currency: CurrencyEntity,
+        val sourceModel: SourceDomainModel?,
+        val currency: CurrencyDomainModel,
         val sum: String,
     ) : AddCountScreenIntent
 

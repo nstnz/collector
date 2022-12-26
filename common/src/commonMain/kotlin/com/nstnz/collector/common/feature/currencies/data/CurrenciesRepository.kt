@@ -10,7 +10,7 @@ internal class CurrenciesRepository(
     private val currenciesPrefs: CurrenciesPrefs,
 ) {
 
-    suspend fun getRatesForSum(originCurrency: String, sum: Float, currencies: List<String>) =
+    suspend fun getRatesForSum(originCurrency: String, sum: Double, currencies: List<String>) =
         currenciesNetworkDataSource.getRatesForSum(originCurrency, sum, currencies)
 
     suspend fun getSupportedCurrencies() =

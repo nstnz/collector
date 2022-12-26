@@ -13,15 +13,15 @@ internal class SaveCountUseCase(
 ) {
 
     suspend operator fun invoke(
-        currency: CurrencyEntity,
-        sum: Float,
+        currency: String,
+        sum: Double,
         sourceId: String
     ) = withContext(dispatcher) {
         sourcesRepository.createOrUpdateSourceFund(
             SourceFundEntity(
                 id = randomUUID(),
                 sourceId = sourceId,
-                currencyCode = currency.code,
+                currencyCode = currency,
                 sum = sum,
                 default = false,
                 name = ""

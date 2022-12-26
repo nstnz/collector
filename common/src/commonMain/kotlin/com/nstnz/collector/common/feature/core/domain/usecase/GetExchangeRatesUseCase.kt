@@ -1,36 +1,30 @@
-package com.nstnz.collector.common.feature.converter.domain.usecase
+package com.nstnz.collector.common.feature.core.domain.usecase
 
+import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainModel
 import com.nstnz.collector.common.feature.currencies.data.CurrenciesRepository
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class GetExchangeRatesUseCase(
     private val currenciesRepository: CurrenciesRepository,
     private val dispatcher: CoroutineDispatcher,
+    private val getCurrencyUseCase: GetCurrencyUseCase,
 ) {
 
     suspend operator fun invoke(
-        originCurrency: CurrencyEntity,
-        sum: Float,
-        currencies: List<CurrencyEntity>
-    ) = withContext(dispatcher) {
-        currenciesRepository.getRatesForSum(
-            originCurrency = originCurrency.code,
-            sum = sum,
-            currencies = currencies.map { it.code }
-        )
-    }
-
-    suspend operator fun invoke(
         originCurrency: String,
-        sum: Float,
+        sum: Double,
         currencies: List<String>
-    ) = withContext(dispatcher) {
+    ): List<CurrencySumDomainModel> = withContext(dispatcher) {
         currenciesRepository.getRatesForSum(
             originCurrency = originCurrency,
             sum = sum,
             currencies = currencies
-        )
+        ).map {
+            CurrencySumDomainModel(
+                sum = it.sum,
+                currency = getCurrencyUseCase(it.code)
+            )
+        }
     }
 }

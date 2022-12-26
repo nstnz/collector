@@ -4,8 +4,6 @@ import com.nstnz.collector.common.feature.source.data.db.datasource.SourceFundsD
 import com.nstnz.collector.common.feature.source.data.db.datasource.SourcesDbDataSource
 import com.nstnz.collector.common.feature.source.data.db.model.SourceEntity
 import com.nstnz.collector.common.feature.source.data.db.model.SourceFundEntity
-import com.nstnz.collector.common.feature.source.domain.model.SourceFundModel
-import com.nstnz.collector.common.feature.source.domain.model.SourceModel
 
 internal class SourcesRepository(
     private val sourcesDbDataSource: SourcesDbDataSource,
@@ -28,49 +26,20 @@ internal class SourcesRepository(
             sourceFundId = sourceFundId
         )
 
+    suspend fun getAllSourceFunds(sourceId: String) =
+        sourceFundsDbDataSource.getAllSourceFunds(
+            sourceId = sourceId
+        )
+
     suspend fun deleteSourceFund(sourceFundId: String) =
         sourceFundsDbDataSource.deleteSourceFund(
             sourceFundId = sourceFundId
         )
 
-    suspend fun getSource(sourceId: String): SourceModel? =
-        sourcesDbDataSource.getSource(sourceId)?.let {
-            val results = sourceFundsDbDataSource.getAllSourceFunds(it.id)
-            SourceModel(
-                id = it.id,
-                name = it.name,
-                currencyCode = it.currencyCode,
-                funds = results.map { fund ->
-                    SourceFundModel(
-                        id = fund.id,
-                        sourceId = fund.sourceId,
-                        currencyCode = fund.currencyCode,
-                        sum = fund.sum,
-                        isDefault = fund.default,
-                        name = fund.name
-                    )
-                }
-            )
-        }
+    suspend fun getSource(sourceId: String): SourceEntity? =
+        sourcesDbDataSource.getSource(sourceId)
 
-    suspend fun getAllSources(): List<SourceModel> {
-        return sourcesDbDataSource.getAllSources().map {
-            val results = sourceFundsDbDataSource.getAllSourceFunds(it.id)
-            SourceModel(
-                id = it.id,
-                name = it.name,
-                currencyCode = it.currencyCode,
-                funds = results.map { fund ->
-                    SourceFundModel(
-                        id = fund.id,
-                        sourceId = fund.sourceId,
-                        currencyCode = fund.currencyCode,
-                        sum = fund.sum,
-                        isDefault = fund.default,
-                        name = fund.name
-                    )
-                }
-            )
-        }
+    suspend fun getAllSources(): List<SourceEntity> {
+        return sourcesDbDataSource.getAllSources()
     }
 }

@@ -2,7 +2,7 @@ package com.nstnz.collector.common.feature.converter.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.converter.domain.usecase.GetExchangeRatesUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetExchangeRatesUseCase
 
 internal class ConverterScreenViewModel(
     private val router: Router,

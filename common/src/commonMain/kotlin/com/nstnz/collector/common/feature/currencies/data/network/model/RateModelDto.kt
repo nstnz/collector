@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class RateModelDto(
     val code: String,
-    val sum: Float,
+    val sum: Double,
 )

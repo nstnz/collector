@@ -40,7 +40,7 @@ internal class CurrenciesNetworkDataSource(
 
     suspend fun getRatesForSum(
         originCurrency: String,
-        sum: Float,
+        sum: Double,
         currencies: List<String>
     ): List<RateModelDto> {
         val uri = URLBuilder("https://api.exchangerate.host/latest").apply {
@@ -52,9 +52,9 @@ internal class CurrenciesNetworkDataSource(
         val result = mutableListOf<RateModelDto>()
         if (response is NetworkResponse.Success) {
             val values =
-                json.decodeFromString<Map<String, Float?>>(response.obj["rates"].toString())
+                json.decodeFromString<Map<String, Double?>>(response.obj["rates"].toString())
             result.addAll(values.map {
-                RateModelDto(it.key, it.value ?: 0f)
+                RateModelDto(it.key, it.value ?: 0.0)
             })
         }
         return result

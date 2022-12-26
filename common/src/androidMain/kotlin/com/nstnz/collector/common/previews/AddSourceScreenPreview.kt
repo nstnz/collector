@@ -16,9 +16,7 @@ private fun AddSourceScreenPreview() {
     AppTheme {
         AddSourceScreen(
             viewState = AddSourceScreenState.Default(
-                "", CurrencyEntity(
-                    "USD", "", false, false
-                )
+                "", getMockCurrencyDomainModel()
             )
         )
     }

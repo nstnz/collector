@@ -3,20 +3,16 @@ package com.nstnz.collector.common.feature.addcount.presentation
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.addcount.domain.SaveCountUseCase
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrencyUseCase
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
-import com.nstnz.collector.common.feature.main.domain.usecase.GetSourcesDataUseCase
-import com.nstnz.collector.common.feature.source.domain.model.SourceModel
-import com.nstnz.collector.common.feature.source.domain.usecase.GetSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
+import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetSourcesDataUseCase
 
 internal class AddCountScreenViewModel(
     private val sourceId: String,
     private val router: Router,
-    private val getSourceDataUseCase: GetSourceDataUseCase,
+    private val getSourceScenario: GetSourceScenario,
     private val getSourcesDataUseCase: GetSourcesDataUseCase,
-    private val getMainCurrencyUseCase: GetMainCurrencyUseCase,
-    private val getCurrencyUseCase: GetCurrencyUseCase,
     private val saveCountUseCase: SaveCountUseCase,
 ) : CoroutinesViewModel<AddCountScreenState, AddCountScreenIntent, AddCountScreenSingleEvent>() {
 
@@ -34,7 +30,6 @@ internal class AddCountScreenViewModel(
             intent.sourceModel,
             intent.currency,
             intent.sum,
-            false
         )
         else -> prevState
     }
@@ -45,13 +40,12 @@ internal class AddCountScreenViewModel(
     ): AddCountScreenIntent? = when (intent) {
         AddCountScreenIntent.Load -> {
             val source = if (sourceId.isNotEmpty()) {
-                getSourceDataUseCase(sourceId)
+                getSourceScenario(sourceId)
             } else {
                 getSourcesDataUseCase().firstOrNull()
             }
-            val currency = getCurrencyUseCase(source?.currencyCode) ?: getMainCurrencyUseCase()
             val sum = ""
-            AddCountScreenIntent.Update(source, currency, sum)
+            AddCountScreenIntent.Update(source, source?.originalCurrency!!, sum)
         }
         is AddCountScreenIntent.Update -> null
         AddCountScreenIntent.GoBack -> {
@@ -61,8 +55,8 @@ internal class AddCountScreenViewModel(
         AddCountScreenIntent.Save -> {
             if (state is AddCountScreenState.Default) {
                 saveCountUseCase(
-                    currency = state.currency,
-                    sum = state.sum.toFloatOrNull() ?: 0f,
+                    currency = state.currency.code,
+                    sum = state.sum.toDoubleOrNull() ?: 0.0,
                     sourceId = sourceId
                 )
                 router.back()
@@ -93,18 +87,11 @@ internal class AddCountScreenViewModel(
         }
         AddCountScreenIntent.OnResume -> {
             if (state is AddCountScreenState.Default) {
-                val newCurrency = router.getLastResult<CurrencyEntity>()
-                val newSource = router.getLastResult<SourceModel>()
+                val newCurrency = router.getLastResult<CurrencyDomainModel>()
                 if (newCurrency != null) {
                     AddCountScreenIntent.Update(
                         state.sourceModel,
                         newCurrency,
-                        state.sum,
-                    )
-                } else if (newSource != null) {
-                    AddCountScreenIntent.Update(
-                        newSource,
-                        state.currency,
                         state.sum,
                     )
                 } else {

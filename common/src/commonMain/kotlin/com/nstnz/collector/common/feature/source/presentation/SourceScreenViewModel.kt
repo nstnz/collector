@@ -2,13 +2,14 @@ package com.nstnz.collector.common.feature.source.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.main.domain.scenario.GetSourcesScenario
 
 internal class SourceScreenViewModel(
     private val sourceId: String,
     private val router: Router,
-    private val getSourcesScenario: GetSourcesScenario,
+    private val getSourceScenario: GetSourceScenario,
 ) : CoroutinesViewModel<SourceScreenState, SourceScreenIntent, SourceScreenSingleEvent>() {
 
     override fun initialState(): SourceScreenState = SourceScreenState.Loading
@@ -31,12 +32,8 @@ internal class SourceScreenViewModel(
             null
         }
         SourceScreenIntent.OnResume -> {
-            val newCurrency = router.getLastResult<CurrencyEntity>()
-            val source = getSourcesScenario(
-                newCurrency?.code
-            ).sources.firstOrNull {
-                it.id == sourceId
-            }
+            val newCurrency = router.getLastResult<CurrencyDomainModel>()
+            val source = getSourceScenario(sourceId, newCurrency?.let { listOf(it) })
             source?.let {
                 SourceScreenIntent.Update(it)
             }
@@ -63,7 +60,7 @@ internal class SourceScreenViewModel(
                 router.navigateToCurrenciesScreen(
                     multiCheck = false,
                     saveChanges = false,
-                    currency = state.sourceMainModel.defaultCurrency.code
+                    currency = state.sourceMainModel.originalCurrency.code
                 )
             }
             null

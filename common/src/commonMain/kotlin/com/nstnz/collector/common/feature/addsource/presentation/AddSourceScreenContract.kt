@@ -3,13 +3,14 @@ package com.nstnz.collector.common.feature.addsource.presentation
 import com.nstnz.collector.common.basic.presentation.Intent
 import com.nstnz.collector.common.basic.presentation.SingleEvent
 import com.nstnz.collector.common.basic.presentation.State
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 
 internal sealed interface AddSourceScreenState : State {
     object Loading : AddSourceScreenState
     data class Default(
         val name: String,
-        val currency: CurrencyEntity
+        val currency: CurrencyDomainModel
     ) : AddSourceScreenState
 }
 
@@ -19,11 +20,11 @@ internal sealed interface AddSourceScreenIntent : Intent {
     object Load : AddSourceScreenIntent
     data class Update(
         val name: String,
-        val currency: CurrencyEntity
+        val currency: CurrencyDomainModel
     ) : AddSourceScreenIntent
 
     object SaveSource : AddSourceScreenIntent
-    data class ChangeCurrency(val currency: CurrencyEntity) : AddSourceScreenIntent
+    data class ChangeCurrency(val currency: CurrencyDomainModel) : AddSourceScreenIntent
     data class ChangeName(val name: String) : AddSourceScreenIntent
 }
 

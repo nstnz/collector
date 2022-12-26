@@ -2,24 +2,17 @@ package com.nstnz.collector.common.feature.editcount.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenIntent
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenState
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrencyUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.editcount.domain.usecase.DeleteCountDataUseCase
 import com.nstnz.collector.common.feature.editcount.domain.usecase.EditCountDataUseCase
-import com.nstnz.collector.common.feature.editcount.domain.usecase.GetSourceFundDataUseCase
-import com.nstnz.collector.common.feature.editsource.domain.usecase.DeleteSourceDataUseCase
-import com.nstnz.collector.common.feature.editsource.domain.usecase.EditSourceDataUseCase
-import com.nstnz.collector.common.feature.source.domain.model.SourceFundModel
-import com.nstnz.collector.common.feature.source.domain.model.SourceModel
-import com.nstnz.collector.common.feature.source.domain.usecase.GetSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetSourceCountDataUseCase
 
 internal class EditCountScreenViewModel(
     private val sourceFundId: String,
     private val router: Router,
-    private val getSourceFundDataUseCase: GetSourceFundDataUseCase,
-    private val getCurrencyUseCase: GetCurrencyUseCase,
+    private val getSourceCountDataUseCase: GetSourceCountDataUseCase,
     private val editCountDataUseCase: EditCountDataUseCase,
     private val deleteCountDataUseCase: DeleteCountDataUseCase,
 ) : CoroutinesViewModel<EditCountScreenState, EditCountScreenIntent, EditCountScreenSingleEvent>() {
@@ -51,14 +44,11 @@ internal class EditCountScreenViewModel(
             null
         }
         EditCountScreenIntent.Load -> {
-            val sourceFund = getSourceFundDataUseCase(sourceFundId)
+            val sourceFund = getSourceCountDataUseCase(sourceFundId)
             sourceFund?.let { fund ->
-                val currency = getCurrencyUseCase(fund.currencyCode)
-                currency?.let {
-                    EditCountScreenIntent.Update(
-                        fund, currency, fund.sum.toString()
-                    )
-                }
+                EditCountScreenIntent.Update(
+                    fund, fund.originalSum.currency, fund.originalSum.sum.toString()
+                )
             }
         }
         is EditCountScreenIntent.Update -> null
@@ -87,9 +77,9 @@ internal class EditCountScreenViewModel(
                     sourceFundId = sourceFundId,
                     sourceId = state.sourceModel?.sourceId.orEmpty(),
                     currency = state.currency.code,
-                    sum = state.sum.toFloatOrNull() ?: 0f,
-                    name = state.sourceModel?.name.orEmpty(),
-                    default = state.sourceModel?.default ?: false,
+                    sum = state.sum.toDoubleOrNull() ?: 0.0,
+                    name = "",
+                    default = state.sourceModel?.isDefault ?: false,
                 )
                 router.back()
             }
@@ -97,7 +87,7 @@ internal class EditCountScreenViewModel(
         }
         EditCountScreenIntent.OnResume -> {
             if (state is EditCountScreenState.Default) {
-                val newCurrency = router.getLastResult<CurrencyEntity>()
+                val newCurrency = router.getLastResult<CurrencyDomainModel>()
                 if (newCurrency != null) {
                     EditCountScreenIntent.Update(
                         state.sourceModel,

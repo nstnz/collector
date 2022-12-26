@@ -1,19 +1,18 @@
 package com.nstnz.collector.common.feature.editsource.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.Delete
-import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,12 +24,13 @@ import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.design.theme.*
-import com.nstnz.collector.common.design.topbar.DefaultNavComponent
+import com.nstnz.collector.common.design.theme.AppTheme
+import com.nstnz.collector.common.design.theme.backgroundPrimary
+import com.nstnz.collector.common.design.theme.primaryBackgroundText
+import com.nstnz.collector.common.design.theme.secondaryBackgroundText
 import com.nstnz.collector.common.design.topbar.NavBarComponent
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.source.domain.model.SourceFundModel
-import com.nstnz.collector.common.feature.source.domain.model.SourceModel
 
 @Composable
 internal fun EditSourceScreen(
@@ -39,7 +39,7 @@ internal fun EditSourceScreen(
     onSaveClick: () -> Unit = {},
     onDeleteClick: () -> Unit = {},
     onChangeName: (String) -> Unit = {},
-    onChangeDefaultCurrency: (CurrencyEntity) -> Unit = {},
+    onChangeDefaultCurrency: (CurrencyDomainModel) -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {

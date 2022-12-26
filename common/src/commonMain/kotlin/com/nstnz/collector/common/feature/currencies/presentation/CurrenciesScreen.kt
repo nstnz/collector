@@ -17,12 +17,13 @@ import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
+import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 
 @Composable
 internal fun CurrenciesScreen(
     viewState: CurrenciesScreenState,
-    onCurrencyClick: (CurrencyEntity) -> Unit = {},
+    onCurrencyClick: (CurrencyDomainModel) -> Unit = {},
     onSearch: (String) -> Unit = {},
     onBackCLick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
@@ -100,10 +101,10 @@ private fun HintPanel(multiCheck: Boolean) {
 
 @Composable
 private fun CurrencyCell(
-    currency: CurrencyEntity,
+    currency: CurrencyDomainModel,
     selected: Boolean,
     multiCheck: Boolean,
-    onCurrencyClick: (CurrencyEntity) -> Unit
+    onCurrencyClick: (CurrencyDomainModel) -> Unit
 ) {
     CardComponent(
         Modifier
