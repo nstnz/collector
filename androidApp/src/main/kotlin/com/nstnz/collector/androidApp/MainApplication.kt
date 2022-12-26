@@ -12,7 +12,7 @@ class MainApplication : Application() {
         super.onCreate()
         Android.context = this
         Thread.setDefaultUncaughtExceptionHandler(TopExceptionHandler())
-        SharedDI.init(
+        SharedDI.initializeWithParams(
             databaseDriver = DatabaseDriverFactory(this).createDriver(),
             sharedPreferences = SharedPreferences(this)
         )

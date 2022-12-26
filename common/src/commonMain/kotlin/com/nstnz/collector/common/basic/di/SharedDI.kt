@@ -28,7 +28,7 @@ object SharedDI {
     private lateinit var databaseDriver: SqlDriver
     private lateinit var sharedPreferences: SharedPreferences
 
-    fun init(
+    fun initializeWithParams(
         databaseDriver: SqlDriver,
         sharedPreferences: SharedPreferences,
     ) {

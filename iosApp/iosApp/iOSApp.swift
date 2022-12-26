@@ -13,6 +13,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         window.rootViewController = controller
         window.makeKeyAndVisible()
         self.window = window
+
+        SharedDI.init().initializeWithParams(
+            databaseDriver: DatabaseDriverFactory().createDriver(),
+            sharedPreferences: Kmm_preferencesSharedPreferences()
+            )
         
         return true
     }
