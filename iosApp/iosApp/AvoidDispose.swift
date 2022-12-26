@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import test
+import common
 
 // ComposeWindow is disposed on viewDidDisappear so but it inside a container view:
 // https://github.com/JetBrains/androidx/blob/jb-main/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/window/ComposeWindow.uikit.kt
@@ -62,8 +62,8 @@ class AvoidDispose: UIViewController {
     private func skiaRefresh() {
         controller.view.frame = view.bounds
         controller.viewWillAppear(false)
-        RootViewControllersKt.setDarkMode()
-        RootViewControllersKt.setSafeArea(start: view.safeAreaInsets.left, top: view.safeAreaInsets.top, end: view.safeAreaInsets.right, bottom: view.safeAreaInsets.bottom)
+       // RootViewControllersKt.setDarkMode()
+      //  RootViewControllersKt.setSafeArea(start: view.safeAreaInsets.left, top: view.safeAreaInsets.top, end: view.safeAreaInsets.right, bottom: view.safeAreaInsets.bottom)
         //kotlin compose refresh
         controller.view.touchesCancelled([UITouch()], with: UIEvent())
     }

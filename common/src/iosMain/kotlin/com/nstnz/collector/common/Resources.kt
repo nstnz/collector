@@ -1,9 +1,12 @@
 package com.nstnz.collector.common
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import platform.UIKit.UIImage
@@ -26,5 +29,6 @@ internal actual fun imageResource(id: String): ImageBitmap {
 
 @Composable
 internal actual fun imageVector(id: String): ImageVector {
-    TODO()
+    return ImageVector.Builder("", 0.dp, 0.dp, 0f,
+        0f, Color.Cyan, BlendMode.Clear, false).build()
 }
