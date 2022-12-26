@@ -13,6 +13,7 @@ import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.nstnz.collector.common.design.button.PrimaryButtonComponent
 import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
@@ -28,6 +29,7 @@ internal fun SourceScreen(
     onBackClick: () -> Unit = {},
     onEditClick: () -> Unit = {},
     onCountClick: (String) -> Unit = {},
+    onChangeShownCurrency: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -73,6 +75,7 @@ internal fun SourceScreen(
                 HintPanel(
                     viewState.sourceMainModel.formattedSum,
                     viewState.sourceMainModel.name,
+                    onChangeShownCurrency
                 )
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -101,6 +104,7 @@ internal fun SourceScreen(
 private fun HintPanel(
     total: String,
     title: String,
+    onChangeShownCurrency: () -> Unit = {},
 ) {
     CardComponent {
         Column(
@@ -122,6 +126,11 @@ private fun HintPanel(
                 text = total,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.headingMegaLarge
+            )
+            SpacerComponent { x1 }
+            PrimaryButtonComponent(
+                "Change currency",
+                onChangeShownCurrency
             )
         }
 

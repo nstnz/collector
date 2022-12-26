@@ -15,11 +15,12 @@ internal sealed interface MainScreenState : State {
 internal sealed interface MainScreenIntent : Intent {
     data class ShowSource(val sourceId: String) : MainScreenIntent
     object ShowConverter : MainScreenIntent
-    object Load : MainScreenIntent
+    object OnResume : MainScreenIntent
     data class Update(val sourcesMainModel: SourcesMainModel) : MainScreenIntent
     object ShowSettingsScreen : MainScreenIntent
     object ShowAddCount : MainScreenIntent
     object ShowAddSource : MainScreenIntent
+    object ChangeShownCurrency : MainScreenIntent
 }
 
 internal sealed class MainScreenSingleEvent : SingleEvent

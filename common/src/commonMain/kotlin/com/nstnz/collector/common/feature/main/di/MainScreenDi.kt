@@ -13,7 +13,8 @@ internal val mainScreenDi = DI.Module(name = Routes.Main.name) {
             instance(),
             instance(),
             instance(),
-            instance()
+            instance(),
+            instance(),
         )
     }
     bind<GetSourcesDataUseCase>() with provider {

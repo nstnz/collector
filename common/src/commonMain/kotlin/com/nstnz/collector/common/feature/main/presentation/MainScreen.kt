@@ -36,6 +36,7 @@ internal fun MainScreen(
     onSourceClick: (String) -> Unit = {},
     onConverterTabCLick: () -> Unit = {},
     onSettingsTabClick: () -> Unit = {},
+    onChangeShownCurrency: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -67,7 +68,8 @@ internal fun MainScreen(
             is MainScreenState.Default -> MainScreenStateDefault(
                 viewState,
                 onAddSource,
-                onSourceClick
+                onSourceClick,
+                onChangeShownCurrency
             )
             MainScreenState.Loading -> {}
         }
@@ -78,13 +80,14 @@ internal fun MainScreen(
 private fun MainScreenStateDefault(
     viewState: MainScreenState.Default,
     onAddSource: () -> Unit = {},
-    onSourceClick: (String) -> Unit
+    onSourceClick: (String) -> Unit,
+    onChangeShownCurrency: () -> Unit = {},
 ) {
     Column(
         Modifier
             .fillMaxSize()
     ) {
-        MainResultPanel(viewState.sourcesMainModel.formattedSum)
+        MainResultPanel(viewState.sourcesMainModel.formattedSum, onChangeShownCurrency)
         Column(
             Modifier
                 .fillMaxWidth()
@@ -133,7 +136,8 @@ private fun EmptySourcesComponent(
 
 @Composable
 private fun MainResultPanel(
-    total: String
+    total: String,
+    onChangeShownCurrency: () -> Unit = {},
 ) {
     CardComponent {
         Column(
@@ -155,6 +159,11 @@ private fun MainResultPanel(
                 text = total,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.headingMegaLarge
+            )
+            SpacerComponent { x1 }
+            PrimaryButtonComponent(
+                "Change currency",
+                onChangeShownCurrency
             )
         }
 

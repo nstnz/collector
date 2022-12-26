@@ -17,7 +17,7 @@ internal fun SourceScreenHolder(
 
     OnLifecycleEvent { event ->
         when (event) {
-            Lifecycle.State.Active -> viewModel.sendIntent(SourceScreenIntent.Load)
+            Lifecycle.State.Active -> viewModel.sendIntent(SourceScreenIntent.OnResume)
             else -> Unit
         }
     }
@@ -28,5 +28,6 @@ internal fun SourceScreenHolder(
         onAddCountClick = {viewModel.sendIntent(SourceScreenIntent.AddCount)},
         onEditClick = {viewModel.sendIntent(SourceScreenIntent.EditSource)},
         onCountClick = {viewModel.sendIntent(SourceScreenIntent.ShowCount(it))},
+        onChangeShownCurrency = {viewModel.sendIntent(SourceScreenIntent.ChangeShownCurrency)},
     )
 }

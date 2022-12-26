@@ -4,8 +4,6 @@ import com.nstnz.collector.common.basic.presentation.Intent
 import com.nstnz.collector.common.basic.presentation.SingleEvent
 import com.nstnz.collector.common.basic.presentation.State
 import com.nstnz.collector.common.feature.main.domain.model.SourceMainModel
-import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
-import com.nstnz.collector.common.feature.source.domain.model.SourceModel
 
 internal sealed interface SourceScreenState : State {
     object Loading : SourceScreenState
@@ -16,9 +14,10 @@ internal sealed interface SourceScreenState : State {
 }
 
 internal sealed interface SourceScreenIntent : Intent {
-    object Load : SourceScreenIntent
+    object OnResume : SourceScreenIntent
     object GoBack : SourceScreenIntent
     object EditSource : SourceScreenIntent
+    object ChangeShownCurrency : SourceScreenIntent
     data class ShowCount(val sourceFundId: String) : SourceScreenIntent
     object AddCount : SourceScreenIntent
     data class ShowAddCount(val sourceId: String) : SourceScreenIntent

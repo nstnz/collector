@@ -2,6 +2,7 @@ package com.nstnz.collector.common.feature.source.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
+import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import com.nstnz.collector.common.feature.main.domain.scenario.GetSourcesScenario
 
 internal class SourceScreenViewModel(
@@ -29,8 +30,11 @@ internal class SourceScreenViewModel(
             router.navigateToAddCountScreen(sourceId)
             null
         }
-        SourceScreenIntent.Load -> {
-            val source = getSourcesScenario().sources.firstOrNull {
+        SourceScreenIntent.OnResume -> {
+            val newCurrency = router.getLastResult<CurrencyEntity>()
+            val source = getSourcesScenario(
+                newCurrency?.code
+            ).sources.firstOrNull {
                 it.id == sourceId
             }
             source?.let {
@@ -52,6 +56,16 @@ internal class SourceScreenViewModel(
         }
         is SourceScreenIntent.ShowCount -> {
             router.navigateToEditSourceFundScreen(intent.sourceFundId)
+            null
+        }
+        SourceScreenIntent.ChangeShownCurrency -> {
+            if (state is  SourceScreenState.Default) {
+                router.navigateToCurrenciesScreen(
+                    multiCheck = false,
+                    saveChanges = false,
+                    currency = state.sourceMainModel.defaultCurrency.code
+                )
+            }
             null
         }
     }

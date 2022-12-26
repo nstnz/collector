@@ -2,9 +2,8 @@ package com.nstnz.collector.common.feature.main.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetMainCurrencyUseCase
+import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import com.nstnz.collector.common.feature.main.domain.scenario.GetSourcesScenario
-import com.nstnz.collector.common.feature.main.domain.usecase.GetSourcesDataUseCase
 
 internal class MainScreenViewModel(
     private val router: Router,
@@ -35,10 +34,6 @@ internal class MainScreenViewModel(
             router.navigateToSettingsScreen()
             null
         }
-        MainScreenIntent.Load -> {
-            val sourcesModel = getSourcesScenario()
-            MainScreenIntent.Update(sourcesModel)
-        }
         is MainScreenIntent.Update -> null
         is MainScreenIntent.ShowAddCount -> {
             router.navigateToAddCountScreen(null)
@@ -46,6 +41,21 @@ internal class MainScreenViewModel(
         }
         MainScreenIntent.ShowAddSource -> {
             router.navigateToAddSourceScreen()
+            null
+        }
+        MainScreenIntent.OnResume -> {
+            val newCurrency = router.getLastResult<CurrencyEntity>()
+            val sourcesModel = getSourcesScenario(newCurrency?.code)
+            MainScreenIntent.Update(sourcesModel)
+        }
+        MainScreenIntent.ChangeShownCurrency -> {
+            if (state is  MainScreenState.Default) {
+                router.navigateToCurrenciesScreen(
+                    multiCheck = false,
+                    saveChanges = false,
+                    currency = state.sourcesMainModel.currency.code
+                )
+            }
             null
         }
     }

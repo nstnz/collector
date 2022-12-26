@@ -5,7 +5,6 @@ import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
-import com.nstnz.collector.common.feature.source.presentation.SourceScreenIntent
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -16,7 +15,7 @@ internal fun MainScreenHolder() {
 
     OnLifecycleEvent { event ->
         when (event) {
-            Lifecycle.State.Active -> viewModel.sendIntent(MainScreenIntent.Load)
+            Lifecycle.State.Active -> viewModel.sendIntent(MainScreenIntent.OnResume)
             else -> Unit
         }
     }
@@ -28,5 +27,6 @@ internal fun MainScreenHolder() {
         onSettingsTabClick = { viewModel.sendIntent(MainScreenIntent.ShowSettingsScreen) },
         onAddCount = { viewModel.sendIntent(MainScreenIntent.ShowAddCount) },
         onAddSource = { viewModel.sendIntent(MainScreenIntent.ShowAddSource) },
+        onChangeShownCurrency = { viewModel.sendIntent(MainScreenIntent.ChangeShownCurrency) },
     )
 }
