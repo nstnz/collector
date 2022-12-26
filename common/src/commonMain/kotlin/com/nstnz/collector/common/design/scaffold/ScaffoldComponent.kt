@@ -38,16 +38,6 @@ internal fun ScaffoldComponent(
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     snackbarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },
-    floatingActionButton: @Composable () -> Unit = {},
-    floatingActionButtonPosition: FabPosition = FabPosition.End,
-    isFloatingActionButtonDocked: Boolean = false,
-    drawerContent: @Composable (ColumnScope.() -> Unit)? = null,
-    drawerGesturesEnabled: Boolean = true,
-    drawerShape: Shape = MaterialTheme.shapes.large,
-    drawerElevation: Dp = DrawerDefaults.Elevation,
-    drawerBackgroundColor: Color = MaterialTheme.colors.surface,
-    drawerContentColor: Color = contentColorFor(drawerBackgroundColor),
-    drawerScrimColor: Color = DrawerDefaults.scrimColor,
     backgroundColor: Color = MaterialTheme.colors.background,
     contentColor: Color = contentColorFor(backgroundColor),
     dialog: @Composable () -> Unit = {},
@@ -56,8 +46,6 @@ internal fun ScaffoldComponent(
     val child = @Composable { childModifier: Modifier ->
         Surface(modifier = childModifier, color = backgroundColor, contentColor = contentColor) {
             ScaffoldLayout(
-                isFabDocked = isFloatingActionButtonDocked,
-                fabPosition = floatingActionButtonPosition,
                 topBar = topBar,
                 content = {
                     Box(
@@ -70,39 +58,20 @@ internal fun ScaffoldComponent(
                 snackbar = {
                     snackbarHost(scaffoldState.snackbarHostState)
                 },
-                fab = floatingActionButton,
                 bottomBar = bottomBar,
                 dialog = dialog
             )
         }
     }
 
-    if (drawerContent != null) {
-        ModalDrawer(
-            modifier = modifier,
-            drawerState = scaffoldState.drawerState,
-            gesturesEnabled = drawerGesturesEnabled,
-            drawerContent = drawerContent,
-            drawerShape = drawerShape,
-            drawerElevation = drawerElevation,
-            drawerBackgroundColor = drawerBackgroundColor,
-            drawerContentColor = drawerContentColor,
-            scrimColor = drawerScrimColor,
-            content = { child(Modifier) }
-        )
-    } else {
-        child(modifier)
-    }
+    child(modifier)
 }
 
 @Composable
 private fun ScaffoldLayout(
-    isFabDocked: Boolean,
-    fabPosition: FabPosition,
     topBar: @Composable () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
     snackbar: @Composable () -> Unit,
-    fab: @Composable () -> Unit,
     bottomBar: @Composable () -> Unit,
     dialog: @Composable () -> Unit = {},
 ) {
@@ -131,60 +100,16 @@ private fun ScaffoldLayout(
 
             val dialogHeight = dialogPlaceables.maxByOrNull { it.height }?.height ?: 0
 
-            val fabPlaceables =
-                subcompose(ScaffoldLayoutContent.Fab, fab).mapNotNull { measurable ->
-                    measurable.measure(looseConstraints).takeIf { it.height != 0 && it.width != 0 }
-                }
-
-            val fabPlacement = if (fabPlaceables.isNotEmpty()) {
-                val fabWidth = fabPlaceables.maxByOrNull { it.width }!!.width
-                val fabHeight = fabPlaceables.maxByOrNull { it.height }!!.height
-                // FAB distance from the left of the layout, taking into account LTR / RTL
-                val fabLeftOffset = if (fabPosition == FabPosition.End) {
-                    if (layoutDirection == LayoutDirection.Ltr) {
-                        layoutWidth - FabSpacing.roundToPx() - fabWidth
-                    } else {
-                        FabSpacing.roundToPx()
-                    }
-                } else {
-                    (layoutWidth - fabWidth) / 2
-                }
-
-                FabPlacement(
-                    isDocked = isFabDocked,
-                    left = fabLeftOffset,
-                    width = fabWidth,
-                    height = fabHeight
-                )
-            } else {
-                null
-            }
-
             val bottomBarPlaceables = subcompose(ScaffoldLayoutContent.BottomBar) {
                 CompositionLocalProvider(
-                    LocalFabPlacement provides fabPlacement,
                     content = bottomBar
                 )
             }.map { it.measure(looseConstraints) }
 
             val bottomBarHeight = bottomBarPlaceables.maxByOrNull { it.height }?.height ?: 0
-            val fabOffsetFromBottom = fabPlacement?.let {
-                if (bottomBarHeight == 0) {
-                    it.height + FabSpacing.roundToPx()
-                } else {
-                    if (isFabDocked) {
-                        // Total height is the bottom bar height + half the FAB height
-                        bottomBarHeight + it.height / 2
-                    } else {
-                        // Total height is the bottom bar height + the FAB height + the padding
-                        // between the FAB and bottom bar
-                        bottomBarHeight + it.height + FabSpacing.roundToPx()
-                    }
-                }
-            }
 
             val snackbarOffsetFromBottom = if (snackbarHeight != 0) {
-                snackbarHeight + (fabOffsetFromBottom ?: bottomBarHeight)
+                snackbarHeight + (bottomBarHeight)
             } else {
                 0
             }
@@ -211,12 +136,6 @@ private fun ScaffoldLayout(
             bottomBarPlaceables.forEach {
                 it.place(0, layoutHeight - bottomBarHeight)
             }
-            // Explicitly not using placeRelative here as `leftOffset` already accounts for RTL
-            fabPlacement?.let { placement ->
-                fabPlaceables.forEach {
-                    it.place(placement.left, layoutHeight - fabOffsetFromBottom!!)
-                }
-            }
 
             dialogPlaceables.forEach {
                 it.place(0, 0)
@@ -224,18 +143,6 @@ private fun ScaffoldLayout(
         }
     }
 }
-
-@Immutable
-internal data class FabPlacement(
-    val isDocked: Boolean,
-    val left: Int,
-    val width: Int,
-    val height: Int,
-)
-
-internal val LocalFabPlacement = staticCompositionLocalOf<FabPlacement?> { null }
-
-private val FabSpacing = 16.dp
 
 private enum class ScaffoldLayoutContent {
     TopBar,
