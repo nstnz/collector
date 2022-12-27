@@ -12,7 +12,7 @@ private fun MainScreenPreview() {
     AppTheme {
         MainScreen(
             MainScreenState.Default(
-                getMockSourceListDomainModel()
+                getMockSourceListDomainModel(),
             )
         )
     }

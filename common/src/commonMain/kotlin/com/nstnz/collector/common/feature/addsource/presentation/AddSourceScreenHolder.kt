@@ -5,8 +5,6 @@ import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenIntent
-import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 

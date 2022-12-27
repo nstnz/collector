@@ -20,6 +20,12 @@ internal val coreDi = DI.Module(name = "Core") {
             instance(),
         )
     }
+    bind<SaveSourceDataUseCase>() with provider {
+        SaveSourceDataUseCase(
+            instance(),
+            instance(),
+        )
+    }
     bind<GetCurrencyUseCase>() with provider {
         GetCurrencyUseCase(
             instance(),

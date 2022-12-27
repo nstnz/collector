@@ -6,28 +6,25 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import com.nstnz.collector.common.App
-import com.nstnz.collector.common.basic.texts.MainScreen_AddSource
-import com.nstnz.collector.common.basic.texts.MainScreen_NoSources
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
-import com.nstnz.collector.common.basic.texts.MainScreen_TotalSum
-import com.nstnz.collector.common.design.button.PrimaryButtonComponent
-import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
+import com.nstnz.collector.common.design.scaffold.GradientModalBottomSheetScaffold
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.swipedismiss.SwipeDismissComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.title.TitleComponent
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
-import com.nstnz.collector.common.design.topbar.NavBarComponent
+import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreen
+import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenState
 import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainModel
 import com.nstnz.collector.common.feature.core.domain.model.SourceDomainModel
-import com.nstnz.collector.common.feature.core.domain.model.SourcesListDomainModel
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MainScreen(
     viewState: MainScreenState,
@@ -52,7 +49,7 @@ internal fun MainScreen(
                 converterTabClick = onConverterTabCLick,
                 settingsTabClick = onSettingsTabClick,
             )
-        }
+        },
     ) {
         when (viewState) {
             is MainScreenState.Default -> MainScreenStateDefault(
