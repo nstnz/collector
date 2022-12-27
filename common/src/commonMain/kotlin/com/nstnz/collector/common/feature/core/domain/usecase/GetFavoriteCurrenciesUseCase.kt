@@ -20,6 +20,6 @@ internal class GetFavoriteCurrenciesUseCase(
                 crypto = it.crypto,
                 isFavourite = it.isFavourite
             )
-        }.sortedBy { it.code == default }
+        }.sortedByDescending { it.code == default }
     }
 }

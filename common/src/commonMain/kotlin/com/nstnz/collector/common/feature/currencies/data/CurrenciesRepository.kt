@@ -31,7 +31,7 @@ internal class CurrenciesRepository(
         }
     }
 
-    suspend fun getDefaultCurrencyCode() = currenciesPrefs.defaultCurrencyCode
+    suspend fun getDefaultCurrencyCode() = currenciesPrefs.defaultCurrencyCode ?: "USD"
 
     suspend fun setDefaultCurrencyCode(code: String) {
         currenciesPrefs.defaultCurrencyCode = code
