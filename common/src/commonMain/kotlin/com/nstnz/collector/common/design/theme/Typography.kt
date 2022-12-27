@@ -18,9 +18,9 @@ internal object Typography {
         lineHeight = 16.0.sp,
     )
     val headingMegaLarge = TextStyle(
-        fontSize = 40.0.sp,
+        fontSize = 32.0.sp,
         letterSpacing = 0.3700000047683716.sp,
-        lineHeight = 40.0.sp,
+        lineHeight = 32.0.sp,
         fontWeight = FontWeight.Bold
     )
 

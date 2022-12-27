@@ -57,7 +57,7 @@ internal fun SwipeDismissComponent(
             Icon(
                 Icons.Rounded.DeleteOutline,
                 contentDescription = null,
-                tint = AppTheme.colors.secondaryBackgroundText(),
+                tint = AppTheme.colors.primaryBackgroundText(),
                 modifier = Modifier.padding(top = AppTheme.indents.x1_5).size(AppTheme.indents.x3)
                     .align(Alignment.CenterEnd)
             )
