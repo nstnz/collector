@@ -1,13 +1,16 @@
-package com.nstnz.collector.common.feature.core.domain.usecase
+package com.nstnz.collector.common.feature.core.domain.scenario
 
-import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainModel
 import com.nstnz.collector.common.feature.core.domain.model.SourceCountDomainModel
+import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetExchangeRatesUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
 import com.nstnz.collector.common.feature.source.data.SourcesRepository
+import com.nstnz.collector.common.feature.source.data.db.model.SourceFundEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-internal class GetSourceCountsUseCase(
+internal class GetSourceCountScenario(
     private val sourcesRepository: SourcesRepository,
     private val dispatcher: CoroutineDispatcher,
     private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
@@ -16,12 +19,24 @@ internal class GetSourceCountsUseCase(
 ) {
 
     suspend operator fun invoke(
-        sourceId: String,
-        selectedCurrencies: List<CurrencyDomainModel>? = null
-    ): List<SourceCountDomainModel> = withContext(dispatcher) {
-        val favoriteCurrencies = getFavoriteCurrenciesUseCase()
-        val counts = sourcesRepository.getAllSourceFunds(sourceId)
-        return@withContext counts.map {
+        sourceFundId: String,
+        sourceCurrencyCode: String?
+    ) = withContext(dispatcher) {
+        sourcesRepository.getSourceFund(sourceFundId)?.let {
+            invoke(it, sourceCurrencyCode)
+        }
+    }
+
+    suspend operator fun invoke(
+        sourceCount: SourceFundEntity,
+        sourceCurrencyCode: String?
+    ) = withContext(dispatcher) {
+        val currencies = getFavoriteCurrenciesUseCase().map { it.code }.toMutableList().apply {
+            sourceCurrencyCode?.let {
+                this.add(sourceCurrencyCode)
+            }
+        }
+        sourceCount.let {
             val originalCurrency = getCurrencyUseCase(it.currencyCode)
             SourceCountDomainModel(
                 id = it.id,
@@ -32,13 +47,8 @@ internal class GetSourceCountsUseCase(
                     sum = it.sum
                 ),
                 favoriteSums = getExchangeRatesUseCase(
-                    originalCurrency.code, it.sum, favoriteCurrencies.map { it.code }
+                    originalCurrency.code, it.sum, currencies
                 ),
-                selectedSums = selectedCurrencies?.let { curr ->
-                    getExchangeRatesUseCase(
-                        originalCurrency.code, it.sum, curr.map { it.code }
-                    )
-                } ?: emptyList(),
             )
         }
     }

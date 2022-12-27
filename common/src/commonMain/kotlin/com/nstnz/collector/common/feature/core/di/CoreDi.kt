@@ -1,12 +1,13 @@
 package com.nstnz.collector.common.feature.core.di
 
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountScenario
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountsScenario
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesListScenario
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesScenario
 import com.nstnz.collector.common.feature.core.domain.usecase.*
 import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetExchangeRatesUseCase
-import com.nstnz.collector.common.feature.core.domain.usecase.GetSourceCountsUseCase
-import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
-import com.nstnz.collector.common.feature.core.domain.usecase.GetSourcesDataUseCase
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -62,10 +63,8 @@ internal val coreDi = DI.Module(name = "Core") {
             instance(),
         )
     }
-    bind<GetSourceCountsUseCase>() with provider {
-        GetSourceCountsUseCase(
-            instance(),
-            instance(),
+    bind<GetSourceCountsScenario>() with provider {
+        GetSourceCountsScenario(
             instance(),
             instance(),
             instance(),
@@ -80,10 +79,8 @@ internal val coreDi = DI.Module(name = "Core") {
             instance(),
         )
     }
-    bind<GetSourcesDataUseCase>() with provider {
-        GetSourcesDataUseCase(
-            instance(),
-            instance(),
+    bind<GetSourcesScenario>() with provider {
+        GetSourcesScenario(
             instance(),
             instance(),
             instance(),
@@ -95,8 +92,8 @@ internal val coreDi = DI.Module(name = "Core") {
             instance(),
         )
     }
-    bind<GetSourceCountDataUseCase>() with provider {
-        GetSourceCountDataUseCase(
+    bind<GetSourceCountScenario>() with provider {
+        GetSourceCountScenario(
             instance(),
             instance(),
             instance(),

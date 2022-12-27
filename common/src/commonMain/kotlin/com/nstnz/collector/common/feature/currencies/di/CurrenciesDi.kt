@@ -29,7 +29,7 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
         CurrenciesPrefs(instance())
     }
 
-    bind<CurrenciesRepository>() with provider {
+    bind<CurrenciesRepository>() with singleton {
         CurrenciesRepository(
             instance(),
             instance(),

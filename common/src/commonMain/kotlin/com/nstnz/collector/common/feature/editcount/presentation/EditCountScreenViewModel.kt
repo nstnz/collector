@@ -3,14 +3,13 @@ package com.nstnz.collector.common.feature.editcount.presentation
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
-import com.nstnz.collector.common.feature.core.domain.usecase.DeleteCountDataUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.EditCountDataUseCase
-import com.nstnz.collector.common.feature.core.domain.usecase.GetSourceCountDataUseCase
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountScenario
 
 internal class EditCountScreenViewModel(
     private val sourceFundId: String,
     private val router: Router,
-    private val getSourceCountDataUseCase: GetSourceCountDataUseCase,
+    private val getSourceCountDataUseCase: GetSourceCountScenario,
     private val editCountDataUseCase: EditCountDataUseCase,
 ) : CoroutinesViewModel<EditCountScreenState, EditCountScreenIntent, EditCountScreenSingleEvent>() {
 
@@ -41,7 +40,7 @@ internal class EditCountScreenViewModel(
             null
         }
         EditCountScreenIntent.Load -> {
-            val sourceFund = getSourceCountDataUseCase(sourceFundId)
+            val sourceFund = getSourceCountDataUseCase(sourceFundId, null)
             sourceFund?.let { fund ->
                 EditCountScreenIntent.Update(
                     fund, fund.originalSum.currency, fund.originalSum.sum.toString()

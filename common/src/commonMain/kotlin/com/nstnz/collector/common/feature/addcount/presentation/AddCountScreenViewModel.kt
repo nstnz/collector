@@ -5,13 +5,13 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.usecase.SaveCountUseCase
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
-import com.nstnz.collector.common.feature.core.domain.usecase.GetSourcesDataUseCase
+import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesScenario
 
 internal class AddCountScreenViewModel(
     private val sourceId: String,
     private val router: Router,
     private val getSourceScenario: GetSourceScenario,
-    private val getSourcesDataUseCase: GetSourcesDataUseCase,
+    private val getSourcesDataUseCase: GetSourcesScenario,
     private val saveCountUseCase: SaveCountUseCase,
 ) : CoroutinesViewModel<AddCountScreenState, AddCountScreenIntent, AddCountScreenSingleEvent>() {
 

@@ -6,7 +6,6 @@ data class SourceCountDomainModel(
     val isDefault: Boolean,
     val originalSum: CurrencySumDomainModel,
     val favoriteSums: List<CurrencySumDomainModel>,
-    val selectedSums: List<CurrencySumDomainModel>,
 ) {
     val originalFormattedSum: String
         get() = originalSum.formattedSum
@@ -16,8 +15,6 @@ data class SourceCountDomainModel(
             originalSum.currency.code == code -> originalSum.sum
             favoriteSums.any { it.currency.code == code } ->
                 favoriteSums.first { it.currency.code == code }.sum
-            selectedSums.any { it.currency.code == code } ->
-                selectedSums.first { it.currency.code == code }.sum
             else -> 0.0
         }
 }

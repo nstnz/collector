@@ -6,7 +6,6 @@ data class SourceDomainModel(
     val originalCurrency: CurrencyDomainModel,
     val counts: List<SourceCountDomainModel>,
     val favoriteCurrencies: List<CurrencyDomainModel>,
-    val selectedCurrencies: List<CurrencyDomainModel>,
 ) {
     val originalFormattedSum: String
         get() = originalSum.formattedSum
@@ -37,20 +36,10 @@ data class SourceDomainModel(
             )
         }
 
-    val selectedSums: List<CurrencySumDomainModel>
-        get() = selectedCurrencies.map { currency ->
-            CurrencySumDomainModel(
-                currency = currency,
-                sum = counts.sumOf { it.getSumInCurrency(currency.code) }
-            )
-        }
-
     fun getSumInCurrency(code: String): Double =
         when {
             favoriteSums.any { it.currency.code == code } ->
                 favoriteSums.first { it.currency.code == code }.sum
-            selectedSums.any { it.currency.code == code } ->
-                selectedSums.first { it.currency.code == code }.sum
             else -> 0.0
         }
 }

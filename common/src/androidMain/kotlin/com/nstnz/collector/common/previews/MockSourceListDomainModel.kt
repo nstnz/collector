@@ -31,13 +31,10 @@ internal fun getMockSourceListDomainModel() = SourcesListDomainModel(
                             currency = getMockCurrencyDomainModel("EUR")
                         ),
                     ),
-                    selectedSums = listOf()
                 ),
             ),
             favoriteCurrencies = listOf(getMockCurrencyDomainModel()),
-            selectedCurrencies = listOf(),
         )
     ),
     favoriteCurrencies = listOf(getMockCurrencyDomainModel()),
-    selectedCurrencies = listOf(),
 )

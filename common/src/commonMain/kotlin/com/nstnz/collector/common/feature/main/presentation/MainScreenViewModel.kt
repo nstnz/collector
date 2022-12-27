@@ -45,7 +45,7 @@ internal class MainScreenViewModel(
             null
         }
         MainScreenIntent.OnResume -> {
-            val sourcesModel = getSourcesScenario(null)
+            val sourcesModel = getSourcesScenario()
             MainScreenIntent.Update(sourcesModel)
         }
         is MainScreenIntent.DeleteSource -> {

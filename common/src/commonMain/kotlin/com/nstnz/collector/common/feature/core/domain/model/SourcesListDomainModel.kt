@@ -3,21 +3,12 @@ package com.nstnz.collector.common.feature.core.domain.model
 data class SourcesListDomainModel(
     val sources: List<SourceDomainModel>,
     val favoriteCurrencies: List<CurrencyDomainModel>,
-    val selectedCurrencies: List<CurrencyDomainModel>,
 ) {
     val originalFormattedSum: String
         get() = favoriteSums.first().formattedSum
 
     val favoriteSums: List<CurrencySumDomainModel>
         get() = favoriteCurrencies.map { currency ->
-            CurrencySumDomainModel(
-                currency = currency,
-                sum = sources.sumOf { it.getSumInCurrency(currency.code) }
-            )
-        }
-
-    val selectedSums: List<CurrencySumDomainModel>
-        get() = selectedCurrencies.map { currency ->
             CurrencySumDomainModel(
                 currency = currency,
                 sum = sources.sumOf { it.getSumInCurrency(currency.code) }

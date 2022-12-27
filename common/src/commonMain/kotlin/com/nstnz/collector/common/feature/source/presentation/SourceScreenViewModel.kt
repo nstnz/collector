@@ -32,7 +32,7 @@ internal class SourceScreenViewModel(
             null
         }
         SourceScreenIntent.OnResume -> {
-            val source = getSourceScenario(sourceId, null)
+            val source = getSourceScenario(sourceId)
             source?.let {
                 SourceScreenIntent.Update(it)
             }
