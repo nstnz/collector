@@ -18,6 +18,7 @@ import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenHolder
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenHolder
 import com.nstnz.collector.common.feature.splash.presentation.SplashScreenHolder
+import moe.tlaster.precompose.navigation.BackStackEntry
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
@@ -41,7 +42,7 @@ internal fun App() {
             )
         ) {
             Routes.values().forEach { route ->
-                scene(route.name) {
+                val content: @Composable (BackStackEntry) -> Unit = {
                     val arg1 = it.queryString?.map?.get(Arg1)?.firstOrNull()
                     val arg2 = it.queryString?.map?.get(Arg2)?.firstOrNull()
                     val arg3 = it.queryString?.map?.get(Arg3)?.firstOrNull()
@@ -59,6 +60,16 @@ internal fun App() {
                         Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty(), arg2.orEmpty())
                         Routes.EditSource -> EditSourceScreenHolder(arg1.orEmpty())
                         Routes.EditCount -> EditCountScreenHolder(arg1.orEmpty())
+                    }
+                }
+
+                if (route.floating) {
+                    floating(route.name) {
+                        content(it)
+                    }
+                } else {
+                    scene(route.name) {
+                        content(it)
                     }
                 }
             }
