@@ -24,10 +24,10 @@ internal fun SourceScreenHolder(
 
     SourceScreen(
         viewState,
-        onBackClick = {viewModel.sendIntent(SourceScreenIntent.GoBack)},
-        onAddCountClick = {viewModel.sendIntent(SourceScreenIntent.AddCount)},
-        onEditClick = {viewModel.sendIntent(SourceScreenIntent.EditSource)},
-        onCountClick = {viewModel.sendIntent(SourceScreenIntent.ShowCount(it))},
-        onDeleteCountClick = {viewModel.sendIntent(SourceScreenIntent.DeleteCount(it))},
+        onBackClick = { viewModel.sendIntent(SourceScreenIntent.GoBack) },
+        onAddCountClick = { viewModel.sendIntent(SourceScreenIntent.AddCount) },
+        onEditClick = { viewModel.sendIntent(SourceScreenIntent.EditSource) },
+        onCountClick = { viewModel.sendIntent(SourceScreenIntent.ShowCount(it)) },
+        onDeleteCountClick = { viewModel.sendIntent(SourceScreenIntent.DeleteCount(it)) },
     )
 }

@@ -1,4 +1,4 @@
-package com.nstnz.collector.common.feature.editsource.domain.usecase
+package com.nstnz.collector.common.feature.core.domain.usecase
 
 import com.nstnz.collector.common.feature.source.data.SourcesRepository
 import com.nstnz.collector.common.feature.source.data.db.model.SourceEntity

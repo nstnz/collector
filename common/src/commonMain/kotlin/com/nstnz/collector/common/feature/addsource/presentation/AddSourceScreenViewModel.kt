@@ -27,7 +27,16 @@ internal class AddSourceScreenViewModel(
             intent.currency,
         )
         is AddSourceScreenIntent.ChangeName -> when (prevState) {
-            is AddSourceScreenState.Default -> prevState.copy(name = intent.name)
+            is AddSourceScreenState.Default -> prevState.copy(
+                name = intent.name,
+                showNameError = false
+            )
+            AddSourceScreenState.Loading -> prevState
+        }
+        is AddSourceScreenIntent.SaveSource -> when (prevState) {
+            is AddSourceScreenState.Default -> prevState.copy(
+                showNameError = prevState.name.isEmpty()
+            )
             AddSourceScreenState.Loading -> prevState
         }
         else -> prevState
@@ -42,7 +51,12 @@ internal class AddSourceScreenViewModel(
             null
         }
         is AddSourceScreenIntent.SaveSource -> {
-            router.back()
+            if (state is AddSourceScreenState.Default) {
+                if (state.name.isNotEmpty()) {
+                    saveSourceDataUseCase(state.name, state.currency.code)
+                    router.back()
+                }
+            }
             null
         }
         is AddSourceScreenIntent.ChangeCurrency -> {

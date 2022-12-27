@@ -3,10 +3,9 @@ package com.nstnz.collector.common.feature.editsource.presentation
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
-import com.nstnz.collector.common.feature.editsource.domain.usecase.DeleteSourceDataUseCase
-import com.nstnz.collector.common.feature.editsource.domain.usecase.EditSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.DeleteSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.EditSourceDataUseCase
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 
 internal class EditSourceScreenViewModel(
@@ -15,7 +14,6 @@ internal class EditSourceScreenViewModel(
     private val getSourceScenario: GetSourceScenario,
     private val getCurrencyUseCase: GetCurrencyUseCase,
     private val editSourceDataUseCase: EditSourceDataUseCase,
-    private val deleteSourceDataUseCase: DeleteSourceDataUseCase,
 ) : CoroutinesViewModel<EditSourceScreenState, EditSourceScreenIntent, EditSourceScreenSingleEvent>() {
 
     init {
@@ -69,13 +67,6 @@ internal class EditSourceScreenViewModel(
             null
         }
         is EditSourceScreenIntent.ChangeName -> null
-        EditSourceScreenIntent.Delete -> {
-            if (state is EditSourceScreenState.Default) {
-                deleteSourceDataUseCase(sourceId)
-                router.navigateToMainScreen()
-            }
-            null
-        }
         EditSourceScreenIntent.SaveSource -> {
             if (state is EditSourceScreenState.Default) {
                 editSourceDataUseCase(sourceId, state.name, state.currency.code)

@@ -17,7 +17,6 @@ internal sealed interface EditSourceScreenIntent : Intent {
     object GoBack : EditSourceScreenIntent
     object Load : EditSourceScreenIntent
     object OnResume : EditSourceScreenIntent
-    object Delete : EditSourceScreenIntent
     data class ChangeCurrency(val currency: CurrencyDomainModel) : EditSourceScreenIntent
     data class ChangeName(val name: String) : EditSourceScreenIntent
     data class Update(

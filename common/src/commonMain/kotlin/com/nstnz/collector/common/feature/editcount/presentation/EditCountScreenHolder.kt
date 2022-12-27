@@ -26,8 +26,6 @@ internal fun EditCountScreenHolder(sourceFundId: String?) {
         viewState,
         onBackClick = { viewModel.sendIntent(EditCountScreenIntent.GoBack) },
         onSaveClick = { viewModel.sendIntent(EditCountScreenIntent.Save) },
-        onChangeDefaultCurrency = { viewModel.sendIntent(EditCountScreenIntent.SelectCurrency) },
         onChangeSum = { viewModel.sendIntent(EditCountScreenIntent.ChangeSum(it)) },
-        onDeleteClick = { viewModel.sendIntent(EditCountScreenIntent.Delete) },
     )
 }

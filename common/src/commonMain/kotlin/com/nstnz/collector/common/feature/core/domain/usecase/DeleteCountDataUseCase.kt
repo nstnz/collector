@@ -1,17 +1,16 @@
-package com.nstnz.collector.common.feature.editsource.domain.usecase
+package com.nstnz.collector.common.feature.core.domain.usecase
 
 import com.nstnz.collector.common.feature.source.data.SourcesRepository
-import com.nstnz.collector.common.feature.source.data.db.model.SourceEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-internal class DeleteSourceDataUseCase(
+internal class DeleteCountDataUseCase(
     private val sourcesRepository: SourcesRepository,
     private val dispatcher: CoroutineDispatcher,
 ) {
 
-    suspend operator fun invoke(sourceId: String) =
+    suspend operator fun invoke(sourceFundId: String) =
         withContext(dispatcher) {
-            sourcesRepository.deleteSource(sourceId)
+            sourcesRepository.deleteSourceFund(sourceFundId)
         }
 }

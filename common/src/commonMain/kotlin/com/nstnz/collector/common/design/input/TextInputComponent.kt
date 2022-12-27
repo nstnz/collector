@@ -151,7 +151,7 @@ private fun getTextColors() =
         unfocusedBorderColor = AppTheme.colors.backgroundSecondary(),
         focusedLabelColor = AppTheme.colors.accentColor(),
         unfocusedLabelColor = AppTheme.colors.secondaryBackgroundText(),
-        placeholderColor = AppTheme.colors.hintBackgroundText(),
+        placeholderColor = AppTheme.colors.secondaryBackgroundText(),
         cursorColor = AppTheme.colors.accentColor(),
         disabledTextColor = AppTheme.colors.primaryBackgroundText(),
         disabledBorderColor = AppTheme.colors.backgroundSecondary(),
@@ -184,7 +184,7 @@ private fun ErrorContent(
         Text(
             text = error.orEmpty(),
             style = AppTheme.typography.bodyXsmall.copy(
-                color = AppTheme.colors.backgroundError(),
+                color = AppTheme.colors.accent2Color(),
             ),
             modifier = Modifier.padding(top = AppTheme.indents.x0_5),
         )

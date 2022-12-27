@@ -12,7 +12,7 @@ internal enum class Routes(val floating: Boolean = false) {
     Settings,
     Splash,
     AddSource(floating = true),
-    AddCount,
-    EditSource,
-    EditCount,
+    AddCount(floating = true),
+    EditSource(floating = true),
+    EditCount(floating = true),
 }

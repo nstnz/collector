@@ -2,10 +2,9 @@ package com.nstnz.collector.common.feature.addcount.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.addcount.domain.SaveCountUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.SaveCountUseCase
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
-import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetSourcesDataUseCase
 
 internal class AddCountScreenViewModel(

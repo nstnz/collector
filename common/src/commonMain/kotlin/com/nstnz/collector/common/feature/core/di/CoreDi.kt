@@ -20,6 +20,36 @@ internal val coreDi = DI.Module(name = "Core") {
             instance(),
         )
     }
+    bind<SaveCountUseCase>() with provider {
+        SaveCountUseCase(
+            instance(),
+            instance()
+        )
+    }
+    bind<DeleteSourceDataUseCase>() with provider {
+        DeleteSourceDataUseCase(
+            instance(),
+            instance(),
+        )
+    }
+    bind<EditSourceDataUseCase>() with provider {
+        EditSourceDataUseCase(
+            instance(),
+            instance(),
+        )
+    }
+    bind<DeleteCountDataUseCase>() with provider {
+        DeleteCountDataUseCase(
+            instance(),
+            instance(),
+        )
+    }
+    bind<EditCountDataUseCase>() with provider {
+        EditCountDataUseCase(
+            instance(),
+            instance(),
+        )
+    }
     bind<SaveSourceDataUseCase>() with provider {
         SaveSourceDataUseCase(
             instance(),

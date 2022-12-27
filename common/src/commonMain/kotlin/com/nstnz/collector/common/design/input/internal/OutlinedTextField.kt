@@ -190,7 +190,7 @@ internal fun OutlinedTextFieldLayout(
 				}
 			)
 			.defaultMinSize(
-				minWidth = MinWidth,
+				minWidth = 0.dp,
 				minHeight = MinHeight
 			)
 			.background(backgroundColor, shape),

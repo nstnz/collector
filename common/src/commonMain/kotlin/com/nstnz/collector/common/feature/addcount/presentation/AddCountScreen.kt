@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -14,21 +15,32 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.nstnz.collector.common.design.button.BottomButtonComponent
 import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.dialog.DialogComponent
+import com.nstnz.collector.common.design.input.SumTextInputComponent
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
+import com.nstnz.collector.common.design.scaffold.BottomSheetComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.design.topbar.NavBarComponent
+import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenState
+import kotlinx.coroutines.NonCancellable.invokeOnCompletion
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun AddCountScreen(
     viewState: AddCountScreenState,
@@ -37,72 +49,48 @@ internal fun AddCountScreen(
     onSaveClick: () -> Unit = {},
     onSelectCurrencyClick: () -> Unit = {},
 ) {
-    GradientScaffold(
-        topBar = { DefaultNavComponent(onBackClick) },
-        bottomBar = {
-            BottomButtonComponent(
-                text = "Ololo",
-                onClick = onSaveClick
-            )
-        },
-    ) {
-        when (viewState) {
-            is AddCountScreenState.Default -> AddCountScreenDefaultState(
-                viewState,
-                onChangeSum,
-                onSelectCurrencyClick
-            )
-            AddCountScreenState.Loading -> {}
-        }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+    val onSaveFieldsClick = {
+        keyboardController?.hide()
+        onSaveClick()
     }
-}
+    val onBackActionClick = {
+        keyboardController?.hide()
+        onBackClick()
+    }
 
+    LaunchedEffect(viewState::class) {
+        invokeOnCompletion { focusRequester.requestFocus() }
+    }
+    BottomSheetComponent(
+        title = "Добавить счет",
+        description = "JKHkjshfk jahfkjahf kjahfk jahfkajfhkajhfkajshf",
+        onCloseClick = onBackActionClick,
+        onOkClick = onSaveFieldsClick
+    ) {
+        if (viewState is AddCountScreenState.Default) {
+            val textValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }
 
-@Composable
-private fun AddCountScreenDefaultState(
-    viewState: AddCountScreenState.Default,
-    onChangeSum: (String) -> Unit = {},
-    onSelectCurrencyClick: () -> Unit = {},
-) {
-    val sumTextValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }
-    CardComponent {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = AppTheme.indents.x3)
-        ) {
-            SpacerComponent { x3 }
-            Text(
-                text = "JHKdhkjahdkjshd aasd",
-                color = AppTheme.colors.primaryBackgroundText(),
-                style = AppTheme.typography.headingMedium
-            )
-            SpacerComponent { x0_5 }
-            Text(
-                text = "JHKdhkjahdkjshd as dkhjsd klfsdkfsdfhlsdklsf hasd",
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.bodyMedium
-            )
-            SpacerComponent { x3 }
-            TextInputComponent(
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = "0",
-                label = "Enter sum",
-                value = sumTextValue.value,
+            SumTextInputComponent(
+                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                value = textValue.value,
                 onValueChange = {
-                    sumTextValue.value = it
+                    textValue.value = it
                     onChangeSum(it.text)
                 },
+                currencyCode = viewState.currency.codeToShow,
+                currencyStr = viewState.currency.name
             )
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
-                label = "Choose currency",
+                label = "Валюта",
                 text = viewState.currency.code,
-                onClick = { onSelectCurrencyClick() }
+                onClick = {
+                    onSelectCurrencyClick()
+                }
             )
-            SpacerComponent { x4 }
         }
     }
 }

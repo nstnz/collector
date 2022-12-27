@@ -1,4 +1,4 @@
-package com.nstnz.collector.common.feature.addcount.domain
+package com.nstnz.collector.common.feature.core.domain.usecase
 
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import com.nstnz.collector.common.feature.source.data.SourcesRepository

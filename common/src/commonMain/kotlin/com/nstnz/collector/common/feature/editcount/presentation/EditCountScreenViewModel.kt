@@ -3,10 +3,8 @@ package com.nstnz.collector.common.feature.editcount.presentation
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
-import com.nstnz.collector.common.feature.editcount.domain.usecase.DeleteCountDataUseCase
-import com.nstnz.collector.common.feature.editcount.domain.usecase.EditCountDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.DeleteCountDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.EditCountDataUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetSourceCountDataUseCase
 
 internal class EditCountScreenViewModel(
@@ -14,7 +12,6 @@ internal class EditCountScreenViewModel(
     private val router: Router,
     private val getSourceCountDataUseCase: GetSourceCountDataUseCase,
     private val editCountDataUseCase: EditCountDataUseCase,
-    private val deleteCountDataUseCase: DeleteCountDataUseCase,
 ) : CoroutinesViewModel<EditCountScreenState, EditCountScreenIntent, EditCountScreenSingleEvent>() {
 
     init {
@@ -64,13 +61,6 @@ internal class EditCountScreenViewModel(
                 null
             }
         }
-        EditCountScreenIntent.Delete -> {
-            if (state is EditCountScreenState.Default) {
-                deleteCountDataUseCase(sourceFundId)
-                router.back()
-            }
-            null
-        }
         EditCountScreenIntent.Save -> {
             if (state is EditCountScreenState.Default) {
                 editCountDataUseCase(
@@ -100,16 +90,6 @@ internal class EditCountScreenViewModel(
             } else {
                 null
             }
-        }
-        EditCountScreenIntent.SelectCurrency -> {
-            if (state is EditCountScreenState.Default) {
-                router.navigateToCurrenciesScreen(
-                    multiCheck = false,
-                    saveChanges = false,
-                    currency = state.currency.code
-                )
-            }
-            null
         }
     }
 }

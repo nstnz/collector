@@ -2,7 +2,12 @@ package com.nstnz.collector.common.feature.source.presentation
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBackIosNew
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +44,7 @@ internal fun SourceScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                HintPanel(viewState.sourceMainModel)
+                HintPanel(viewState.sourceMainModel, onEditClick)
                 Row(
                     Modifier
                         .fillMaxSize()
@@ -72,9 +77,10 @@ internal fun SourceScreen(
 
 @Composable
 private fun HintPanel(
-    sourceMainModel: SourceDomainModel
+    sourceMainModel: SourceDomainModel,
+    onEditClick: () -> Unit
 ) {
-    Column(
+    Row(
         Modifier
             .padding(AppTheme.indents.x3)
             .fillMaxWidth()
@@ -88,17 +94,32 @@ private fun HintPanel(
             )
             .padding(AppTheme.indents.x3)
     ) {
-        Text(
-            text = sourceMainModel.originalFormattedSum,
-            color = AppTheme.colors.primaryText(),
-            style = AppTheme.typography.headingMegaLarge
-        )
-        SpacerComponent { x0_5 }
-        Text(
-            text = sourceMainModel.originalSum.currency.name,
-            color = AppTheme.colors.secondaryText(),
-            style = AppTheme.typography.bodySmall
-        )
+        Column(
+            Modifier.weight(1f)
+        ) {
+            Text(
+                text = sourceMainModel.originalFormattedSum,
+                color = AppTheme.colors.primaryText(),
+                style = AppTheme.typography.headingMegaLarge
+            )
+            SpacerComponent { x0_5 }
+            Text(
+                text = sourceMainModel.originalSum.currency.name,
+                color = AppTheme.colors.secondaryText(),
+                style = AppTheme.typography.bodySmall
+            )
+        }
+        IconButton(
+            onClick = onEditClick,
+            modifier = Modifier.padding(top = AppTheme.indents.x1).size(AppTheme.indents.x3),
+        ) {
+            Icon(
+                Icons.Rounded.Edit,
+                null,
+                modifier = Modifier.size(AppTheme.indents.x3),
+                tint = AppTheme.colors.primaryText()
+            )
+        }
     }
 }
 
@@ -123,7 +144,7 @@ private fun CountDetailedPanel(
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
-                    text = count.originalSum.currency.code.uppercase(),
+                    text = count.originalSum.currency.codeToShow,
                     color = if (count.originalSum.currency.crypto) {
                         AppTheme.colors.accent2Color()
                     } else {

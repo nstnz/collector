@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
+import com.nstnz.collector.common.design.input.internal.TextInputState
 import com.nstnz.collector.common.design.scaffold.BottomSheetComponent
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.AppTheme
@@ -36,17 +37,22 @@ internal fun AddSourceScreen(
             TextInputComponent(
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = "Name",
-                label = "Enter name",
+                label = "Имя аккаунта",
                 value = textValue.value,
                 onValueChange = {
                     textValue.value = it
                     onChangeName(it.text)
                 },
+                textFieldState = if (viewState.showNameError) {
+                    TextInputState.Error("Имя аккаунта")
+                } else {
+                    TextInputState.Default
+                }
             )
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
-                label = "Default currency",
+                label = "Валюта по умолчанию",
                 text = viewState.currency.code,
                 onClick = {
                     onChangeDefaultCurrency(viewState.currency)

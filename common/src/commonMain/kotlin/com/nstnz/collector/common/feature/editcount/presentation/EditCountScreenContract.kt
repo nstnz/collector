@@ -19,8 +19,6 @@ internal sealed interface EditCountScreenIntent : Intent {
     object GoBack : EditCountScreenIntent
     object Load : EditCountScreenIntent
     object OnResume : EditCountScreenIntent
-    object Delete : EditCountScreenIntent
-    object SelectCurrency : EditCountScreenIntent
     data class ChangeSum(val sum: String) : EditCountScreenIntent
     data class Update(
         val sourceModel: SourceCountDomainModel?,

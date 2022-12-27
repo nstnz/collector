@@ -35,7 +35,8 @@ internal fun BottomSheetComponent(
         contentAlignment = TopCenter
     ) {
         Surface(
-            Modifier.padding(top = AppTheme.indents.x9).fillMaxSize(),
+            Modifier.padding(top = AppTheme.indents.x9).fillMaxSize().noEffectsClickable {
+            },
             shape = AppTheme.shapes.x4_5_top,
             color = AppTheme.colors.backgroundPrimary(),
             elevation = AppTheme.elevations.secondaryCard

@@ -2,10 +2,8 @@ package com.nstnz.collector.common.feature.main.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesListScenario
-import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
-import com.nstnz.collector.common.feature.editsource.domain.usecase.DeleteSourceDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.DeleteSourceDataUseCase
 
 internal class MainScreenViewModel(
     private val router: Router,

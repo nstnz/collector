@@ -12,9 +12,8 @@ import androidx.compose.material.icons.rounded.NavigateNext
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.backgroundSecondary
-import com.nstnz.collector.common.design.theme.hintBackgroundText
 import com.nstnz.collector.common.design.theme.noEffectsClickable
 
 @Composable
@@ -42,7 +41,7 @@ internal fun TextSelectorComponent(
                     Icon(
                         Icons.Rounded.NavigateNext,
                         null,
-                        tint = AppTheme.colors.hintBackgroundText()
+                        tint = AppTheme.colors.secondaryBackgroundText()
                     )
                 }
             }

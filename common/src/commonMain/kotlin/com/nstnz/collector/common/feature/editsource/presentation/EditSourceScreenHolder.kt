@@ -28,6 +28,5 @@ internal fun EditSourceScreenHolder(sourceId: String?) {
         onSaveClick = { viewModel.sendIntent(EditSourceScreenIntent.SaveSource) },
         onChangeDefaultCurrency = { viewModel.sendIntent(EditSourceScreenIntent.ChangeCurrency(it)) },
         onChangeName = { viewModel.sendIntent(EditSourceScreenIntent.ChangeName(it)) },
-        onDeleteClick = { viewModel.sendIntent(EditSourceScreenIntent.Delete) },
     )
 }

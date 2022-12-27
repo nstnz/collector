@@ -10,7 +10,8 @@ internal sealed interface AddSourceScreenState : State {
     object Loading : AddSourceScreenState
     data class Default(
         val name: String,
-        val currency: CurrencyDomainModel
+        val currency: CurrencyDomainModel,
+        val showNameError: Boolean = false
     ) : AddSourceScreenState
 }
 

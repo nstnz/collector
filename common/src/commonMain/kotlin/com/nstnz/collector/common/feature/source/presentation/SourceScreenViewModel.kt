@@ -2,10 +2,8 @@ package com.nstnz.collector.common.feature.source.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.editcount.domain.usecase.DeleteCountDataUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.DeleteCountDataUseCase
 
 internal class SourceScreenViewModel(
     private val sourceId: String,

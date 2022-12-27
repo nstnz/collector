@@ -5,4 +5,8 @@ data class CurrencyDomainModel(
     val name: String,
     val crypto: Boolean,
     val isFavourite: Boolean,
-)
+) {
+
+    val codeToShow: String
+        get() = code.take(3).uppercase()
+}

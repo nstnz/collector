@@ -10,7 +10,8 @@ internal data class CurrenciesScreenState(
     val list: List<CurrencyDomainModel>,
     val filteredList: List<CurrencyDomainModel>,
     val checkedCurrencies: List<CurrencyDomainModel>,
-    val multiCheck: Boolean
+    val multiCheck: Boolean,
+    val searchText: String = ""
 ) : State
 
 internal sealed interface CurrenciesScreenIntent : Intent {
