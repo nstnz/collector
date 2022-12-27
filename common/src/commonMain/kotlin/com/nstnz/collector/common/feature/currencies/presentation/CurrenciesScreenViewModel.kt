@@ -3,11 +3,13 @@ package com.nstnz.collector.common.feature.currencies.presentation
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
+import com.nstnz.collector.common.feature.currencies.domain.usecase.SaveFavoriteCurrenciesUseCase
 
 internal class CurrenciesScreenViewModel(
     private val params: CurrenciesViewModelParams,
     private val router: Router,
     private val getCurrenciesUseCase: GetCurrenciesUseCase,
+    private val saveFavoriteCurrenciesUseCase: SaveFavoriteCurrenciesUseCase,
 ) : CoroutinesViewModel<CurrenciesScreenState, CurrenciesScreenIntent, CurrenciesScreenSingleEvent>() {
 
     init {
@@ -40,7 +42,7 @@ internal class CurrenciesScreenViewModel(
         state: CurrenciesScreenState
     ): CurrenciesScreenIntent? = when (intent) {
         CurrenciesScreenIntent.LoadCurrencies -> {
-            val currencies = getCurrenciesUseCase.invoke()
+            val currencies = getCurrenciesUseCase()
             CurrenciesScreenIntent.ShowCurrencies(
                 list = currencies,
                 checkedCurrencies = if (params.currentCurrency.isNotEmpty()) {
@@ -96,6 +98,13 @@ internal class CurrenciesScreenViewModel(
             )
         }
         CurrenciesScreenIntent.GoBack -> {
+            router.back()
+            null
+        }
+        CurrenciesScreenIntent.Save -> {
+            saveFavoriteCurrenciesUseCase(
+                state.checkedCurrencies,
+            )
             router.back()
             null
         }

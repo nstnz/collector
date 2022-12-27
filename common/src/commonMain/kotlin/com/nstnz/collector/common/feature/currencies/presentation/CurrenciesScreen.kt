@@ -1,5 +1,9 @@
 package com.nstnz.collector.common.feature.currencies.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,9 +13,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Cancel
-import androidx.compose.material.icons.rounded.NavigateNext
-import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +41,8 @@ internal fun CurrenciesScreen(
     GradientScaffold(
         topBar = {
             DefaultNavComponent(
-                title = "Список валют", onBackClick = onBackCLick
+                title = "Список валют",
+                onBackClick = if (viewState.multiCheck) onSaveClick else onBackCLick
             )
         },
     ) {
@@ -116,6 +119,7 @@ private fun SearchPanel(
     )
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun CurrencyCell(
     currency: CurrencyDomainModel,
@@ -125,7 +129,7 @@ private fun CurrencyCell(
 ) {
     Row(
         Modifier.fillMaxWidth().padding(horizontal = AppTheme.indents.x3)
-            .clickable { onCurrencyClick(currency) }) {
+            .noEffectsClickable { onCurrencyClick(currency) }) {
         Box(
             Modifier.size(AppTheme.indents.x6)
                 .background(AppTheme.colors.backgroundSecondary(), AppTheme.shapes.x2)
@@ -133,13 +137,27 @@ private fun CurrencyCell(
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = currency.codeToShow,
-                color = if (currency.crypto) {
+                color = (if (currency.crypto) {
                     AppTheme.colors.accent2Color()
                 } else {
                     AppTheme.colors.accentColor()
-                },
+                }).copy(alpha = if (selected) 0.4f else 1f),
                 style = AppTheme.typography.headingMedium
             )
+
+            androidx.compose.animation.AnimatedVisibility(
+                modifier = Modifier.size(AppTheme.indents.x3).align(Alignment.Center),
+                visible = selected,
+                enter = scaleIn(),
+                exit = scaleOut()
+            ) {
+                Icon(
+                    Icons.Rounded.CheckCircle,
+                    null,
+                    modifier = Modifier.size(AppTheme.indents.x3).align(Alignment.Center),
+                    tint = AppTheme.colors.backgroundSuccess()
+                )
+            }
         }
         SpacerComponent { x2 }
         Column(Modifier.weight(1f).align(Alignment.CenterVertically)) {

@@ -16,6 +16,7 @@ internal data class CurrenciesScreenState(
 
 internal sealed interface CurrenciesScreenIntent : Intent {
     object GoBack : CurrenciesScreenIntent
+    object Save : CurrenciesScreenIntent
     object LoadCurrencies : CurrenciesScreenIntent
     data class ShowCurrencies(
         val list: List<CurrencyDomainModel>,

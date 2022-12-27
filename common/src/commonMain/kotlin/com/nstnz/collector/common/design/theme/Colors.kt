@@ -54,6 +54,10 @@ internal fun Colors.secondaryBackgroundText(): Color = Color(0xFF656770)
 @ReadOnlyComposable
 internal fun Colors.backgroundError(): Color = Color(0xFFFFEEED)
 
+@Composable
+@ReadOnlyComposable
+internal fun Colors.backgroundSuccess(): Color = Color(0xFF28923D)
+
 
 @Composable
 @ReadOnlyComposable

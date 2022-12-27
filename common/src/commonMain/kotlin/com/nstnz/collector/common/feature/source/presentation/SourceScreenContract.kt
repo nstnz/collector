@@ -18,6 +18,7 @@ internal sealed interface SourceScreenIntent : Intent {
     object GoBack : SourceScreenIntent
     object EditSource : SourceScreenIntent
     object ChangeShownCurrency : SourceScreenIntent
+    object ShowAddCurrency : SourceScreenIntent
     data class ShowCount(val sourceFundId: String) : SourceScreenIntent
     data class DeleteCount(val sourceFundId: String) : SourceScreenIntent
     object AddCount : SourceScreenIntent

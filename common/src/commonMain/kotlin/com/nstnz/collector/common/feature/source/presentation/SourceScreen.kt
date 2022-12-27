@@ -29,6 +29,7 @@ internal fun SourceScreen(
     onEditClick: () -> Unit = {},
     onCountClick: (String) -> Unit = {},
     onDeleteCountClick: (String) -> Unit = {},
+    onAddCurrency: () -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
@@ -51,7 +52,7 @@ internal fun SourceScreen(
                         .horizontalScroll(rememberScrollState())
                 ) {
                     SpacerComponent { x3 }
-                    CurrenciesBlock(viewState.sourceMainModel.favoriteSums, {})
+                    CurrenciesBlock(viewState.sourceMainModel.favoriteSums, onAddCurrency)
                     SpacerComponent { x3 }
                 }
 

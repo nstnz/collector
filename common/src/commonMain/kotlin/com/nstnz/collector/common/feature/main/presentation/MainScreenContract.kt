@@ -18,7 +18,7 @@ internal sealed interface MainScreenIntent : Intent {
     object OnResume : MainScreenIntent
     data class Update(val sourcesMainModel: SourcesListDomainModel) : MainScreenIntent
     object ShowSettingsScreen : MainScreenIntent
-    object ShowAddCount : MainScreenIntent
+    object ShowAddCurrency : MainScreenIntent
     object ShowAddSource : MainScreenIntent
     data class DeleteSource(val sourceId: String) : MainScreenIntent
 }

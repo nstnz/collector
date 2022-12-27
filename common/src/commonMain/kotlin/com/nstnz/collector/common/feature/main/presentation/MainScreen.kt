@@ -6,29 +6,24 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
-import com.nstnz.collector.common.design.scaffold.GradientModalBottomSheetScaffold
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.swipedismiss.SwipeDismissComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.title.TitleComponent
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
-import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreen
-import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenState
 import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainModel
 import com.nstnz.collector.common.feature.core.domain.model.SourceDomainModel
-import kotlinx.coroutines.launch
+import com.nstnz.collector.common.feature.core.domain.model.SourcesListDomainModel
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MainScreen(
     viewState: MainScreenState,
-    onAddCount: () -> Unit = {},
+    onAddCurrency: () -> Unit = {},
     onAddSource: () -> Unit = {},
     onSourceClick: (String) -> Unit = {},
     onConverterTabCLick: () -> Unit = {},
@@ -56,7 +51,8 @@ internal fun MainScreen(
                 viewState,
                 onAddSource,
                 onSourceClick,
-                onDeleteSourceClick
+                onDeleteSourceClick,
+                onAddCurrency
             )
             MainScreenState.Loading -> {}
         }
@@ -69,20 +65,21 @@ private fun MainScreenStateDefault(
     onAddSource: () -> Unit = {},
     onSourceClick: (String) -> Unit,
     onDeleteSourceClick: (String) -> Unit = {},
+    onAddCurrency: () -> Unit = {},
 ) {
     Column(
         Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        MainResultPanel(viewState.sourcesMainModel.originalFormattedSum)
+        MainResultPanel(viewState.sourcesMainModel)
         Row(
             Modifier
                 .fillMaxSize()
                 .horizontalScroll(rememberScrollState())
         ) {
             SpacerComponent { x3 }
-            CurrenciesBlock(viewState.sourcesMainModel.favoriteSums)
+            CurrenciesBlock(viewState.sourcesMainModel.favoriteSums.drop(1), onAddCurrency)
             SpacerComponent { x3 }
         }
 
@@ -132,38 +129,39 @@ internal fun CurrenciesBlock(
             )
         }
         SpacerComponent { x2 }
-        Column(
-            Modifier.background(
-                AppTheme.colors.backgroundPrimary(),
-                AppTheme.shapes.x3
-            ).dashedBorder(
+    }
+    Column(
+        Modifier.background(
+            AppTheme.colors.backgroundPrimary(),
+            AppTheme.shapes.x3
+        ).clickable { onAddCurrency() }
+            .dashedBorder(
                 width = AppTheme.indents.x0_125,
                 color = AppTheme.colors.secondaryBackgroundText(),
                 shape = AppTheme.shapes.x2,
                 off = AppTheme.indents.x0_5,
                 on = AppTheme.indents.x0_5
             ).padding(AppTheme.indents.x3)
-        ) {
-            Icon(
-                Icons.Rounded.AddCircleOutline,
-                null,
-                modifier = Modifier.size(AppTheme.indents.x2_5),
-                tint = AppTheme.colors.primaryBackgroundText()
-            )
-            SpacerComponent { x0_5 }
-            Text(
-                text = "Добавить валюту",
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.bodySmall,
-                maxLines = 1
-            )
-        }
+    ) {
+        Icon(
+            Icons.Rounded.AddCircleOutline,
+            null,
+            modifier = Modifier.size(AppTheme.indents.x2_5),
+            tint = AppTheme.colors.primaryBackgroundText()
+        )
+        SpacerComponent { x0_5 }
+        Text(
+            text = "Добавить валюту",
+            color = AppTheme.colors.secondaryBackgroundText(),
+            style = AppTheme.typography.bodySmall,
+            maxLines = 1
+        )
     }
 }
 
 @Composable
 private fun MainResultPanel(
-    total: String,
+    total: SourcesListDomainModel,
 ) {
     Column(
         Modifier
@@ -182,13 +180,13 @@ private fun MainResultPanel(
         )
         SpacerComponent { x6 }
         Text(
-            text = total,
+            text = total.originalFormattedSum,
             color = AppTheme.colors.primaryText(),
             style = AppTheme.typography.headingMegaLarge
         )
         SpacerComponent { x0_5 }
         Text(
-            text = "Название валюты",
+            text = total.favoriteCurrencies.first().name,
             color = AppTheme.colors.secondaryText(),
             style = AppTheme.typography.bodySmall
         )

@@ -8,6 +8,7 @@ import com.nstnz.collector.common.feature.currencies.data.prefs.CurrenciesPrefs
 import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
 import com.nstnz.collector.common.feature.currencies.domain.usecase.RefreshCurrenciesUseCase
+import com.nstnz.collector.common.feature.currencies.domain.usecase.SaveFavoriteCurrenciesUseCase
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenViewModel
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesViewModelParams
 import org.kodein.di.*
@@ -43,6 +44,12 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
             instance()
         )
     }
+    bind<SaveFavoriteCurrenciesUseCase>() with provider {
+        SaveFavoriteCurrenciesUseCase(
+            instance(),
+            instance()
+        )
+    }
     bind<RefreshCurrenciesUseCase>() with provider {
         RefreshCurrenciesUseCase(
             instance(),
@@ -51,6 +58,11 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
     }
 
     bind<CurrenciesScreenViewModel>() with multiton { params: CurrenciesViewModelParams ->
-        CurrenciesScreenViewModel(params, instance(), instance())
+        CurrenciesScreenViewModel(
+            params,
+            instance(),
+            instance(),
+            instance()
+        )
     }
 }

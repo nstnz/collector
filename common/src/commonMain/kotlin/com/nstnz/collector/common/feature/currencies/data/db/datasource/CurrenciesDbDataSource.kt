@@ -17,11 +17,25 @@ internal class CurrenciesDbDataSource(
             code = currencyModelDto.code,
             name = currencyModelDto.name,
             crypto = currencyModelDto.crypto,
-            isFavourite = currencyModelDto.code == "USD" || currencyModelDto.code == "EUR"
+            isFavourite = currencyModelDto.code == "USD"
         )
     }
 
-    fun getCurrency(code: String?): CurrencyEntity?{
+    internal fun updateCurrency(
+        code: String,
+        isFavourite: Boolean,
+        name: String,
+        crypto: Boolean
+    ) {
+        queries.insertCurrency(
+            code = code,
+            name = name,
+            crypto = crypto,
+            isFavourite = isFavourite
+        )
+    }
+
+    fun getCurrency(code: String?): CurrencyEntity? {
         return queries.getCurrency(code.orEmpty(), ::mapCurrency).executeAsOneOrNull()
     }
 

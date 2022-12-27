@@ -36,8 +36,8 @@ internal class MainScreenViewModel(
             null
         }
         is MainScreenIntent.Update -> null
-        is MainScreenIntent.ShowAddCount -> {
-            router.navigateToAddCountScreen(null)
+        is MainScreenIntent.ShowAddCurrency -> {
+            router.navigateToCurrenciesScreen(multiCheck = true, saveChanges = true, null)
             null
         }
         MainScreenIntent.ShowAddSource -> {

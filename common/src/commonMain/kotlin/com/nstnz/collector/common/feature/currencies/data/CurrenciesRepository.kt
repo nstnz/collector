@@ -4,6 +4,7 @@ import com.nstnz.collector.common.feature.currencies.data.db.datasource.Currenci
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
 import com.nstnz.collector.common.feature.currencies.data.prefs.CurrenciesPrefs
+import kotlinx.serialization.SerialName
 
 internal class CurrenciesRepository(
     private val currenciesNetworkDataSource: CurrenciesNetworkDataSource,
@@ -11,20 +12,21 @@ internal class CurrenciesRepository(
     private val currenciesPrefs: CurrenciesPrefs,
 ) {
 
-    private var currencies: List<CurrencyEntity> = emptyList()
+    private var currencies: MutableMap<String, CurrencyEntity> = mutableMapOf()
 
     suspend fun getRatesForSum(originCurrency: String, sum: Double, currencies: List<String>) =
         currenciesNetworkDataSource.getRatesForSum(originCurrency, sum, currencies)
 
     suspend fun getSupportedCurrencies() =
-        currencies.ifEmpty {
+        currencies.values.ifEmpty {
             currenciesDbDataSource.getAllCurrencies().also {
-                currencies = it
+                currencies = it.associateBy { it.code }.toMutableMap()
             }
+            currencies.values
         }
 
     suspend fun refreshSupportedCurrencies() {
-        currencies = emptyList()
+        currencies = mutableMapOf()
         currenciesNetworkDataSource.getSupportedCurrencies().forEach { model ->
             currenciesDbDataSource.saveCurrency(model)
         }
@@ -37,4 +39,17 @@ internal class CurrenciesRepository(
 
     suspend fun getCurrencyByCode(code: String?) =
         currenciesDbDataSource.getCurrency(code)
+
+    suspend fun saveCurrency(
+        code: String,
+        isFavourite: Boolean,
+        name: String,
+        crypto: Boolean
+    ) = currenciesDbDataSource.updateCurrency(
+        code, isFavourite, name, crypto
+    ).also {
+        currencies[code] = CurrencyEntity(
+            code, name, crypto, isFavourite
+        )
+    }
 }

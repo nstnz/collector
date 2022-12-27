@@ -4,6 +4,7 @@ import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.core.domain.usecase.DeleteCountDataUseCase
+import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
 
 internal class SourceScreenViewModel(
     private val sourceId: String,
@@ -52,6 +53,10 @@ internal class SourceScreenViewModel(
         }
         is SourceScreenIntent.ShowCount -> {
             router.navigateToEditSourceFundScreen(intent.sourceFundId)
+            null
+        }
+        is SourceScreenIntent.ShowAddCurrency -> {
+            router.navigateToCurrenciesScreen(multiCheck = true, saveChanges = true, null)
             null
         }
         SourceScreenIntent.ChangeShownCurrency -> {

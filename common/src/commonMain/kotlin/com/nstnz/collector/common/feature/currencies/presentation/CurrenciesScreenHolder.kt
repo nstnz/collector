@@ -25,6 +25,7 @@ internal fun CurrenciesScreenHolder(
         viewState = viewState,
         onCurrencyClick = { viewModel.sendIntent(CurrenciesScreenIntent.ClickCurrency(it)) },
         onSearch = { viewModel.sendIntent(CurrenciesScreenIntent.SearchCurrency(it)) },
-        onBackCLick = { viewModel.sendIntent(CurrenciesScreenIntent.GoBack) }
+        onBackCLick = { viewModel.sendIntent(CurrenciesScreenIntent.GoBack) },
+        onSaveClick = { viewModel.sendIntent(CurrenciesScreenIntent.Save) },
     )
 }
