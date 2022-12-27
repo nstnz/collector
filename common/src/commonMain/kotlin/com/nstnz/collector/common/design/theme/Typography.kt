@@ -23,6 +23,11 @@ internal object Typography {
         lineHeight = 32.0.sp,
         fontWeight = FontWeight.Bold
     )
+    val bodyMedium = TextStyle(
+        fontSize = 16.0.sp,
+        letterSpacing = 0.15000000596046448.sp,
+        lineHeight = 20.0.sp,
+    )
 
 
 
@@ -32,11 +37,6 @@ internal object Typography {
         fontSize = 20.0.sp,
         letterSpacing = 0.15000000596046448.sp,
         lineHeight = 28.0.sp,
-    )
-    val bodyMedium = TextStyle(
-        fontSize = 16.0.sp,
-        letterSpacing = 0.15000000596046448.sp,
-        lineHeight = 24.0.sp,
     )
     val bodyXsmall = TextStyle(
         fontSize = 12.0.sp,

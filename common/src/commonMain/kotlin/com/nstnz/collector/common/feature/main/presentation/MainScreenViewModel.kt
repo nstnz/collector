@@ -47,8 +47,7 @@ internal class MainScreenViewModel(
             null
         }
         MainScreenIntent.OnResume -> {
-            val newCurrency = router.getLastResult<CurrencyDomainModel>()
-            val sourcesModel = getSourcesScenario(newCurrency?.let { listOf(it) })
+            val sourcesModel = getSourcesScenario(null)
             MainScreenIntent.Update(sourcesModel)
         }
         is MainScreenIntent.DeleteSource -> {

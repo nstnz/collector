@@ -42,10 +42,7 @@ internal class AddSourceScreenViewModel(
             null
         }
         is AddSourceScreenIntent.SaveSource -> {
-            if (state is AddSourceScreenState.Default) {
-                val sourceId = saveSourceDataUseCase(state.name, state.currency.code)
-                router.navigateToSourceScreen(sourceId, clearBackEntry = true)
-            }
+            router.back()
             null
         }
         is AddSourceScreenIntent.ChangeCurrency -> {

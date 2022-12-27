@@ -34,8 +34,7 @@ internal class SourceScreenViewModel(
             null
         }
         SourceScreenIntent.OnResume -> {
-            val newCurrency = router.getLastResult<CurrencyDomainModel>()
-            val source = getSourceScenario(sourceId, newCurrency?.let { listOf(it) })
+            val source = getSourceScenario(sourceId, null)
             source?.let {
                 SourceScreenIntent.Update(it)
             }

@@ -24,7 +24,7 @@ internal fun Colors.gradientPartsBottom(): Color = Color(0xFFFFFFFF)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.overlayColor(): Color = Color(0x11000000)
+internal fun Colors.overlayColor(): Color = Color(0x22000000)
 
 @Composable
 @ReadOnlyComposable
