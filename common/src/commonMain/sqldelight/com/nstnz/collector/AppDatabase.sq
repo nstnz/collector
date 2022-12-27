@@ -18,6 +18,9 @@ SELECT * FROM CurrenciesDao WHERE code = ?;
 removeAllCurrencies:
 DELETE FROM CurrenciesDao;
 
+getFavoriteCurrencies:
+SELECT * FROM CurrenciesDao WHERE isFavourite = 1;
+
 
 
 

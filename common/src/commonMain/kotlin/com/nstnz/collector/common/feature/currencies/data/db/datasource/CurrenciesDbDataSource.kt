@@ -39,6 +39,10 @@ internal class CurrenciesDbDataSource(
         return queries.getCurrency(code.orEmpty(), ::mapCurrency).executeAsOneOrNull()
     }
 
+    fun getFavoriteCurrencies(): List<CurrencyEntity> {
+        return queries.getFavoriteCurrencies( ::mapCurrency).executeAsList()
+    }
+
     private fun mapCurrency(
         code: String,
         name: String?,

@@ -162,7 +162,7 @@ private fun CountDetailedPanel(
                     style = AppTheme.typography.headingMedium
                 )
                 SpacerComponent { x0_5 }
-                count.favoriteSums.forEach {
+                count.favoriteSums.take(6).forEach {
                     Text(
                         text = it.formattedSum,
                         color = AppTheme.colors.secondaryBackgroundText(),

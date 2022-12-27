@@ -4,7 +4,6 @@ import com.nstnz.collector.common.feature.currencies.data.db.datasource.Currenci
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import com.nstnz.collector.common.feature.currencies.data.network.datasource.CurrenciesNetworkDataSource
 import com.nstnz.collector.common.feature.currencies.data.prefs.CurrenciesPrefs
-import kotlinx.serialization.SerialName
 
 internal class CurrenciesRepository(
     private val currenciesNetworkDataSource: CurrenciesNetworkDataSource,
@@ -34,8 +33,12 @@ internal class CurrenciesRepository(
 
     suspend fun getDefaultCurrencyCode() = currenciesPrefs.defaultCurrencyCode
 
-    suspend fun getDefaultCurrency() =
-        currenciesDbDataSource.getCurrency(currenciesPrefs.defaultCurrencyCode)
+    suspend fun setDefaultCurrencyCode(code: String) {
+        currenciesPrefs.defaultCurrencyCode = code
+    }
+
+    suspend fun getFavoriteCurrencies() =
+        currenciesDbDataSource.getFavoriteCurrencies()
 
     suspend fun getCurrencyByCode(code: String?) =
         currenciesDbDataSource.getCurrency(code)

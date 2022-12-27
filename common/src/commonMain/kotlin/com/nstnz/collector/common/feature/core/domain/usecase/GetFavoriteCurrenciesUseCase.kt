@@ -12,16 +12,14 @@ internal class GetFavoriteCurrenciesUseCase(
 ) {
 
     suspend operator fun invoke(): List<CurrencyDomainModel> = withContext(dispatcher) {
-        val currency = currenciesRepository.getDefaultCurrency() ?: CurrencyEntity(
-            "USD", "", false, true
-        )
-        listOf(
+        val default = currenciesRepository.getDefaultCurrencyCode()
+        currenciesRepository.getFavoriteCurrencies().map {
             CurrencyDomainModel(
-                code = currency.code,
-                name = currency.name,
-                crypto = currency.crypto,
-                isFavourite = currency.isFavourite
+                code = it.code,
+                name = it.name,
+                crypto = it.crypto,
+                isFavourite = it.isFavourite
             )
-        )
+        }.sortedBy { it.code == default }
     }
 }
