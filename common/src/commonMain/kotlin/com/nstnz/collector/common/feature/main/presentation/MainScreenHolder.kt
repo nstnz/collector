@@ -27,6 +27,6 @@ internal fun MainScreenHolder() {
         onSettingsTabClick = { viewModel.sendIntent(MainScreenIntent.ShowSettingsScreen) },
         onAddCount = { viewModel.sendIntent(MainScreenIntent.ShowAddCount) },
         onAddSource = { viewModel.sendIntent(MainScreenIntent.ShowAddSource) },
-        onChangeShownCurrency = { viewModel.sendIntent(MainScreenIntent.ChangeShownCurrency) },
+        onDeleteSourceClick = { viewModel.sendIntent(MainScreenIntent.DeleteSource(it)) },
     )
 }

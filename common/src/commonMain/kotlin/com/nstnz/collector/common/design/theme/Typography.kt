@@ -6,6 +6,28 @@ import androidx.compose.ui.unit.sp
 
 internal object Typography {
 
+    val headingMedium = TextStyle(
+        fontSize = 16.0.sp,
+        letterSpacing = 0.20000000298023224.sp,
+        lineHeight = 20.0.sp,
+        fontWeight = FontWeight.Bold
+    )
+    val bodySmall = TextStyle(
+        fontSize = 12.0.sp,
+        letterSpacing = 0.20000000298023224.sp,
+        lineHeight = 16.0.sp,
+    )
+    val headingMegaLarge = TextStyle(
+        fontSize = 40.0.sp,
+        letterSpacing = 0.3700000047683716.sp,
+        lineHeight = 40.0.sp,
+        fontWeight = FontWeight.Bold
+    )
+
+
+
+
+
     val bodyLarge = TextStyle(
         fontSize = 20.0.sp,
         letterSpacing = 0.15000000596046448.sp,
@@ -15,11 +37,6 @@ internal object Typography {
         fontSize = 16.0.sp,
         letterSpacing = 0.15000000596046448.sp,
         lineHeight = 24.0.sp,
-    )
-    val bodySmall = TextStyle(
-        fontSize = 14.0.sp,
-        letterSpacing = 0.20000000298023224.sp,
-        lineHeight = 20.0.sp,
     )
     val bodyXsmall = TextStyle(
         fontSize = 12.0.sp,
@@ -31,18 +48,6 @@ internal object Typography {
         letterSpacing = 0.0.sp,
         lineHeight = 32.0.sp,
         fontWeight = FontWeight.Bold
-    )
-    val headingMedium = TextStyle(
-        fontSize = 20.0.sp,
-        letterSpacing = 0.20000000298023224.sp,
-        lineHeight = 26.0.sp,
-        fontWeight = FontWeight.Black
-    )
-    val headingMegaLarge = TextStyle(
-        fontSize = 40.0.sp,
-        letterSpacing = 0.3700000047683716.sp,
-        lineHeight = 40.0.sp,
-        fontWeight = FontWeight.Black
     )
     val headingSmall = TextStyle(
         fontSize = 16.0.sp,

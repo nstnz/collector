@@ -135,7 +135,7 @@ private fun getTrailingIcon(
                 Icon(
                     Icons.Rounded.Cancel,
                     null,
-                    tint = AppTheme.colors.dividerBackgroundText()
+                    tint = AppTheme.colors.backgroundSecondary()
                 )
             }
         }
@@ -148,13 +148,13 @@ private fun getTextColors() =
     TextFieldDefaults.outlinedTextFieldColors(
         textColor = AppTheme.colors.primaryBackgroundText(),
         focusedBorderColor = AppTheme.colors.accentColor(),
-        unfocusedBorderColor = AppTheme.colors.dividerBackgroundText(),
+        unfocusedBorderColor = AppTheme.colors.backgroundSecondary(),
         focusedLabelColor = AppTheme.colors.accentColor(),
         unfocusedLabelColor = AppTheme.colors.secondaryBackgroundText(),
         placeholderColor = AppTheme.colors.hintBackgroundText(),
         cursorColor = AppTheme.colors.accentColor(),
         disabledTextColor = AppTheme.colors.primaryBackgroundText(),
-        disabledBorderColor = AppTheme.colors.dividerBackgroundText(),
+        disabledBorderColor = AppTheme.colors.backgroundSecondary(),
         disabledLabelColor = AppTheme.colors.secondaryBackgroundText(),
     )
 

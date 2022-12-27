@@ -5,11 +5,13 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
+import com.nstnz.collector.common.feature.editcount.domain.usecase.DeleteCountDataUseCase
 
 internal class SourceScreenViewModel(
     private val sourceId: String,
     private val router: Router,
     private val getSourceScenario: GetSourceScenario,
+    private val deleteCountDataUseCase: DeleteCountDataUseCase
 ) : CoroutinesViewModel<SourceScreenState, SourceScreenIntent, SourceScreenSingleEvent>() {
 
     override fun initialState(): SourceScreenState = SourceScreenState.Loading
@@ -64,6 +66,10 @@ internal class SourceScreenViewModel(
                 )
             }
             null
+        }
+        is SourceScreenIntent.DeleteCount -> {
+            deleteCountDataUseCase(intent.sourceFundId)
+            SourceScreenIntent.OnResume
         }
     }
 }

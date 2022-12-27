@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.dividerBackgroundText
+import com.nstnz.collector.common.design.theme.backgroundSecondary
 import com.nstnz.collector.common.design.theme.hintBackgroundText
 import com.nstnz.collector.common.design.theme.noEffectsClickable
 

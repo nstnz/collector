@@ -16,19 +16,23 @@ import com.nstnz.collector.common.design.theme.*
 
 @Composable
 internal fun DefaultNavComponent(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit = {},
+    title: String = "",
+    showBackButton: Boolean = true,
 ) {
     NavBarComponent(
         modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
-        title = "",
+        title = title,
         navigationIcon = {
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    Icons.Rounded.ArrowBackIosNew,
-                    null,
-                    modifier = Modifier.size(AppTheme.indents.x3_5),
-                    tint = AppTheme.colors.primaryBackgroundText()
-                )
+            if (showBackButton) {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        Icons.Rounded.ArrowBackIosNew,
+                        null,
+                        modifier = Modifier.size(AppTheme.indents.x3_5),
+                        tint = AppTheme.colors.primaryBackgroundText()
+                    )
+                }
             }
         }
     )

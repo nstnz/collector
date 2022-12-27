@@ -20,6 +20,6 @@ internal object Gradients {
     @Composable
     fun accentGradient() = Brush.verticalGradient(
         0.0f to AppTheme.colors.accentColor(),
-        1.0f to AppTheme.colors.accentPressedColor()
+        1.0f to AppTheme.colors.accentColor()
     )
 }

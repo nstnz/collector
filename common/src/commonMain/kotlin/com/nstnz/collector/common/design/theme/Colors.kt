@@ -12,15 +12,15 @@ internal fun Colors.backgroundPrimary(): Color = Color(0xFFFFFFFF)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.backgroundSecondary(): Color = Color(0x33FFFFFF)
+internal fun Colors.backgroundSecondary(): Color = Color(0xFFF2F7FA)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.gradientPartsTop(): Color = Color(0xFFF4F7FE)
+internal fun Colors.gradientPartsTop(): Color = Color(0xFFFFFFFF)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.gradientPartsBottom(): Color = Color(0xFFF4F7FE)
+internal fun Colors.gradientPartsBottom(): Color = Color(0xFFFFFFFF)
 
 @Composable
 @ReadOnlyComposable
@@ -28,12 +28,11 @@ internal fun Colors.overlayColor(): Color = Color(0x11000000)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.accentColor(): Color = Color(0xff5B53FF)
+internal fun Colors.accentColor(): Color = Color(0xff18A0FB)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.accentPressedColor(): Color = Color(0xff514ae5)
-
+internal fun Colors.accent2Color(): Color = Color(0xffFF521C)
 
 @Composable
 @ReadOnlyComposable
@@ -45,40 +44,22 @@ internal fun Colors.secondaryText(): Color = Color(0xCCFFFFFF)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.hintText(): Color = Color(0x99FFFFFF)
+internal fun Colors.primaryBackgroundText(): Color = Color(0xFF1F1428)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.dividerText(): Color = Color(0x44FFFFFF)
-
-
-@Composable
-@ReadOnlyComposable
-internal fun Colors.primaryBackgroundText(): Color = Color(0xFF000000)
+internal fun Colors.secondaryBackgroundText(): Color = Color(0xFF656770)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.secondaryBackgroundText(): Color = Color(0xCC000000)
-
-@Composable
-@ReadOnlyComposable
-internal fun Colors.hintBackgroundText(): Color = Color(0x99000000)
-
-@Composable
-@ReadOnlyComposable
-internal fun Colors.dividerBackgroundText(): Color = Color(0x44000000)
-
-
-@Composable
-@ReadOnlyComposable
-internal fun Colors.backgroundSnackBar(): Color = Color(0xFF00FF00)
-
-@Composable
-@ReadOnlyComposable
-internal fun Colors.backgroundError(): Color = Color(0xFFFF0000)
-
+internal fun Colors.backgroundError(): Color = Color(0xFFFFEEED)
 
 
 @Composable
 @ReadOnlyComposable
 internal fun Colors.transparent(): Color = Color(0x00000000)
+
+
+@Composable
+@ReadOnlyComposable
+internal fun Colors.hintBackgroundText(): Color = Color(0x00000000)

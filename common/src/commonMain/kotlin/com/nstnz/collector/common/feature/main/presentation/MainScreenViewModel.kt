@@ -5,11 +5,12 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesListScenario
 import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
+import com.nstnz.collector.common.feature.editsource.domain.usecase.DeleteSourceDataUseCase
 
 internal class MainScreenViewModel(
     private val router: Router,
     private val getSourcesScenario: GetSourcesListScenario,
-    private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
+    private val deleteSourceDataUseCase: DeleteSourceDataUseCase
 ) : CoroutinesViewModel<MainScreenState, MainScreenIntent, MainScreenSingleEvent>() {
 
     override fun initialState(): MainScreenState = MainScreenState.Loading
@@ -50,15 +51,9 @@ internal class MainScreenViewModel(
             val sourcesModel = getSourcesScenario(newCurrency?.let { listOf(it) })
             MainScreenIntent.Update(sourcesModel)
         }
-        MainScreenIntent.ChangeShownCurrency -> {
-            if (state is  MainScreenState.Default) {
-                router.navigateToCurrenciesScreen(
-                    multiCheck = false,
-                    saveChanges = false,
-                    currency = getFavoriteCurrenciesUseCase().firstOrNull()?.code
-                )
-            }
-            null
+        is MainScreenIntent.DeleteSource -> {
+            deleteSourceDataUseCase(intent.sourceId)
+            MainScreenIntent.OnResume
         }
     }
 }

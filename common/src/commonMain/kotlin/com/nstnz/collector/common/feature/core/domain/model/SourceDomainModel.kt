@@ -9,7 +9,7 @@ data class SourceDomainModel(
     val selectedCurrencies: List<CurrencyDomainModel>,
 ) {
     val originalFormattedSum: String
-        get() = "${originalSum.sum} ${originalSum.currency.code}"
+        get() = originalSum.formattedSum
 
     val originalSum: CurrencySumDomainModel
         get() = CurrencySumDomainModel(

@@ -28,6 +28,6 @@ internal fun SourceScreenHolder(
         onAddCountClick = {viewModel.sendIntent(SourceScreenIntent.AddCount)},
         onEditClick = {viewModel.sendIntent(SourceScreenIntent.EditSource)},
         onCountClick = {viewModel.sendIntent(SourceScreenIntent.ShowCount(it))},
-        onChangeShownCurrency = {viewModel.sendIntent(SourceScreenIntent.ChangeShownCurrency)},
+        onDeleteCountClick = {viewModel.sendIntent(SourceScreenIntent.DeleteCount(it))},
     )
 }

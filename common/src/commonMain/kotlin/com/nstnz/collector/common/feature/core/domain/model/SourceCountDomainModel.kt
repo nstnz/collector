@@ -9,7 +9,7 @@ data class SourceCountDomainModel(
     val selectedSums: List<CurrencySumDomainModel>,
 ) {
     val originalFormattedSum: String
-        get() = "${originalSum.sum} ${originalSum.currency.code}"
+        get() = originalSum.formattedSum
 
     fun getSumInCurrency(code: String): Double =
         when {

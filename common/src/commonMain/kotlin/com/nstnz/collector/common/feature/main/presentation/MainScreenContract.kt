@@ -20,7 +20,7 @@ internal sealed interface MainScreenIntent : Intent {
     object ShowSettingsScreen : MainScreenIntent
     object ShowAddCount : MainScreenIntent
     object ShowAddSource : MainScreenIntent
-    object ChangeShownCurrency : MainScreenIntent
+    data class DeleteSource(val sourceId: String) : MainScreenIntent
 }
 
 internal sealed class MainScreenSingleEvent : SingleEvent

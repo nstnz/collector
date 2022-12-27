@@ -48,33 +48,48 @@ internal fun NavigationBarComponent(
 private fun NavigationBarComponent(
     items: List<NavigationItem>,
 ) {
-    Surface(
-        shape = AppTheme.shapes.x4_top,
-        elevation = AppTheme.elevations.card
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(AppTheme.colors.backgroundPrimary())
     ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(AppTheme.indents.x0_125)
+                .background(AppTheme.colors.backgroundSecondary())
+        )
+        SpacerComponent { x0_75 }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(AppTheme.indents.x7_5)
-                .background(
-                    AppTheme.gradients.accentGradient(),
-                    shape = AppTheme.shapes.x4_top
-                )
                 .padding(horizontal = AppTheme.indents.x2)
+                .align(Alignment.CenterHorizontally)
         ) {
             items.forEach {
-                Box(Modifier
-                    .fillMaxHeight()
+                Column(Modifier
                     .weight(1f)
                     .noEffectsClickable { it.onClick() }) {
-                    BottomNavigationItem(
-                        it.selected,
-                        Modifier.align(Alignment.Center),
-                        it.icon
+                    Icon(
+                        it.icon, null,
+                        modifier = Modifier.align(Alignment.CenterHorizontally).size(AppTheme.indents.x3_5),
+                        tint = if (it.selected)
+                            AppTheme.colors.accentColor() else AppTheme.colors.secondaryBackgroundText()
+                    )
+                    SpacerComponent { x0_5 }
+
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = it.text,
+                        color = if (it.selected)
+                            AppTheme.colors.accentColor() else AppTheme.colors.secondaryBackgroundText(),
+                        style = AppTheme.typography.bodySmall
                     )
                 }
             }
         }
+        SpacerComponent { x1 }
     }
 }
 
@@ -85,11 +100,7 @@ private fun BottomNavigationItem(
     modifier: Modifier = Modifier,
     icon: ImageVector,
 ) {
-    Icon(
-        icon, null,
-        modifier = modifier.size(if (selected) AppTheme.indents.x4_5 else AppTheme.indents.x3_5),
-        tint = if (selected) AppTheme.colors.primaryText() else AppTheme.colors.secondaryText()
-    )
+
 }
 
 internal interface NavigationItem {

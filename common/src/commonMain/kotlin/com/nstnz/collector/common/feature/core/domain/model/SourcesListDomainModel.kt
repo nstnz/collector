@@ -6,9 +6,7 @@ data class SourcesListDomainModel(
     val selectedCurrencies: List<CurrencyDomainModel>,
 ) {
     val originalFormattedSum: String
-        get() = favoriteSums.first().let {
-            "${it.sum} ${it.currency.code}"
-        }
+        get() = favoriteSums.first().formattedSum
 
     val favoriteSums: List<CurrencySumDomainModel>
         get() = favoriteCurrencies.map { currency ->

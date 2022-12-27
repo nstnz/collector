@@ -13,7 +13,7 @@ import androidx.compose.ui.layout.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.backgroundSnackBar
+import com.nstnz.collector.common.design.theme.backgroundSecondary
 import kotlin.math.max
 
 /**
@@ -154,11 +154,11 @@ internal fun Snackbar(
 internal object SnackbarDefaults {
     val backgroundColor: Color
         @Composable
-        get() = AppTheme.colors.backgroundSnackBar()
+        get() = AppTheme.colors.backgroundSecondary()
 
     val primaryActionColor: Color
         @Composable
-        get() = AppTheme.colors.backgroundSnackBar()
+        get() = AppTheme.colors.backgroundSecondary()
 }
 
 @Composable

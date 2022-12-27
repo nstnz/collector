@@ -29,6 +29,7 @@ internal val sourceScreenDi = DI.Module(name = Routes.Source.name) {
             sourceId,
             instance(),
             instance(),
+            instance(),
         )
     }
 }

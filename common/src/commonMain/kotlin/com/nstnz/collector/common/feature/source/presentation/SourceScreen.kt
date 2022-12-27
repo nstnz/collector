@@ -1,25 +1,20 @@
 package com.nstnz.collector.common.feature.source.presentation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.ArrowBackIosNew
-import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.nstnz.collector.common.design.button.PrimaryButtonComponent
-import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
+import com.nstnz.collector.common.design.swipedismiss.SwipeDismissComponent
 import com.nstnz.collector.common.design.theme.*
-import com.nstnz.collector.common.design.topbar.NavBarComponent
+import com.nstnz.collector.common.design.title.TitleComponent
+import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.feature.core.domain.model.SourceCountDomainModel
+import com.nstnz.collector.common.feature.core.domain.model.SourceDomainModel
+import com.nstnz.collector.common.feature.main.presentation.CurrenciesBlock
 
 @Composable
 internal fun SourceScreen(
@@ -28,41 +23,13 @@ internal fun SourceScreen(
     onBackClick: () -> Unit = {},
     onEditClick: () -> Unit = {},
     onCountClick: (String) -> Unit = {},
-    onChangeShownCurrency: () -> Unit = {},
+    onDeleteCountClick: (String) -> Unit = {},
 ) {
     GradientScaffold(
         topBar = {
-            NavBarComponent(
-                modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
-                title = "",
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            Icons.Rounded.ArrowBackIosNew,
-                            null,
-                            modifier = Modifier.size(AppTheme.indents.x3_5),
-                            tint = AppTheme.colors.primaryBackgroundText()
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = onEditClick) {
-                        Icon(
-                            Icons.Rounded.Edit,
-                            null,
-                            modifier = Modifier.size(AppTheme.indents.x4_5),
-                            tint = AppTheme.colors.primaryBackgroundText()
-                        )
-                    }
-                    IconButton(onClick = onAddCountClick) {
-                        Icon(
-                            Icons.Rounded.Add,
-                            null,
-                            modifier = Modifier.size(AppTheme.indents.x4_5),
-                            tint = AppTheme.colors.primaryBackgroundText()
-                        )
-                    }
-                }
+            DefaultNavComponent(
+                onBackClick,
+                title = (viewState as? SourceScreenState.Default)?.sourceMainModel?.name.orEmpty()
             )
         }
     ) {
@@ -70,30 +37,34 @@ internal fun SourceScreen(
             Column(
                 Modifier
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
-                HintPanel(
-                    viewState.sourceMainModel.originalFormattedSum,
-                    viewState.sourceMainModel.name,
-                    onChangeShownCurrency
-                )
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(
-                        bottom = AppTheme.indents.x3,
-                        start = AppTheme.indents.x3,
-                        top = AppTheme.indents.x3,
-                        end = AppTheme.indents.x3,
-                    )
+                HintPanel(viewState.sourceMainModel)
+                Row(
+                    Modifier
+                        .fillMaxSize()
+                        .horizontalScroll(rememberScrollState())
                 ) {
-                    items(count = viewState.sourceMainModel.counts.size) { index ->
-                        val fund = viewState.sourceMainModel.counts[index]
-                        SourceFundCell(
-                            fund,
-                            onCountClick
-                        )
-                        SpacerComponent { x2 }
-                    }
+                    SpacerComponent { x3 }
+                    CurrenciesBlock(viewState.sourceMainModel.favoriteSums, {})
+                    SpacerComponent { x3 }
                 }
+
+                SpacerComponent { x3 }
+                TitleComponent(
+                    title = "Счета",
+                    onAddClick = onAddCountClick
+                )
+                SpacerComponent { x1 }
+                viewState.sourceMainModel.counts.forEach {
+                    CountDetailedPanel(
+                        count = it,
+                        onCountClick = onCountClick,
+                        onDeleteCountClick = onDeleteCountClick
+                    )
+                    SpacerComponent { x3 }
+                }
+                SpacerComponent { x3 }
             }
         }
     }
@@ -101,68 +72,82 @@ internal fun SourceScreen(
 
 @Composable
 private fun HintPanel(
-    total: String,
-    title: String,
-    onChangeShownCurrency: () -> Unit = {},
+    sourceMainModel: SourceDomainModel
 ) {
-    CardComponent {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .background(
-                    AppTheme.colors.backgroundPrimary(),
-                    shape = AppTheme.shapes.x4_5_bottom
-                )
-                .padding(AppTheme.indents.x3)
-        ) {
-            Text(
-                text = title,
-                color = AppTheme.colors.primaryBackgroundText(),
-                style = AppTheme.typography.bodyMedium
+    Column(
+        Modifier
+            .padding(AppTheme.indents.x3)
+            .fillMaxWidth()
+            .background(
+                if (sourceMainModel.originalCurrency.crypto) {
+                    AppTheme.colors.accent2Color()
+                } else {
+                    AppTheme.colors.accentColor()
+                },
+                shape = AppTheme.shapes.x3
             )
-            SpacerComponent { x0_5 }
-            Text(
-                text = total,
-                color = AppTheme.colors.primaryBackgroundText(),
-                style = AppTheme.typography.headingMegaLarge
-            )
-            SpacerComponent { x1 }
-            PrimaryButtonComponent(
-                "Change currency",
-                onChangeShownCurrency
-            )
-        }
-
+            .padding(AppTheme.indents.x3)
+    ) {
+        Text(
+            text = sourceMainModel.originalFormattedSum,
+            color = AppTheme.colors.primaryText(),
+            style = AppTheme.typography.headingMegaLarge
+        )
+        SpacerComponent { x0_5 }
+        Text(
+            text = sourceMainModel.originalSum.currency.name,
+            color = AppTheme.colors.secondaryText(),
+            style = AppTheme.typography.bodySmall
+        )
     }
 }
 
 @Composable
-private fun SourceFundCell(
-    fund: SourceCountDomainModel,
+private fun CountDetailedPanel(
+    count: SourceCountDomainModel,
     onCountClick: (String) -> Unit = {},
+    onDeleteCountClick: (String) -> Unit = {},
 ) {
-    CardComponent(
-        Modifier
-            .fillMaxWidth(),
-        shape = AppTheme.shapes.x2,
-        elevation = AppTheme.elevations.secondaryCard,
+    SwipeDismissComponent(
+        modifier = Modifier.fillMaxWidth(),
+        onDeleteClick = {
+            onDeleteCountClick(count.id)
+        }
     ) {
-        Column(
-            Modifier.fillMaxWidth()
-                .clickable { onCountClick(fund.id) }
-                .padding(horizontal = AppTheme.indents.x3, vertical = AppTheme.indents.x2)
-        ) {
-            Text(
-                text = fund.originalFormattedSum,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.headingXlarge
-            )
-            SpacerComponent { x1 }
-            Text(
-                text = fund.originalFormattedSum,
-                color = AppTheme.colors.secondaryBackgroundText(),
-                style = AppTheme.typography.bodyMedium
-            )
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = AppTheme.indents.x3)
+                .clickable { onCountClick(count.id) }) {
+            Box(
+                Modifier.size(AppTheme.indents.x6)
+                    .background(AppTheme.colors.backgroundSecondary(), AppTheme.shapes.x2)
+            ) {
+                Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = count.originalSum.currency.code.uppercase(),
+                    color = if (count.originalSum.currency.crypto) {
+                        AppTheme.colors.accent2Color()
+                    } else {
+                        AppTheme.colors.accentColor()
+                    },
+                    style = AppTheme.typography.headingMedium
+                )
+            }
+            SpacerComponent { x2 }
+            Column(Modifier.weight(1f)) {
+                Text(
+                    text = count.originalFormattedSum,
+                    color = AppTheme.colors.primaryBackgroundText(),
+                    style = AppTheme.typography.headingMedium
+                )
+                SpacerComponent { x0_5 }
+                count.favoriteSums.forEach {
+                    Text(
+                        text = it.formattedSum,
+                        color = AppTheme.colors.secondaryBackgroundText(),
+                        style = AppTheme.typography.bodySmall
+                    )
+                }
+            }
         }
     }
 }
