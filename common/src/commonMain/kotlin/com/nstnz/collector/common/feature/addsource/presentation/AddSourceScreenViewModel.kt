@@ -4,12 +4,13 @@ import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.usecase.SaveSourceDataUseCase
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
+import com.nstnz.collector.common.feature.core.domain.usecase.GetDefaultCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
 
 internal class AddSourceScreenViewModel(
     private val router: Router,
     private val saveSourceDataUseCase: SaveSourceDataUseCase,
-    private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
+    private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase
 ) : CoroutinesViewModel<AddSourceScreenState, AddSourceScreenIntent, AddSourceScreenSingleEvent>() {
 
     init {
@@ -70,9 +71,9 @@ internal class AddSourceScreenViewModel(
             null
         }
         AddSourceScreenIntent.Load -> {
-            val currency = getFavoriteCurrenciesUseCase()
+            val currency = getDefaultCurrencyUseCase()
             AddSourceScreenIntent.Update(
-                "", currency.first()
+                "", currency
             )
         }
         is AddSourceScreenIntent.Update -> null

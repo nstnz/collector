@@ -21,6 +21,7 @@ internal fun TextSelectorComponent(
     modifier: Modifier = Modifier,
     text: String,
     label: String,
+    hint: String = "",
     onClick: (String) -> Unit = {}
 ) {
     Box(modifier.fillMaxWidth().noEffectsClickable {
@@ -31,6 +32,7 @@ internal fun TextSelectorComponent(
             enabled = false,
             value = TextFieldValue(text),
             placeholder = "",
+            hint = hint,
             label = label,
             onValueChange = {},
             trailingIcon = {

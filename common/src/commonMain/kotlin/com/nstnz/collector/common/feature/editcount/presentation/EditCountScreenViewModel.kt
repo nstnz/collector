@@ -5,6 +5,7 @@ import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.usecase.EditCountDataUseCase
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountScenario
+import com.nstnz.collector.common.format
 
 internal class EditCountScreenViewModel(
     private val sourceFundId: String,
@@ -43,18 +44,17 @@ internal class EditCountScreenViewModel(
             val sourceFund = getSourceCountDataUseCase(sourceFundId, null)
             sourceFund?.let { fund ->
                 EditCountScreenIntent.Update(
-                    fund, fund.originalSum.currency, fund.originalSum.sum.toString()
+                    fund, fund.originalSum.currency,  format(fund.originalSum.sum)
                 )
             }
         }
         is EditCountScreenIntent.Update -> null
         is EditCountScreenIntent.ChangeSum -> {
             if (state is EditCountScreenState.Default) {
-                //todo format sum
                 EditCountScreenIntent.Update(
                     state.sourceModel,
                     state.currency,
-                    intent.sum,
+                    intent.sum
                 )
             } else {
                 null
@@ -66,7 +66,7 @@ internal class EditCountScreenViewModel(
                     sourceFundId = sourceFundId,
                     sourceId = state.sourceModel?.sourceId.orEmpty(),
                     currency = state.currency.code,
-                    sum = state.sum.toDoubleOrNull() ?: 0.0,
+                    sum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0,
                     name = "",
                     default = state.sourceModel?.isDefault ?: false,
                 )
@@ -86,6 +86,14 @@ internal class EditCountScreenViewModel(
                 } else {
                     null
                 }
+            } else {
+                null
+            }
+        }
+        is EditCountScreenIntent.AddSum -> {
+            if (state is EditCountScreenState.Default) {
+                val currentSum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0
+                EditCountScreenIntent.ChangeSum((currentSum + intent.sum).toString())
             } else {
                 null
             }

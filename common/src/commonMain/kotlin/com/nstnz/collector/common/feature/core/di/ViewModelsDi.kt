@@ -64,7 +64,7 @@ internal val viewModelsDi = DI.Module(name = "ViewModels") {
         SplashScreenViewModel(instance(), instance(), instance())
     }
     bind<SettingsScreenViewModel>() with scoped(settingsScope).singleton {
-        SettingsScreenViewModel(instance())
+        SettingsScreenViewModel(instance(), instance(), instance())
     }
     bind<SourceScreenViewModel>() with scoped(sourceScope).multiton { sourceId: String ->
         SourceScreenViewModel(

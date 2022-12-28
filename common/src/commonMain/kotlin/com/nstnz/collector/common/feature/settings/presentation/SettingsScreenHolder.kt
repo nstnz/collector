@@ -8,6 +8,7 @@ import com.nstnz.collector.common.basic.router.OnLifecycleEvent
 import com.nstnz.collector.common.feature.core.di.converterScope
 import com.nstnz.collector.common.feature.core.di.settingsScope
 import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
+import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
 @Composable
@@ -17,6 +18,7 @@ internal fun SettingsScreenHolder() {
 
     OnLifecycleEvent(settingsScope) { event ->
         when (event) {
+            Lifecycle.State.Active -> viewModel.sendIntent(SettingsScreenIntent.OnResume)
             else -> Unit
         }
     }
@@ -25,5 +27,6 @@ internal fun SettingsScreenHolder() {
         viewState = viewState,
         onConverterTabCLick = { viewModel.sendIntent(SettingsScreenIntent.ShowConverter) },
         onMainTabClick = { viewModel.sendIntent(SettingsScreenIntent.ShowMainScreen) },
+        onChangeCurrencyClick = { viewModel.sendIntent(SettingsScreenIntent.ChangeCurrency) }
     )
 }

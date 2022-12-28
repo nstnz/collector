@@ -1,6 +1,8 @@
 package com.nstnz.collector.common.design.input
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,7 +29,14 @@ internal fun SumTextInputComponent(
     onValueChange: (TextFieldValue) -> Unit,
 ) {
     Column(
-        modifier.background(AppTheme.colors.backgroundSecondary(), AppTheme.shapes.x2)
+        modifier.background(AppTheme.colors.backgroundPrimary(), AppTheme.shapes.x2)
+            .border(
+                border = BorderStroke(
+                    AppTheme.indents.x0_25,
+                    AppTheme.colors.backgroundSecondary()
+                ),
+                shape = AppTheme.shapes.x2
+            )
             .padding(bottom = AppTheme.indents.x0_5, end = AppTheme.indents.x2)
     ) {
         val interactionSource = remember { MutableInteractionSource() }

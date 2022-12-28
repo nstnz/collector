@@ -27,6 +27,18 @@ internal val coreDi = DI.Module(name = "Core") {
             instance()
         )
     }
+    bind<GetDefaultCurrencyUseCase>() with provider {
+        GetDefaultCurrencyUseCase(
+            instance(),
+            instance()
+        )
+    }
+    bind<SaveDefaultCurrencyUseCase>() with provider {
+        SaveDefaultCurrencyUseCase(
+            instance(),
+            instance()
+        )
+    }
     bind<DeleteSourceDataUseCase>() with provider {
         DeleteSourceDataUseCase(
             instance(),

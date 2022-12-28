@@ -20,6 +20,7 @@ internal sealed interface EditCountScreenIntent : Intent {
     object Load : EditCountScreenIntent
     object OnResume : EditCountScreenIntent
     data class ChangeSum(val sum: String) : EditCountScreenIntent
+    data class AddSum(val sum: Double) : EditCountScreenIntent
     data class Update(
         val sourceModel: SourceCountDomainModel?,
         val currency: CurrencyDomainModel,

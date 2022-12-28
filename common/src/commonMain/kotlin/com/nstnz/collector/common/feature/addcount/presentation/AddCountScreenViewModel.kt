@@ -6,6 +6,7 @@ import com.nstnz.collector.common.feature.core.domain.usecase.SaveCountUseCase
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesScenario
+import com.nstnz.collector.common.format
 
 internal class AddCountScreenViewModel(
     private val sourceId: String,
@@ -55,7 +56,7 @@ internal class AddCountScreenViewModel(
             if (state is AddCountScreenState.Default) {
                 saveCountUseCase(
                     currency = state.currency.code,
-                    sum = state.sum.toDoubleOrNull() ?: 0.0,
+                    sum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0,
                     sourceId = sourceId
                 )
                 router.back()
@@ -64,11 +65,10 @@ internal class AddCountScreenViewModel(
         }
         is AddCountScreenIntent.ChangeSum -> {
             if (state is AddCountScreenState.Default) {
-                //todo format sum
                 AddCountScreenIntent.Update(
                     state.sourceModel,
                     state.currency,
-                    intent.sum,
+                    format(intent.sum.replace(" ", "").toDoubleOrNull() ?: 0.0),
                 )
             } else {
                 null

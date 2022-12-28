@@ -28,5 +28,6 @@ internal fun EditCountScreenHolder(sourceFundId: String?) {
         onBackClick = { viewModel.sendIntent(EditCountScreenIntent.GoBack) },
         onSaveClick = { viewModel.sendIntent(EditCountScreenIntent.Save) },
         onChangeSum = { viewModel.sendIntent(EditCountScreenIntent.ChangeSum(it)) },
+        onAddSum = { viewModel.sendIntent(EditCountScreenIntent.AddSum(it)) },
     )
 }
