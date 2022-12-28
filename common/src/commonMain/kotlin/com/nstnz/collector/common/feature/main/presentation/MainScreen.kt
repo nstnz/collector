@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.nstnz.collector.common.basic.texts.MainScreen_Title
+import com.nstnz.collector.common.design.emptystate.EmptyStateComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
@@ -89,13 +90,20 @@ private fun MainScreenStateDefault(
             onAddClick = onAddSource
         )
         SpacerComponent { x1 }
-        viewState.sourcesMainModel.sources.forEach {
-            SourceDetailedPanel(
-                source = it,
-                onSourceClick = onSourceClick,
-                onDeleteSourceClick = onDeleteSourceClick
+        if (viewState.sourcesMainModel.sources.isEmpty()) {
+            SpacerComponent { x2 }
+            EmptyStateComponent(
+                text = "Добавляйте свой первый аккаунт скорее скорее"
             )
-            SpacerComponent { x3 }
+        } else {
+            viewState.sourcesMainModel.sources.forEach {
+                SourceDetailedPanel(
+                    source = it,
+                    onSourceClick = onSourceClick,
+                    onDeleteSourceClick = onDeleteSourceClick
+                )
+                SpacerComponent { x3 }
+            }
         }
         SpacerComponent { x3 }
     }

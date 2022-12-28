@@ -11,6 +11,7 @@ import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.nstnz.collector.common.design.emptystate.EmptyStateComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.swipedismiss.SwipeDismissComponent
@@ -62,13 +63,20 @@ internal fun SourceScreen(
                     onAddClick = onAddCountClick
                 )
                 SpacerComponent { x1 }
-                viewState.sourceMainModel.counts.forEach {
-                    CountDetailedPanel(
-                        count = it,
-                        onCountClick = onCountClick,
-                        onDeleteCountClick = onDeleteCountClick
+                if (viewState.sourceMainModel.counts.isEmpty()) {
+                    SpacerComponent { x2 }
+                    EmptyStateComponent(
+                        text = "Добавляйте свой первый счет скорее скорее"
                     )
-                    SpacerComponent { x3 }
+                } else {
+                    viewState.sourceMainModel.counts.forEach {
+                        CountDetailedPanel(
+                            count = it,
+                            onCountClick = onCountClick,
+                            onDeleteCountClick = onDeleteCountClick
+                        )
+                        SpacerComponent { x3 }
+                    }
                 }
                 SpacerComponent { x3 }
             }
