@@ -86,7 +86,7 @@ internal class CurrenciesScreenViewModel(
                 state.list.filter {
                     it.code.contains(intent.searchString, ignoreCase = true) ||
                             it.name.contains(intent.searchString, ignoreCase = true)
-                }
+                }.ifEmpty { state.list }
             CurrenciesScreenIntent.ShowCurrencies(
                 list = state.list,
                 checkedCurrencies = if (params.currentCurrency.isNotEmpty()) {

@@ -17,7 +17,7 @@ internal class CurrenciesDbDataSource(
             code = currencyModelDto.code,
             name = currencyModelDto.name,
             crypto = currencyModelDto.crypto,
-            isFavourite = currencyModelDto.code == "USD"
+            isFavourite = false
         )
     }
 

@@ -18,6 +18,7 @@ import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenHolder
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenHolder
 import com.nstnz.collector.common.feature.splash.presentation.SplashScreenHolder
+import com.nstnz.collector.common.feature.welcome.presentation.WelcomeScreenHolder
 import moe.tlaster.precompose.navigation.BackStackEntry
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
@@ -48,7 +49,7 @@ internal fun App() {
                     val arg3 = it.queryString?.map?.get(Arg3)?.firstOrNull()
 
                     when (route) {
-                        Routes.Welcome -> {}
+                        Routes.Welcome -> WelcomeScreenHolder()
                         Routes.Main -> MainScreenHolder()
                         Routes.Source -> SourceScreenHolder(arg1.orEmpty())
                         Routes.Settings -> SettingsScreenHolder()

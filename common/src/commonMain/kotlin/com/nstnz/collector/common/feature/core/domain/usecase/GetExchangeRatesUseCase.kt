@@ -20,10 +20,17 @@ internal class GetExchangeRatesUseCase(
             originCurrency = originCurrencyCode,
             sum = sum,
             currencies = currencies
-        ).map {
+        ).filter { currencies.contains(it.code) }.map {
             CurrencySumDomainModel(
                 sum = it.sum,
                 currency = getCurrencyUseCase(it.code)
+            )
+        }.ifEmpty {
+            listOf(
+                CurrencySumDomainModel(
+                    sum = sum,
+                    currency = getCurrencyUseCase(originCurrencyCode)
+                )
             )
         }
     }

@@ -12,6 +12,7 @@ import com.nstnz.collector.common.feature.main.presentation.MainScreenViewModel
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenViewModel
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenViewModel
 import com.nstnz.collector.common.feature.splash.presentation.SplashScreenViewModel
+import com.nstnz.collector.common.feature.welcome.presentation.WelcomeScreenViewModel
 import org.kodein.di.*
 import org.kodein.di.bindings.UnboundedScope
 
@@ -24,6 +25,7 @@ internal val currenciesScope = object : UnboundedScope() {}
 internal val addCountScope = object : UnboundedScope() {}
 internal val converterScope = object : UnboundedScope() {}
 internal val splashScope = object : UnboundedScope() {}
+internal val welcomeScope = object : UnboundedScope() {}
 internal val settingsScope = object : UnboundedScope() {}
 
 internal val viewModelsDi = DI.Module(name = "ViewModels") {
@@ -65,6 +67,9 @@ internal val viewModelsDi = DI.Module(name = "ViewModels") {
     }
     bind<SettingsScreenViewModel>() with scoped(settingsScope).singleton {
         SettingsScreenViewModel(instance(), instance(), instance())
+    }
+    bind<WelcomeScreenViewModel>() with scoped(welcomeScope).singleton {
+        WelcomeScreenViewModel(instance(), instance(), instance())
     }
     bind<SourceScreenViewModel>() with scoped(sourceScope).multiton { sourceId: String ->
         SourceScreenViewModel(

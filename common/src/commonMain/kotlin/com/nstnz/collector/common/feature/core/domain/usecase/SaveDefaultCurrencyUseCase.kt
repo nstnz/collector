@@ -11,7 +11,10 @@ internal class SaveDefaultCurrencyUseCase(
 ) {
 
     suspend operator fun invoke(currencyDomainModel: CurrencyDomainModel) =
+        invoke(currencyDomainModel.code)
+
+    suspend operator fun invoke(code: String) =
         withContext(dispatcher) {
-            currenciesRepository.setDefaultCurrencyCode(currencyDomainModel.code)
+            currenciesRepository.setDefaultCurrencyCode(code)
         }
 }

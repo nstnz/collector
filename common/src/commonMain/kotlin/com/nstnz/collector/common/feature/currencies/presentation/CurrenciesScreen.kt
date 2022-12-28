@@ -97,7 +97,7 @@ internal fun CurrenciesScreen(
 }
 
 @Composable
-private fun SearchPanel(
+internal fun SearchPanel(
     textValue: MutableState<TextFieldValue>,
     onSearch: (String) -> Unit = {},
 ) {
@@ -139,7 +139,7 @@ private fun SearchPanel(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-private fun CurrencyCell(
+internal fun CurrencyCell(
     currency: CurrencyDomainModel,
     selected: Boolean,
     multiCheck: Boolean,

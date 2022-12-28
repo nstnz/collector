@@ -35,6 +35,15 @@ internal class CurrenciesRepository(
 
     suspend fun setDefaultCurrencyCode(code: String) {
         currenciesPrefs.defaultCurrencyCode = code
+        val curr = getCurrencyByCode(code)
+        curr?.let {
+            saveCurrency(
+                code = code,
+                isFavourite = true,
+                curr.name,
+                curr.crypto
+            )
+        }
     }
 
     suspend fun getFavoriteCurrencies() =
