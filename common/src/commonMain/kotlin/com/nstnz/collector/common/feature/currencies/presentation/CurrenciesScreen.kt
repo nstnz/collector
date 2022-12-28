@@ -1,14 +1,11 @@
 package com.nstnz.collector.common.feature.currencies.presentation
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -20,14 +17,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
-import com.nstnz.collector.common.design.topbar.DefaultNavComponent
+import com.nstnz.collector.common.design.topbar.NavBarComponent
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 
 @Composable
@@ -40,11 +35,34 @@ internal fun CurrenciesScreen(
 ) {
     GradientScaffold(
         topBar = {
-            DefaultNavComponent(
+            NavBarComponent(
+                modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
                 title = "Список валют",
-                onBackClick = if (viewState.multiCheck) onSaveClick else onBackCLick
+                navigationIcon = {
+                    IconButton(onClick = onBackCLick) {
+                        Icon(
+                            Icons.Rounded.Close,
+                            null,
+                            modifier = Modifier.size(AppTheme.indents.x3_5),
+                            tint = AppTheme.colors.primaryBackgroundText()
+                        )
+                    }
+                },
+                actions = {
+                    if (viewState.multiCheck) {
+                        IconButton(onClick = onSaveClick) {
+                            Icon(
+                                Icons.Rounded.Done,
+                                null,
+                                modifier = Modifier.size(AppTheme.indents.x3_5),
+                                tint = AppTheme.colors.accentColor()
+                            )
+                        }
+                    }
+                }
             )
         },
+
     ) {
         val textValue = remember { mutableStateOf(TextFieldValue(viewState.searchText)) }
         Column(

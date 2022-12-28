@@ -19,7 +19,7 @@ internal class SaveFavoriteCurrenciesUseCase(
             if (needUpdate) {
                 currenciesRepository.saveCurrency(
                     curr.code,
-                    checked.any { it.code == it.code },
+                    checked.any { curr.code == it.code },
                     curr.name,
                     curr.crypto
                 )
