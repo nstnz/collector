@@ -27,6 +27,12 @@ internal val coreDi = DI.Module(name = "Core") {
             instance()
         )
     }
+    bind<GetSourcePointsUseCase>() with provider {
+        GetSourcePointsUseCase(
+            instance(),
+            instance()
+        )
+    }
     bind<GetDefaultCurrencyUseCase>() with provider {
         GetDefaultCurrencyUseCase(
             instance(),

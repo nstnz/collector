@@ -77,6 +77,8 @@ internal val viewModelsDi = DI.Module(name = "ViewModels") {
             instance(),
             instance(),
             instance(),
+            instance(),
+            instance(),
         )
     }
     bind<EditCountScreenViewModel>() with scoped(editCountScope).multiton { sourceFundId: String ->

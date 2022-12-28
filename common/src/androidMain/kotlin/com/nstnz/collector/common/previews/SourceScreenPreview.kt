@@ -13,7 +13,10 @@ private fun SourceScreenPreview() {
     AppTheme {
         SourceScreen(
             viewState = SourceScreenState.Default(
-                getMockSourceListDomainModel().sources.first()
+                getMockSourceListDomainModel().sources.first(),
+                points = listOf(
+                    223.0, 343.3, 337.0, 739.0, 789.0, 234.0, 453.0
+                ),
             )
         )
     }

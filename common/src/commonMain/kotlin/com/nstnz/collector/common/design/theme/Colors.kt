@@ -52,6 +52,10 @@ internal fun Colors.secondaryBackgroundText(): Color = Color(0xFF656770)
 
 @Composable
 @ReadOnlyComposable
+internal fun Colors.hintBackgroundText(): Color = Color(0xAA656770)
+
+@Composable
+@ReadOnlyComposable
 internal fun Colors.backgroundError(): Color = Color(0xFFFFEEED)
 
 @Composable
@@ -66,4 +70,4 @@ internal fun Colors.transparent(): Color = Color(0x00000000)
 
 @Composable
 @ReadOnlyComposable
-internal fun Colors.hintBackgroundText(): Color = Color(0x00000000)
+internal fun Colors.hintText(): Color = Color(0x00000000)

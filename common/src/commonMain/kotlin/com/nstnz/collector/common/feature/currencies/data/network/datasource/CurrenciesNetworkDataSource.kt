@@ -9,8 +9,12 @@ import com.nstnz.collector.common.feature.currencies.data.network.model.RateMode
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.util.date.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
 
 internal class CurrenciesNetworkDataSource(
     private val httpClient: HttpClient,
@@ -56,6 +60,53 @@ internal class CurrenciesNetworkDataSource(
             result.addAll(values.map {
                 RateModelDto(it.key, it.value ?: 0.0)
             })
+        }
+        return result
+    }
+
+    @OptIn(ExperimentalTime::class)
+    suspend fun getHistoricalRatesForSum(
+        originCurrency: String,
+        sum: Double,
+        currency: String
+    ): List<Double> {
+        val end = GMTDate(getTimeMillis())
+        val start = GMTDate(getTimeMillis()).minus(kotlin.time.Duration.days(12 * 30))
+        val formatFun: (date: GMTDate) -> String = {
+            val day = it.dayOfMonth.toString().let {
+                if (it.length == 1) "0$it"
+                else it
+            }
+            val month = (it.month.ordinal + 1).toString().let {
+                if (it.length == 1) "0$it"
+                else it
+            }
+            "${it.year}-$month-${day}"
+        }
+
+        val uri = URLBuilder("https://api.exchangerate.host/timeseries").apply {
+            parameters.append("base", originCurrency)
+            parameters.append("amount", sum.toString())
+            parameters.append("symbols", currency)
+            parameters.append("start_date", formatFun(start))
+            parameters.append("end_date", formatFun(end))
+        }.buildString()
+        val response = httpClient.get(uri).retrieve()
+        val result = mutableListOf<Double>()
+        if (response is NetworkResponse.Success) {
+            val values =
+                json.decodeFromString<Map<String, JsonObject>>(response.obj["rates"].toString())
+            result.addAll(values.map {
+                it.value[currency].toString().toDoubleOrNull() ?: 0.0
+            })
+
+            val pointsCount = 70
+            val count = result.size / pointsCount
+            return result.filterIndexed { index, _ ->
+                index % count == 0
+                        || index == 0
+                        || index == result.lastIndex
+            }.takeLast(pointsCount)
         }
         return result
     }

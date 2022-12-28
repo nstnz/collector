@@ -35,5 +35,5 @@ internal object SecondaryButtonColors : ButtonColors {
     override val textColor: Color
         @Composable get() = AppTheme.colors.primaryBackgroundText()
     override val textColorDisabled: Color
-        @Composable get() = AppTheme.colors.hintBackgroundText()
+        @Composable get() = AppTheme.colors.hintText()
 }

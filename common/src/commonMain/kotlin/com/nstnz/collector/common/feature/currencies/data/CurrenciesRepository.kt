@@ -52,6 +52,12 @@ internal class CurrenciesRepository(
     suspend fun getCurrencyByCode(code: String?) =
         currenciesDbDataSource.getCurrency(code)
 
+    suspend fun getHistoricalRatesForSum(
+        originCurrency: String,
+        sum: Double,
+        currency: String
+    ) = currenciesNetworkDataSource.getHistoricalRatesForSum(originCurrency, sum, currency)
+
     suspend fun saveCurrency(
         code: String,
         isFavourite: Boolean,

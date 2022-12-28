@@ -9,7 +9,9 @@ internal sealed interface SourceScreenState : State {
     object Loading : SourceScreenState
 
     data class Default(
-        val sourceMainModel: SourceDomainModel
+        val sourceMainModel: SourceDomainModel,
+        val points: List<Double> = emptyList(),
+        val favCode: String = ""
     ) : SourceScreenState
 }
 
@@ -24,6 +26,10 @@ internal sealed interface SourceScreenIntent : Intent {
     object AddCount : SourceScreenIntent
     data class ShowAddCount(val sourceId: String) : SourceScreenIntent
     data class Update(val sourceMainModel: SourceDomainModel) : SourceScreenIntent
+    data class UpdatePoints(
+        val points: List<Double>,
+        val favCode: String = ""
+    ) : SourceScreenIntent
 }
 
 internal sealed class SourceScreenSingleEvent : SingleEvent

@@ -1,5 +1,6 @@
 package com.nstnz.collector.common.feature.source.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.nstnz.collector.common.design.emptystate.EmptyStateComponent
+import com.nstnz.collector.common.design.graph.GraphComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.swipedismiss.SwipeDismissComponent
@@ -47,6 +49,15 @@ internal fun SourceScreen(
                     .verticalScroll(rememberScrollState())
             ) {
                 HintPanel(viewState.sourceMainModel, onEditClick)
+                BoxWithConstraints(Modifier.padding(horizontal = AppTheme.indents.x3)) {
+                    GraphComponent(
+                        points = viewState.points,
+                        modifier = Modifier.fillMaxWidth(),
+                        width = this.maxWidth,
+                        text = "${viewState.sourceMainModel.originalCurrency.codeToShow} to ${viewState.favCode}"
+                    )
+                }
+                SpacerComponent { x3 }
                 Row(
                     Modifier
                         .fillMaxSize()
