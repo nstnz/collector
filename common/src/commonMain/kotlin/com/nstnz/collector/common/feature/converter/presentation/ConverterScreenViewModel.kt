@@ -75,7 +75,7 @@ internal class ConverterScreenViewModel(
             val newCurrency = actualCurrency ?: getDefaultCurrencyUseCase()
 
             val exchangeList = getExchangeRatesUseCase(
-                originCurrencyCode = newCurrency.code.orEmpty(),
+                originCurrencyCode = newCurrency?.code.orEmpty(),
                 sum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0,
                 currencies = favCurrencies.map { it.code }
             )

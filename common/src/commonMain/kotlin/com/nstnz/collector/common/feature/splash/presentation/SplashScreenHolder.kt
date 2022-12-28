@@ -1,6 +1,7 @@
 package com.nstnz.collector.common.feature.splash.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
@@ -17,12 +18,12 @@ internal fun SplashScreenHolder() {
 
     OnLifecycleEvent(splashScope) { event ->
         when (event) {
-            Lifecycle.State.Active -> viewModel.sendIntent(SplashScreenIntent.Load)
             else -> Unit
         }
     }
 
     SplashScreen(
         viewState = viewState,
+        onReady = { viewModel.sendIntent(SplashScreenIntent.Load) }
     )
 }

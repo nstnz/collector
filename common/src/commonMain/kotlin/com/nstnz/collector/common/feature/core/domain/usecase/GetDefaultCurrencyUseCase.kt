@@ -12,7 +12,7 @@ internal class GetDefaultCurrencyUseCase(
 
     suspend operator fun invoke() = withContext(dispatcher) {
         val default = currenciesRepository.getDefaultCurrencyCode()
-        return@withContext currenciesRepository.getCurrencyByCode(default)!!.let {
+        return@withContext currenciesRepository.getCurrencyByCode(default)?.let {
             CurrencyDomainModel(
                 code = it.code,
                 name = it.name,

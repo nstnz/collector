@@ -6,5 +6,5 @@ import de.galdigital.preferences.preference
 internal class CurrenciesPrefs(sharedPreferences: SharedPreferences) {
 
     var defaultCurrencyCode: String?
-            by preference(sharedPreferences, "defaultCurrencyCode", "USD")
+            by preference(sharedPreferences, "defaultCurrencyCode", "")
 }

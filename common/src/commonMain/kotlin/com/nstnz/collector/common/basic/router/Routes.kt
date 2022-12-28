@@ -9,6 +9,7 @@ internal enum class Routes(val floating: Boolean = false) {
     Source,
     Converter,
     Currencies,
+    Welcome,
     Settings,
     Splash,
     AddSource(floating = true),

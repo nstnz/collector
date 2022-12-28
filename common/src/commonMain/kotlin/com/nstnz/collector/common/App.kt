@@ -48,6 +48,7 @@ internal fun App() {
                     val arg3 = it.queryString?.map?.get(Arg3)?.firstOrNull()
 
                     when (route) {
+                        Routes.Welcome -> {}
                         Routes.Main -> MainScreenHolder()
                         Routes.Source -> SourceScreenHolder(arg1.orEmpty())
                         Routes.Settings -> SettingsScreenHolder()

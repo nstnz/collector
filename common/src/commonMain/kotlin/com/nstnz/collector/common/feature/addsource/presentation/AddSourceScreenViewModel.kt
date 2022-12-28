@@ -72,9 +72,11 @@ internal class AddSourceScreenViewModel(
         }
         AddSourceScreenIntent.Load -> {
             val currency = getDefaultCurrencyUseCase()
-            AddSourceScreenIntent.Update(
-                "", currency
-            )
+            currency?.let {
+                AddSourceScreenIntent.Update(
+                    "", currency
+                )
+            }
         }
         is AddSourceScreenIntent.Update -> null
         is AddSourceScreenIntent.ChangeName -> null

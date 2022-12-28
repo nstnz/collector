@@ -20,6 +20,10 @@ internal class Router() {
         navigator.navigate(Routes.Main, NavOptions(popUpTo = PopUpTo.First(inclusive = true)))
     }
 
+    fun navigateToWelcomeScreen() {
+        navigator.navigate(Routes.Welcome, NavOptions(popUpTo = PopUpTo.First(inclusive = true)))
+    }
+
     fun navigateToSourceScreen(sourceId: String?, clearBackEntry: Boolean = false) {
         if (clearBackEntry) {
             navigator.popBackStack()
