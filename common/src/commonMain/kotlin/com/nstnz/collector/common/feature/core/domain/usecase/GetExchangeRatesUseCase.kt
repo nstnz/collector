@@ -12,12 +12,12 @@ internal class GetExchangeRatesUseCase(
 ) {
 
     suspend operator fun invoke(
-        originCurrency: String,
+        originCurrencyCode: String,
         sum: Double,
         currencies: List<String>
     ): List<CurrencySumDomainModel> = withContext(dispatcher) {
         currenciesRepository.getRatesForSum(
-            originCurrency = originCurrency,
+            originCurrency = originCurrencyCode,
             sum = sum,
             currencies = currencies
         ).map {

@@ -58,7 +58,7 @@ internal val viewModelsDi = DI.Module(name = "ViewModels") {
         }
     }
     bind<ConverterScreenViewModel>() with scoped(converterScope).singleton {
-        ConverterScreenViewModel(instance(), instance())
+        ConverterScreenViewModel(instance(), instance(), instance(), instance())
     }
     bind<SplashScreenViewModel>() with scoped(splashScope).singleton {
         SplashScreenViewModel(instance(), instance(), instance())

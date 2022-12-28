@@ -68,7 +68,7 @@ internal class AddCountScreenViewModel(
                 AddCountScreenIntent.Update(
                     state.sourceModel,
                     state.currency,
-                    format(intent.sum.replace(" ", "").toDoubleOrNull() ?: 0.0),
+                    intent.sum
                 )
             } else {
                 null
