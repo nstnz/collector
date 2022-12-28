@@ -14,7 +14,7 @@ internal fun SplashScreenHolder() {
     val viewModel: SplashScreenViewModel by SharedDI.di.instance()
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent { event ->
+    OnLifecycleEvent(viewModel::class) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(SplashScreenIntent.Load)
             else -> Unit

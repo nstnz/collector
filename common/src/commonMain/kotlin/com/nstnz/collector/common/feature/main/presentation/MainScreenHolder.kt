@@ -13,7 +13,7 @@ internal fun MainScreenHolder() {
     val viewModel: MainScreenViewModel by SharedDI.di.instance()
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent { event ->
+    OnLifecycleEvent(viewModel::class) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(MainScreenIntent.OnResume)
             else -> Unit

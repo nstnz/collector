@@ -63,14 +63,8 @@ internal fun App() {
                     }
                 }
 
-                if (route.floating) {
-                    floating(route.name) {
-                        content(it)
-                    }
-                } else {
-                    scene(route.name) {
-                        content(it)
-                    }
+                scene(route.name) {
+                    content(it)
                 }
             }
         }

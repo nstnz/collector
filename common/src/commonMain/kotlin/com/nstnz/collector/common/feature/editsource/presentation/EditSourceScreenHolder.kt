@@ -15,7 +15,7 @@ internal fun EditSourceScreenHolder(sourceId: String?) {
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent { event ->
+    OnLifecycleEvent(viewModel::class) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(EditSourceScreenIntent.OnResume)
             else -> Unit

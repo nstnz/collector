@@ -15,7 +15,7 @@ internal fun EditCountScreenHolder(sourceFundId: String?) {
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent { event ->
+    OnLifecycleEvent(viewModel::class) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(EditCountScreenIntent.OnResume)
             else -> Unit
