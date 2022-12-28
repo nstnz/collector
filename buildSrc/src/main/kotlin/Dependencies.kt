@@ -58,6 +58,7 @@ object Ktor {
 
 object Kodein {
     const val kodein_core = "org.kodein.di:kodein-di:${Version.kodein}"
+    const val kodein_android = "org.kodein.di:kodein-di-framework-android-x:${Version.kodein}"
 }
 
 object Prefs {

@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
+import com.nstnz.collector.common.feature.core.di.mainScope
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -13,7 +14,7 @@ internal fun MainScreenHolder() {
     val viewModel: MainScreenViewModel by SharedDI.di.instance()
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent(viewModel::class) { event ->
+    OnLifecycleEvent(mainScope) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(MainScreenIntent.OnResume)
             else -> Unit

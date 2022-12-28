@@ -3,17 +3,10 @@ package com.nstnz.collector.common.basic.di
 import com.nstnz.collector.AppDatabase
 import com.nstnz.collector.AppDatabaseQueries
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.addcount.di.addCountScreenDi
-import com.nstnz.collector.common.feature.addsource.di.addSourceScreenDi
-import com.nstnz.collector.common.feature.converter.di.converterScreenDi
 import com.nstnz.collector.common.feature.core.di.coreDi
+import com.nstnz.collector.common.feature.core.di.viewModelsDi
 import com.nstnz.collector.common.feature.currencies.di.currenciesDi
-import com.nstnz.collector.common.feature.editcount.di.editCountScreenDi
-import com.nstnz.collector.common.feature.editsource.di.editSourceScreenDi
-import com.nstnz.collector.common.feature.main.di.mainScreenDi
-import com.nstnz.collector.common.feature.settings.di.settingsScreenDi
 import com.nstnz.collector.common.feature.source.di.sourceScreenDi
-import com.nstnz.collector.common.feature.splash.di.splashScreenDi
 import com.squareup.sqldelight.db.SqlDriver
 import de.galdigital.preferences.SharedPreferences
 import io.ktor.client.*
@@ -50,15 +43,8 @@ object SharedDI {
         bind<SharedPreferences>() with singleton { sharedPreferences }
 
         import(coreDi)
-        import(editCountScreenDi)
-        import(editSourceScreenDi)
-        import(addSourceScreenDi)
+        import(viewModelsDi)
         import(currenciesDi)
-        import(addCountScreenDi)
-        import(mainScreenDi)
         import(sourceScreenDi)
-        import(converterScreenDi)
-        import(splashScreenDi)
-        import(settingsScreenDi)
     }
 }

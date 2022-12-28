@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
+import com.nstnz.collector.common.feature.core.di.editCountScope
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -15,7 +16,7 @@ internal fun EditCountScreenHolder(sourceFundId: String?) {
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent(viewModel::class) { event ->
+    OnLifecycleEvent(editCountScope) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(EditCountScreenIntent.OnResume)
             else -> Unit

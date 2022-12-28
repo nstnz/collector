@@ -6,6 +6,7 @@ import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAwar
 import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
 import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenIntent
+import com.nstnz.collector.common.feature.core.di.addCountScope
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -21,7 +22,7 @@ internal fun AddCountScreenHolder(
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent(viewModel::class) { event ->
+    OnLifecycleEvent(addCountScope) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(AddCountScreenIntent.OnResume)
             else -> Unit

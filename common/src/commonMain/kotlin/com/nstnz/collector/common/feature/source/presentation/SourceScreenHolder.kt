@@ -2,10 +2,10 @@ package com.nstnz.collector.common.feature.source.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
-import com.nstnz.collector.common.basic.router.DIModelsTags.getDiTag
+import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
+import com.nstnz.collector.common.feature.core.di.sourceScope
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -16,7 +16,7 @@ internal fun SourceScreenHolder(
     val viewModel: SourceScreenViewModel by SharedDI.di.instance(arg = sourceId)
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent(viewModel::class) { event ->
+    OnLifecycleEvent(sourceScope) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(SourceScreenIntent.OnResume)
             else -> Unit

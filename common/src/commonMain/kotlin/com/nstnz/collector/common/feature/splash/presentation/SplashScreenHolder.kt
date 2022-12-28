@@ -6,6 +6,7 @@ import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAwar
 import com.nstnz.collector.common.basic.di.SharedDI
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
 import com.nstnz.collector.common.feature.addsource.presentation.AddSourceScreenIntent
+import com.nstnz.collector.common.feature.core.di.splashScope
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -14,7 +15,7 @@ internal fun SplashScreenHolder() {
     val viewModel: SplashScreenViewModel by SharedDI.di.instance()
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent(viewModel::class) { event ->
+    OnLifecycleEvent(splashScope) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(SplashScreenIntent.Load)
             else -> Unit

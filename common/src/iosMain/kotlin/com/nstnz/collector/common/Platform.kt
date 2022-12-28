@@ -1,5 +1,6 @@
 package com.nstnz.collector.common
 
+import org.kodein.di.bindings.Scope
 import platform.UIKit.*
 import platform.Foundation.NSUUID
 

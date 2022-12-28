@@ -56,13 +56,4 @@ internal val currenciesDi = DI.Module(name = "Currencies") {
             instance()
         )
     }
-
-    bind<CurrenciesScreenViewModel>() with multiton { params: CurrenciesViewModelParams ->
-        CurrenciesScreenViewModel(
-            params,
-            instance(),
-            instance(),
-            instance()
-        )
-    }
 }

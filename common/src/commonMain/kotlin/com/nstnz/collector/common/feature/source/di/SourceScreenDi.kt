@@ -24,12 +24,4 @@ internal val sourceScreenDi = DI.Module(name = Routes.Source.name) {
             instance(),
         )
     }
-    bind<SourceScreenViewModel>() with multiton { sourceId: String ->
-        SourceScreenViewModel(
-            sourceId,
-            instance(),
-            instance(),
-            instance(),
-        )
-    }
 }

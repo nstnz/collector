@@ -2,9 +2,10 @@ package com.nstnz.collector.common.feature.editsource.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.di.SharedDI
+import com.nstnz.collector.common.basic.presentation.collectAsStateLifecycleAware
 import com.nstnz.collector.common.basic.router.OnLifecycleEvent
+import com.nstnz.collector.common.feature.core.di.editSourceScope
 import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
@@ -15,7 +16,7 @@ internal fun EditSourceScreenHolder(sourceId: String?) {
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
-    OnLifecycleEvent(viewModel::class) { event ->
+    OnLifecycleEvent(editSourceScope) { event ->
         when (event) {
             Lifecycle.State.Active -> viewModel.sendIntent(EditSourceScreenIntent.OnResume)
             else -> Unit
