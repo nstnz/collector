@@ -15,23 +15,10 @@ private fun ConverterScreenPreview() {
             viewState = ConverterScreenState(
                 sum = "354",
                 currency = getMockCurrencyDomainModel("USD"),
-                exchangeList = listOf(
-                    CurrencySumDomainModel(
-                        getMockCurrencyDomainModel("AED"),
-                        53453.99
-                    ) ,
-                    CurrencySumDomainModel(
-                        getMockCurrencyDomainModel("AED"),
-                        53453.99
-                    ) ,
-                    CurrencySumDomainModel(
-                        getMockCurrencyDomainModel("AED"),
-                        53453.99
-                    ) ,
-                    CurrencySumDomainModel(
-                        getMockCurrencyDomainModel("AED"),
-                        53453.99
-                    ) ,
+                exchange =
+                CurrencySumDomainModel(
+                    getMockCurrencyDomainModel("AED"),
+                    53453.99
                 )
             )
         )

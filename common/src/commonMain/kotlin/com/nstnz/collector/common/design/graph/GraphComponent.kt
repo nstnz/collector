@@ -114,34 +114,6 @@ internal fun GraphComponent(
                     )
                 )
             }
-            Text(
-                text = text,
-                style = AppTheme.typography.headingMedium,
-                color = AppTheme.colors.primaryBackgroundText(),
-                modifier = Modifier.align(Alignment.BottomCenter)
-                    .padding(bottom = AppTheme.indents.x1)
-            )
-            Row(Modifier.padding(AppTheme.indents.x0_5)) {
-                Box(
-                    Modifier.size(AppTheme.indents.x3)
-                        .background(AppTheme.colors.secondaryBackgroundText(), AppTheme.shapes.x1)
-                ) {
-                    Icon(
-                        Icons.Rounded.CalendarMonth,
-                        null,
-                        modifier = Modifier.size(AppTheme.indents.x2)
-                            .align(Alignment.Center),
-                        tint = AppTheme.colors.backgroundPrimary()
-                    )
-                }
-                SpacerComponent { x1 }
-                Text(
-                    text = "Курс за год",
-                    style = AppTheme.typography.bodySmall,
-                    color = AppTheme.colors.primaryBackgroundText(),
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                )
-            }
 
         } else {
             Canvas(
@@ -168,9 +140,10 @@ internal fun GraphComponent(
                     )
                 }
 
-                (normX.indices).forEach {
-                    line(normX[it])
-                }
+                (normX.indices).filterIndexed { index, i -> index % 10 == 0 || index == normX.indices.last }
+                    .forEach {
+                        line(normX[it])
+                    }
             }
 
             Text(
@@ -178,6 +151,36 @@ internal fun GraphComponent(
                 style = AppTheme.typography.headingMedium,
                 color = AppTheme.colors.primaryBackgroundText(),
                 modifier = Modifier.align(Alignment.Center)
+            )
+        }
+
+        Text(
+            text = text,
+            style = AppTheme.typography.bodyMedium,
+            color = AppTheme.colors.secondaryBackgroundText(),
+            modifier = Modifier.align(Alignment.BottomCenter)
+                .padding(bottom = AppTheme.indents.x1)
+        )
+
+        Row(Modifier.padding(AppTheme.indents.x0_5)) {
+            Box(
+                Modifier.size(AppTheme.indents.x3)
+                    .background(AppTheme.colors.secondaryBackgroundText(), AppTheme.shapes.x1)
+            ) {
+                Icon(
+                    Icons.Rounded.CalendarMonth,
+                    null,
+                    modifier = Modifier.size(AppTheme.indents.x2)
+                        .align(Alignment.Center),
+                    tint = AppTheme.colors.backgroundPrimary()
+                )
+            }
+            SpacerComponent { x1 }
+            Text(
+                text = "Курс за год",
+                style = AppTheme.typography.bodySmall,
+                color = AppTheme.colors.primaryBackgroundText(),
+                modifier = Modifier.align(Alignment.CenterVertically)
             )
         }
     }

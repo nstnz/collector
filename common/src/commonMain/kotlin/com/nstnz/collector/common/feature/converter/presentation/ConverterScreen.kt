@@ -1,9 +1,7 @@
 package com.nstnz.collector.common.feature.converter.presentation
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -14,7 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import com.nstnz.collector.common.design.input.SumTextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
@@ -23,6 +23,7 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainModel
+import com.nstnz.collector.common.format
 
 @Composable
 internal fun ConverterScreen(
@@ -30,6 +31,7 @@ internal fun ConverterScreen(
     onMainTabClick: () -> Unit = {},
     onSettingsTabClick: () -> Unit = {},
     onChangeCurrencyClick: () -> Unit = {},
+    onChangeSecondCurrencyClick: () -> Unit = {},
     onChangeSum: (String) -> Unit = {},
 ) {
     GradientScaffold(
@@ -56,25 +58,37 @@ internal fun ConverterScreen(
             val textValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }
 
             SpacerComponent { x3 }
-            TextSelectorComponent(
-                modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
-                label = "Валюта",
-                text = viewState.currency?.code.orEmpty(),
-                onClick = {
+            Row(Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth()) {
+                SumTextInputComponent(
+                    modifier = Modifier.weight(1f),
+                    value = textValue.value,
+                    onValueChange = {
+                        textValue.value = it
+                        onChangeSum(it.text)
+                    },
+                    currencyCode = "",
+                    currencyStr = viewState.currency?.name.orEmpty()
+                )
+                SpacerComponent { x2 }
+                Row(Modifier.height(AppTheme.indents.x11_5).noEffectsClickable {
                     onChangeCurrencyClick()
                 }
-            )
-            SpacerComponent { x2 }
-            SumTextInputComponent(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = AppTheme.indents.x3),
-                value = textValue.value,
-                onValueChange = {
-                    textValue.value = it
-                    onChangeSum(it.text)
-                },
-                currencyCode = viewState.currency?.codeToShow.orEmpty(),
-                currencyStr = viewState.currency?.name.orEmpty()
-            )
+                    .border(
+                        BorderStroke(
+                            width = AppTheme.indents.x0_25,
+                            brush = SolidColor(AppTheme.colors.backgroundSecondary())
+                        ),
+                        AppTheme.shapes.x2
+                    )
+                    .padding(AppTheme.indents.x2)) {
+                    Text(
+                        text = viewState.currency?.code.orEmpty(),
+                        style = AppTheme.typography.headingMedium,
+                        color = AppTheme.colors.primaryBackgroundText(),
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
+            }
             SpacerComponent { x3 }
             Icon(
                 Icons.Rounded.CurrencyExchange,
@@ -83,11 +97,34 @@ internal fun ConverterScreen(
                 tint = AppTheme.colors.accentColor()
             )
             SpacerComponent { x3 }
-            viewState.exchangeList.forEach {
-                CurrencyCell(
-                    currency = it
+            Row(Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth()) {
+                SumTextInputComponent(
+                    modifier = Modifier.weight(1f),
+                    value = TextFieldValue(format(viewState.exchange?.sum ?: 0.0)),
+                    onValueChange = {},
+                    currencyCode = "",
+                    currencyStr = viewState.exchange?.currency?.name.orEmpty(),
+                    enabled = false
                 )
                 SpacerComponent { x2 }
+                Row(Modifier.height(AppTheme.indents.x11_5).noEffectsClickable {
+                    onChangeSecondCurrencyClick()
+                }
+                    .border(
+                        BorderStroke(
+                            width = AppTheme.indents.x0_25,
+                            brush = SolidColor(AppTheme.colors.backgroundSecondary())
+                        ),
+                        AppTheme.shapes.x2
+                    )
+                    .padding(AppTheme.indents.x2)) {
+                    Text(
+                        text = viewState.exchange?.currency?.code.orEmpty(),
+                        style = AppTheme.typography.headingMedium,
+                        color = AppTheme.colors.primaryBackgroundText(),
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
             }
         }
     }

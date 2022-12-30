@@ -37,6 +37,7 @@ data class Indents(
 	val x10: Dp = 80.dp,
 	val x10_5: Dp = 84.dp,
 	val x11: Dp = 88.dp,
+	val x11_5: Dp = 92.dp,
 	val x12: Dp = 96.dp,
 	val x12_5: Dp = 100.dp,
 	val x12_75: Dp = 102.dp,

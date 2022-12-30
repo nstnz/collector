@@ -12,6 +12,7 @@ internal class SaveFavoriteCurrenciesUseCase(
     suspend operator fun invoke(
         checked: List<CurrencyDomainModel>,
     ) = withContext(dispatcher) {
+        val default = currenciesRepository.getDefaultCurrencyCode()
         currenciesRepository.getSupportedCurrencies().forEach { curr ->
             val needUpdate = (checked.any { curr.code == it.code } && !curr.isFavourite) ||
                     (checked.none { curr.code == it.code } && curr.isFavourite)
@@ -20,6 +21,15 @@ internal class SaveFavoriteCurrenciesUseCase(
                 currenciesRepository.saveCurrency(
                     curr.code,
                     checked.any { curr.code == it.code },
+                    curr.name,
+                    curr.crypto
+                )
+            }
+
+            if (curr.code == default) {
+                currenciesRepository.saveCurrency(
+                    curr.code,
+                    true,
                     curr.name,
                     curr.crypto
                 )

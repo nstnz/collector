@@ -18,13 +18,13 @@ import com.nstnz.collector.common.design.theme.noEffectsClickable
 
 @Composable
 internal fun TextSelectorComponent(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     text: String,
     label: String,
     hint: String = "",
     onClick: (String) -> Unit = {}
 ) {
-    Box(modifier.fillMaxWidth().noEffectsClickable {
+    Box(modifier.noEffectsClickable {
         onClick(text)
     }) {
         TextInputComponent(

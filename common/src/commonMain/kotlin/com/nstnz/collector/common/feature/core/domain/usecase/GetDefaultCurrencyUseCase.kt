@@ -17,7 +17,8 @@ internal class GetDefaultCurrencyUseCase(
                 code = it.code,
                 name = it.name,
                 crypto = it.crypto,
-                isFavourite = it.isFavourite
+                isFavourite = it.isFavourite,
+                isDefault = default == it.code
             )
         }
     }

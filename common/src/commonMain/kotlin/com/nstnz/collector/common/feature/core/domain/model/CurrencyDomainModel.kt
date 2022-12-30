@@ -5,6 +5,7 @@ data class CurrencyDomainModel(
     val name: String,
     val crypto: Boolean,
     val isFavourite: Boolean,
+    val isDefault: Boolean
 ) {
 
     val codeToShow: String

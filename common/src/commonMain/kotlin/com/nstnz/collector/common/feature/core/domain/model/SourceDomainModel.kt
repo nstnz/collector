@@ -16,19 +16,13 @@ data class SourceDomainModel(
             sum = counts.sumOf { it.getSumInCurrency(originalCurrency.code) }
         )
 
-    val originalSums: List<CurrencySumDomainModel>
-        get() = counts.map {
-            it.originalSum
-        }.groupBy {
-            it.currency
-        }.map {
-            CurrencySumDomainModel(
-                it.key,
-                it.value.sumOf { it.sum }
-            )
-        }
+    val defaultSum: CurrencySumDomainModel
+        get() = CurrencySumDomainModel(
+            currency = allFavoriteSums.first { it.currency.isDefault }.currency,
+            sum = counts.sumOf { it.getSumInCurrency(allFavoriteSums.first { it.currency.isDefault }.currency.code) }
+        )
 
-    val favoriteSums: List<CurrencySumDomainModel>
+    private val allFavoriteSums: List<CurrencySumDomainModel>
         get() = favoriteCurrencies.map { currency ->
             CurrencySumDomainModel(
                 currency = currency,
@@ -36,10 +30,15 @@ data class SourceDomainModel(
             )
         }
 
+    val favoriteSums: List<CurrencySumDomainModel>
+        get() = allFavoriteSums.filter {
+            !it.currency.isDefault
+        }
+
     fun getSumInCurrency(code: String): Double =
         when {
-            favoriteSums.any { it.currency.code == code } ->
-                favoriteSums.first { it.currency.code == code }.sum
+            allFavoriteSums.any { it.currency.code == code } ->
+                allFavoriteSums.first { it.currency.code == code }.sum
             else -> 0.0
         }
 }

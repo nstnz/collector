@@ -27,6 +27,7 @@ internal fun SumTextInputComponent(
     modifier: Modifier = Modifier.fillMaxWidth(),
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
+    enabled: Boolean = true
 ) {
     Column(
         modifier.background(AppTheme.colors.backgroundPrimary(), AppTheme.shapes.x2)
@@ -68,7 +69,7 @@ internal fun SumTextInputComponent(
                 colors = getTextColors(),
                 shape = AppTheme.shapes.x2,
                 trailingIcon = null,
-                enabled = true
+                enabled = enabled
             )
             Text(
                 text = currencyCode.uppercase(),
@@ -95,10 +96,10 @@ private fun getTextColors() =
         focusedBorderColor = AppTheme.colors.transparent(),
         unfocusedBorderColor = AppTheme.colors.transparent(),
         focusedLabelColor = AppTheme.colors.transparent(),
-        unfocusedLabelColor = AppTheme.colors.transparent(),
+        unfocusedLabelColor = AppTheme.colors.primaryBackgroundText(),
         placeholderColor = AppTheme.colors.secondaryBackgroundText(),
         cursorColor = AppTheme.colors.accentColor(),
-        disabledTextColor = AppTheme.colors.transparent(),
+        disabledTextColor = AppTheme.colors.primaryBackgroundText(),
         disabledBorderColor = AppTheme.colors.transparent(),
         disabledLabelColor = AppTheme.colors.transparent(),
     )

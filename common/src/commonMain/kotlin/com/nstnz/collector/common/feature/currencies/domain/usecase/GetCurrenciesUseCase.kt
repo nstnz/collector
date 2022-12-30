@@ -2,17 +2,17 @@ package com.nstnz.collector.common.feature.currencies.domain.usecase
 
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.currencies.data.CurrenciesRepository
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class GetCurrenciesUseCase(
-    private val exchangeRatesRepository: CurrenciesRepository,
+    private val currenciesRepository: CurrenciesRepository,
     private val dispatcher: CoroutineDispatcher,
 ) {
 
     suspend operator fun invoke() = withContext(dispatcher) {
-        exchangeRatesRepository.getSupportedCurrencies()
+        val default = currenciesRepository.getDefaultCurrencyCode()
+        currenciesRepository.getSupportedCurrencies()
             .sortedBy { it.code }
             .sortedBy { it.crypto }
             .sortedByDescending { it.isFavourite }
@@ -21,7 +21,8 @@ internal class GetCurrenciesUseCase(
                     code = it.code,
                     name = it.name,
                     isFavourite = it.isFavourite,
-                    crypto = it.crypto
+                    crypto = it.crypto,
+                    isDefault = default == it.code
                 )
             }
     }

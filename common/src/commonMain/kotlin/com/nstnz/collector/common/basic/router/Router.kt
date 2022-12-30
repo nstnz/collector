@@ -10,7 +10,8 @@ import moe.tlaster.precompose.navigation.PopUpTo
 internal class Router() {
 
     private lateinit var navigator: Navigator
-    private var resultHandler by mutableStateOf<Any?>(null)
+    private var resultHandler by mutableStateOf<Pair<String, Any?>?>(null)
+    private var resultKeyHandler by mutableStateOf<String?>(null)
 
     fun init(navigator: Navigator) {
         this.navigator = navigator
@@ -32,11 +33,11 @@ internal class Router() {
     }
 
     fun navigateToConverterScreen() {
-        navigator.navigate(Routes.Converter, NavOptions(popUpTo = PopUpTo.First(inclusive = true)))
+        navigator.navigate(Routes.Converter, NavOptions(launchSingleTop = true))
     }
 
     fun navigateToSettingsScreen() {
-        navigator.navigate(Routes.Settings, NavOptions(popUpTo = PopUpTo.First(inclusive = true)))
+        navigator.navigate(Routes.Settings, NavOptions(launchSingleTop = true))
     }
 
     fun navigateToAddSourceScreen() {
@@ -63,15 +64,21 @@ internal class Router() {
         navigator.goBack()
     }
 
+    fun setExpectedKey(key: String) {
+        this.resultKeyHandler = key
+    }
+
     fun backWithResult(result: Any?) {
-        resultHandler = result
+        resultHandler = Pair(this.resultKeyHandler.orEmpty(), result)
         navigator.goBack()
     }
 
-    fun <T> getLastResult(): T? {
-        return (resultHandler as? T).also {
-            if (it != null) {
+    fun <T> getLastResult(key: String? = null): T? {
+        val current = resultHandler?.second?.takeIf { resultHandler?.first == key }
+        return (current as? T).also {
+            if (it != null || resultHandler?.first == key) {
                 resultHandler = null
+                this.resultKeyHandler = null
             }
         }
     }

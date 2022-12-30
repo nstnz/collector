@@ -19,7 +19,6 @@ import com.nstnz.collector.common.design.title.TitleComponent
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainModel
 import com.nstnz.collector.common.feature.core.domain.model.SourceDomainModel
-import com.nstnz.collector.common.feature.core.domain.model.SourcesListDomainModel
 
 @Composable
 internal fun MainScreen(
@@ -73,16 +72,13 @@ private fun MainScreenStateDefault(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        MainResultPanel(viewState.sourcesMainModel)
-        Row(
-            Modifier
-                .fillMaxSize()
-                .horizontalScroll(rememberScrollState())
-        ) {
-            SpacerComponent { x3 }
-            CurrenciesBlock(viewState.sourcesMainModel.favoriteSums.drop(1), onAddCurrency)
-            SpacerComponent { x3 }
-        }
+        SumResultPanel(
+            name = viewState.sourcesMainModel.favoriteCurrencies.first().name,
+            sum = viewState.sourcesMainModel.originalFormattedSum,
+            title = "Сумма в валюте по умолчанию",
+            onEditClick = null
+        )
+        CurrenciesBlock(viewState.sourcesMainModel.favoriteSums, onAddCurrency)
 
         SpacerComponent { x3 }
         TitleComponent(
@@ -111,6 +107,33 @@ private fun MainScreenStateDefault(
 
 @Composable
 internal fun CurrenciesBlock(
+    favoriteSums: List<CurrencySumDomainModel>,
+    onAddCurrency: () -> Unit = {}
+) {
+    Column(Modifier.fillMaxWidth()) {
+        Text(
+            text = "Сумма в избранных валютах",
+            color = AppTheme.colors.primaryBackgroundText(),
+            style = AppTheme.typography.headingMedium,
+            maxLines = 1,
+            modifier = Modifier.padding(horizontal = AppTheme.indents.x3)
+        )
+        SpacerComponent { x2 }
+        Row(
+            Modifier
+                .fillMaxSize()
+                .horizontalScroll(rememberScrollState())
+        ) {
+            SpacerComponent { x3 }
+            CurrencyMainBlock(favoriteSums, onAddCurrency)
+            SpacerComponent { x3 }
+        }
+    }
+}
+
+
+@Composable
+internal fun CurrencyMainBlock(
     favoriteSums: List<CurrencySumDomainModel>,
     onAddCurrency: () -> Unit = {}
 ) {
@@ -168,33 +191,54 @@ internal fun CurrenciesBlock(
 }
 
 @Composable
-private fun MainResultPanel(
-    total: SourcesListDomainModel,
+internal fun SumResultPanel(
+    title: String,
+    sum: String,
+    name: String,
+    onEditClick: (() -> Unit)? = null,
+    modifier: Modifier = Modifier
+        .padding(AppTheme.indents.x3)
+        .fillMaxWidth()
+        .background(
+            AppTheme.colors.primaryBackgroundText(),
+            shape = AppTheme.shapes.x3
+        )
 ) {
     Column(
-        Modifier
-            .padding(AppTheme.indents.x3)
-            .fillMaxWidth()
-            .background(
-                AppTheme.colors.primaryBackgroundText(),
-                shape = AppTheme.shapes.x3
-            )
-            .padding(AppTheme.indents.x3)
+        modifier.padding(AppTheme.indents.x3)
     ) {
-        Text(
-            text = "Сумма на ваших счетах:",
-            color = AppTheme.colors.secondaryText(),
-            style = AppTheme.typography.headingMedium
-        )
+        Row {
+            Text(
+                text = title,
+                color = AppTheme.colors.secondaryText(),
+                style = AppTheme.typography.headingMedium
+            )
+            onEditClick?.let {
+                Spacer(Modifier.weight(1f))
+                IconButton(
+                    onClick = onEditClick,
+                    modifier = Modifier
+                        .size(AppTheme.indents.x3),
+                ) {
+                    Icon(
+                        Icons.Rounded.Edit,
+                        null,
+                        modifier = Modifier.size(AppTheme.indents.x3),
+                        tint = AppTheme.colors.primaryText()
+                    )
+                }
+            }
+        }
+
         SpacerComponent { x6 }
         Text(
-            text = total.originalFormattedSum,
+            text = sum,
             color = AppTheme.colors.primaryText(),
             style = AppTheme.typography.headingMegaLarge
         )
         SpacerComponent { x0_5 }
         Text(
-            text = total.favoriteCurrencies.first().name,
+            text = name,
             color = AppTheme.colors.secondaryText(),
             style = AppTheme.typography.bodySmall
         )

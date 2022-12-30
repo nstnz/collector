@@ -3,7 +3,7 @@ package com.nstnz.collector.common.previews
 import com.nstnz.collector.common.feature.core.domain.model.*
 
 internal fun getMockCurrencyDomainModel(code: String = "USD") = CurrencyDomainModel(
-    code, "Гтшеув фррыф фыв", false, true
+    code, "Гтшеув фррыф фыв", false, true, false
 )
 
 internal fun getMockSourceListDomainModel() = SourcesListDomainModel(

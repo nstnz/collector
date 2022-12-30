@@ -9,19 +9,20 @@ import com.nstnz.collector.common.feature.core.domain.model.CurrencySumDomainMod
 internal data class ConverterScreenState(
     val sum: String = "",
     val currency: CurrencyDomainModel?,
-    val exchangeList: List<CurrencySumDomainModel> = emptyList()
+    val exchange: CurrencySumDomainModel?
 ) : State
 
 internal sealed interface ConverterScreenIntent : Intent {
     object ShowSettingsScreen : ConverterScreenIntent
     object ShowMainScreen : ConverterScreenIntent
-    object ChangeCurrency : ConverterScreenIntent
+    object ChangeFirstCurrency : ConverterScreenIntent
+    object ChangeSecondCurrency : ConverterScreenIntent
     object OnResume : ConverterScreenIntent
     data class ChangeSum(val sum: String) : ConverterScreenIntent
     data class Update(
         val sum: String,
         val currency: CurrencyDomainModel?,
-        val exchangeList: List<CurrencySumDomainModel>
+        val exchange: CurrencySumDomainModel?
     ) : ConverterScreenIntent
 }
 

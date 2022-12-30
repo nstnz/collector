@@ -6,18 +6,19 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class GetCurrencyUseCase(
-    private val exchangeRatesRepository: CurrenciesRepository,
+    private val currenciesRepository: CurrenciesRepository,
     private val dispatcher: CoroutineDispatcher,
 ) {
 
     suspend operator fun invoke(code: String?) = withContext(dispatcher) {
-        val currency = exchangeRatesRepository.getCurrencyByCode(code)
+        val currency = currenciesRepository.getCurrencyByCode(code)
         currency!!.let {
             CurrencyDomainModel(
                 code = currency.code,
                 name = currency.name,
                 crypto = currency.crypto,
-                isFavourite = currency.isFavourite
+                isFavourite = currency.isFavourite,
+                isDefault = currenciesRepository.getDefaultCurrencyCode() == currency.code
             )
         }
     }

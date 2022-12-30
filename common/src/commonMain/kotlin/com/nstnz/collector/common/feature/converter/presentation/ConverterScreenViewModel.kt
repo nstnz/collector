@@ -2,12 +2,15 @@ package com.nstnz.collector.common.feature.converter.presentation
 
 import com.nstnz.collector.common.basic.presentation.CoroutinesViewModel
 import com.nstnz.collector.common.basic.router.Router
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenIntent
-import com.nstnz.collector.common.feature.addcount.presentation.AddCountScreenState
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.usecase.GetDefaultCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetExchangeRatesUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
+import kotlinx.coroutines.launch
+import moe.tlaster.precompose.viewmodel.viewModelScope
+
+private const val ChangeFirstCurrency = "ChangeFirstCurrency"
+private const val ChangeSecondCurrency = "ChangeSecondCurrency"
 
 internal class ConverterScreenViewModel(
     private val router: Router,
@@ -16,12 +19,13 @@ internal class ConverterScreenViewModel(
     private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase
 ) : CoroutinesViewModel<ConverterScreenState, ConverterScreenIntent, ConverterScreenSingleEvent>() {
 
-    private var actualCurrency: CurrencyDomainModel? = null
+    private var actualCurrency1: CurrencyDomainModel? = null
+    private var actualCurrency2: CurrencyDomainModel? = null
 
     override fun initialState(): ConverterScreenState = ConverterScreenState(
         sum = "",
         currency = null,
-        exchangeList = emptyList()
+        exchange = null
     )
 
     override fun reduce(
@@ -31,7 +35,7 @@ internal class ConverterScreenViewModel(
         is ConverterScreenIntent.Update -> prevState.copy(
             sum = intent.sum,
             currency = intent.currency,
-            exchangeList = intent.exchangeList
+            exchange = intent.exchange
         )
         else -> prevState
     }
@@ -44,11 +48,21 @@ internal class ConverterScreenViewModel(
             router.navigateToMainScreen()
             null
         }
-        ConverterScreenIntent.ChangeCurrency -> {
+        ConverterScreenIntent.ChangeFirstCurrency -> {
+            router.setExpectedKey(ChangeFirstCurrency)
             router.navigateToCurrenciesScreen(
                 multiCheck = false,
                 saveChanges = false,
                 currency = state.currency?.code
+            )
+            null
+        }
+        ConverterScreenIntent.ChangeSecondCurrency -> {
+            router.setExpectedKey(ChangeSecondCurrency)
+            router.navigateToCurrenciesScreen(
+                multiCheck = false,
+                saveChanges = false,
+                currency = state.exchange?.currency?.code
             )
             null
         }
@@ -57,32 +71,39 @@ internal class ConverterScreenViewModel(
             null
         }
         is ConverterScreenIntent.ChangeSum -> {
-            val favCurrencies = getFavoriteCurrenciesUseCase()
             val exchangeList = getExchangeRatesUseCase(
                 originCurrencyCode = state.currency?.code.orEmpty(),
                 sum = intent.sum.replace(" ", "").toDoubleOrNull() ?: 0.0,
-                currencies = favCurrencies.map { it.code }
+                currencies = listOf(actualCurrency2?.code.orEmpty())
             )
             ConverterScreenIntent.Update(
                 intent.sum,
                 state.currency,
-                exchangeList
+                exchangeList.firstOrNull()
             )
         }
         ConverterScreenIntent.OnResume -> {
-            val favCurrencies = getFavoriteCurrenciesUseCase()
-            actualCurrency = router.getLastResult<CurrencyDomainModel>() ?: actualCurrency
-            val newCurrency = actualCurrency ?: getDefaultCurrencyUseCase()
+            val tmpActualCurrency1 = getDefaultCurrencyUseCase()
+            val tmpActualCurrency2 = getFavoriteCurrenciesUseCase().let {
+                it.firstOrNull { !it.isDefault } ?: it.firstOrNull()
+            }
+
+            actualCurrency1 =
+                router.getLastResult<CurrencyDomainModel>(ChangeFirstCurrency) ?: actualCurrency1
+                        ?: tmpActualCurrency1
+            actualCurrency2 =
+                router.getLastResult<CurrencyDomainModel>(ChangeSecondCurrency) ?: actualCurrency2
+                        ?: tmpActualCurrency2
 
             val exchangeList = getExchangeRatesUseCase(
-                originCurrencyCode = newCurrency?.code.orEmpty(),
+                originCurrencyCode = actualCurrency1?.code.orEmpty(),
                 sum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0,
-                currencies = favCurrencies.map { it.code }
+                currencies = listOf(actualCurrency2?.code.orEmpty())
             )
             ConverterScreenIntent.Update(
                 state.sum,
-                newCurrency,
-                exchangeList
+                actualCurrency1,
+                exchangeList.firstOrNull()
             )
         }
         is ConverterScreenIntent.Update -> null

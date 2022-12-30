@@ -25,7 +25,8 @@ internal fun ConverterScreenHolder() {
         viewState = viewState,
         onMainTabClick = { viewModel.sendIntent(ConverterScreenIntent.ShowMainScreen) },
         onSettingsTabClick = { viewModel.sendIntent(ConverterScreenIntent.ShowSettingsScreen) },
-        onChangeCurrencyClick = { viewModel.sendIntent(ConverterScreenIntent.ChangeCurrency) },
+        onChangeCurrencyClick = { viewModel.sendIntent(ConverterScreenIntent.ChangeFirstCurrency) },
+        onChangeSecondCurrencyClick = { viewModel.sendIntent(ConverterScreenIntent.ChangeSecondCurrency) },
         onChangeSum = { viewModel.sendIntent(ConverterScreenIntent.ChangeSum(it)) },
     )
 }
