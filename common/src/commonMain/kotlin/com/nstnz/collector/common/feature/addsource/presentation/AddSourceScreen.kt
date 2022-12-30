@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.input.internal.TextInputState
@@ -27,8 +28,8 @@ internal fun AddSourceScreen(
     onChangeDefaultCurrency: (CurrencyDomainModel) -> Unit = {},
 ) {
     BottomSheetComponent(
-        title = "Добавить источник",
-        description = "JKHkjshfk jahfkjahf kjahfk jahfkajfhkajhfkajshf",
+        title = strings.Source_AddSourceTitle,
+        description = strings.Source_AddSourceDesc,
         onCloseClick = onBackClick,
         onOkClick = onSaveClick
     ) {
@@ -36,15 +37,15 @@ internal fun AddSourceScreen(
             val textValue = remember { mutableStateOf(TextFieldValue(viewState.name)) }
             TextInputComponent(
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = "Name",
-                label = "Имя аккаунта",
+                placeholder = strings.Core_Name,
+                label = strings.Source_AddSourceNameHint,
                 value = textValue.value,
                 onValueChange = {
                     textValue.value = it
                     onChangeName(it.text)
                 },
                 textFieldState = if (viewState.showNameError) {
-                    TextInputState.Error("Имя аккаунта")
+                    TextInputState.Error(strings.Source_ErrorEmptyName)
                 } else {
                     TextInputState.Default
                 }
@@ -52,7 +53,7 @@ internal fun AddSourceScreen(
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
-                label = "Валюта по умолчанию",
+                label = strings.Core_DefaultCurrency,
                 text = viewState.currency.code,
                 onClick = {
                     onChangeDefaultCurrency(viewState.currency)

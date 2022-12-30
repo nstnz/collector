@@ -2,27 +2,24 @@ package com.nstnz.collector.common.feature.splash.presentation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountBalanceWallet
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import com.nstnz.collector.common.design.navbar.NavigationBarComponent
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.design.theme.*
-import com.nstnz.collector.common.design.topbar.NavBarComponent
-import com.nstnz.collector.common.basic.texts.MainScreen_Title
+import com.nstnz.collector.common.design.theme.AppTheme
+import com.nstnz.collector.common.design.theme.accentColor
+import com.nstnz.collector.common.design.theme.primaryBackgroundText
+import com.nstnz.collector.common.design.theme.secondaryBackgroundText
 import kotlinx.coroutines.delay
 
 @Composable
@@ -57,14 +54,14 @@ internal fun SplashScreen(
                     )
                     SpacerComponent { x4 }
                     Text(
-                        text = "Collector",
+                        text = strings.Core_AppName,
                         color = AppTheme.colors.primaryBackgroundText(),
                         style = AppTheme.typography.headingMegaLarge,
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                     )
                     SpacerComponent { x0_5 }
                     Text(
-                        text = "Your money tracker",
+                        text = strings.Core_AppSlogan,
                         color = AppTheme.colors.secondaryBackgroundText(),
                         style = AppTheme.typography.bodySmall,
                         modifier = Modifier.align(Alignment.CenterHorizontally),

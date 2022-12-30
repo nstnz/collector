@@ -7,7 +7,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CalendarMonth
-import androidx.compose.material.icons.rounded.Savings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,12 +16,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
-import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.accentColor
-import com.nstnz.collector.common.design.theme.hintBackgroundText
-import com.nstnz.collector.common.design.theme.primaryBackgroundText
 
 @Composable
 internal fun GraphComponent(
@@ -147,7 +143,7 @@ internal fun GraphComponent(
             }
 
             Text(
-                text = "Нет данных",
+                text = strings.Source_GraphNoData,
                 style = AppTheme.typography.headingMedium,
                 color = AppTheme.colors.primaryBackgroundText(),
                 modifier = Modifier.align(Alignment.Center)
@@ -177,7 +173,7 @@ internal fun GraphComponent(
             }
             SpacerComponent { x1 }
             Text(
-                text = "Курс за год",
+                text = strings.Source_GraphYearCource,
                 style = AppTheme.typography.bodySmall,
                 color = AppTheme.colors.primaryBackgroundText(),
                 modifier = Modifier.align(Alignment.CenterVertically)

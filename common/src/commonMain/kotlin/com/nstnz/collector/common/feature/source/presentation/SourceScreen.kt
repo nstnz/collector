@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.emptystate.EmptyStateComponent
 import com.nstnz.collector.common.design.graph.GraphComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
@@ -64,14 +65,14 @@ internal fun SourceScreen(
 
                 SpacerComponent { x3 }
                 TitleComponent(
-                    title = "Счета",
+                    title = strings.Source_CountsTitle,
                     onAddClick = onAddCountClick
                 )
                 SpacerComponent { x1 }
                 if (viewState.sourceMainModel.counts.isEmpty()) {
                     SpacerComponent { x2 }
                     EmptyStateComponent(
-                        text = "Добавляйте свой первый счет скорее скорее"
+                        text = strings.Source_EmptyCountsTitle
                     )
                 } else {
                     viewState.sourceMainModel.counts.forEach {
@@ -101,7 +102,7 @@ private fun HintPanel(
             SumResultPanel(
                 name = sourceMainModel.originalCurrency.name,
                 sum = sourceMainModel.originalFormattedSum,
-                title = "Сумма в валюте аккаунта",
+                title = strings.Source_SumInDefault,
                 modifier = Modifier.width(width)
                     .background(
                         AppTheme.colors.accentColor(),
@@ -113,7 +114,7 @@ private fun HintPanel(
             SumResultPanel(
                 name = sourceMainModel.defaultSum.currency.name,
                 sum = sourceMainModel.defaultSum.formattedSum,
-                title = "Сумма в валюте по умолчанию",
+                title = strings.MainScreen_SumInDefault,
                 modifier = Modifier.width(width)
                     .background(
                         AppTheme.colors.primaryBackgroundText(),

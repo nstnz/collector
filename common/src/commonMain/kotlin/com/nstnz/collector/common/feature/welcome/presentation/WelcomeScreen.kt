@@ -18,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
@@ -57,14 +58,14 @@ internal fun WelcomeScreen(
         Column(Modifier.fillMaxSize()) {
             SpacerComponent { x2 }
             Text(
-                text = "Добро пожаловать!",
+                text = strings.Welcome_Title,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.headingMegaLarge,
                 modifier = Modifier.padding(horizontal = AppTheme.indents.x3)
             )
             SpacerComponent { x1 }
             Text(
-                text = "Выберите дефолтную валюту",
+                text = strings.Welcome_Desc,
                 color = AppTheme.colors.secondaryBackgroundText(),
                 style = AppTheme.typography.bodyMedium,
                 modifier = Modifier.padding(horizontal = AppTheme.indents.x3)

@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
@@ -37,7 +38,7 @@ internal fun CurrenciesScreen(
         topBar = {
             NavBarComponent(
                 modifier = Modifier.background(AppTheme.colors.backgroundPrimary()),
-                title = "Список валют",
+                title = strings.Core_CurrenciesList,
                 navigationIcon = {
                     IconButton(onClick = onBackCLick) {
                         Icon(
@@ -103,7 +104,7 @@ internal fun SearchPanel(
 ) {
     TextInputComponent(
         modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
-        placeholder = "Поиск",
+        placeholder = strings.Core_Search,
         value = textValue.value,
         onValueChange = {
             textValue.value = it

@@ -1,29 +1,17 @@
 package com.nstnz.collector.common.design.navbar
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cached
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Refresh
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.nstnz.collector.common.App
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.basic.texts.ConverterScreen_Title
-import com.nstnz.collector.common.basic.texts.MainScreen_Title
-import com.nstnz.collector.common.basic.texts.SettingsScreen_Title
 import com.nstnz.collector.common.design.theme.*
 
 @Composable
@@ -114,19 +102,19 @@ private data class MainNavigationItem(
     override val selected: Boolean,
     override val onClick: () -> Unit = {},
     override val icon: ImageVector = Icons.Rounded.AccountBalanceWallet,
-    override val text: String = MainScreen_Title,
+    override val text: String = strings.MainScreen_Title,
 ) : NavigationItem
 
 private data class ConverterNavigationItem(
     override val selected: Boolean,
     override val onClick: () -> Unit = {},
     override val icon: ImageVector = Icons.Rounded.MonetizationOn,
-    override val text: String = ConverterScreen_Title,
+    override val text: String = strings.ConverterScreen_Title,
 ) : NavigationItem
 
 private data class SettingsNavigationItem(
     override val selected: Boolean,
     override val onClick: () -> Unit = {},
     override val icon: ImageVector = Icons.Rounded.Settings,
-    override val text: String = SettingsScreen_Title,
+    override val text: String = strings.SettingsScreen_Title,
 ) : NavigationItem

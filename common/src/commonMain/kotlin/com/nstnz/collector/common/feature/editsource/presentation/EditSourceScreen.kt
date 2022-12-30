@@ -1,46 +1,20 @@
 package com.nstnz.collector.common.feature.editsource.presentation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBackIosNew
-import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
-import com.nstnz.collector.common.design.button.BottomButtonComponent
-import com.nstnz.collector.common.design.card.CardComponent
-import com.nstnz.collector.common.design.input.SumTextInputComponent
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.input.TextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.input.internal.TextInputState
 import com.nstnz.collector.common.design.scaffold.BottomSheetComponent
-import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.design.theme.*
-import com.nstnz.collector.common.design.theme.AppTheme
-import com.nstnz.collector.common.design.theme.backgroundPrimary
-import com.nstnz.collector.common.design.theme.primaryBackgroundText
-import com.nstnz.collector.common.design.theme.secondaryBackgroundText
-import com.nstnz.collector.common.design.topbar.NavBarComponent
 import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
-import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntity
-import com.nstnz.collector.common.feature.editcount.presentation.EditCountScreenState
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -62,8 +36,8 @@ internal fun EditSourceScreen(
     }
 
     BottomSheetComponent(
-        title = "Редактировать аккаунт",
-        description = "JKHkjshfk jahfkjahf kjahfk jahfkajfhkajhfkajshf",
+        title = strings.Source_EditSourceTitle,
+        description = strings.Source_EditSourceDesc,
         onCloseClick = onBackActionClick,
         onOkClick = onSaveFieldsClick
     ) {
@@ -72,8 +46,8 @@ internal fun EditSourceScreen(
 
             TextInputComponent(
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = "Name",
-                label = "Имя аккаунта",
+                placeholder = strings.Core_Name,
+                label = strings.Source_AddSourceNameHint,
                 value = textValue.value,
                 onValueChange = {
                     textValue.value = it
@@ -84,7 +58,7 @@ internal fun EditSourceScreen(
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
-                label = "Валюта по умолчанию",
+                label = strings.Core_DefaultCurrency,
                 text = viewState.currency.code,
                 onClick = {
                     onChangeDefaultCurrency(viewState.currency)

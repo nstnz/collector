@@ -9,12 +9,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.nstnz.collector.common.basic.texts.MainScreen_Title
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
-import com.nstnz.collector.common.design.theme.*
+import com.nstnz.collector.common.design.theme.AppTheme
+import com.nstnz.collector.common.design.theme.primaryBackgroundText
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
 import com.nstnz.collector.common.feature.currencies.presentation.CurrencyCell
 
@@ -28,7 +29,7 @@ internal fun SettingsScreen(
     GradientScaffold(
         topBar = {
             DefaultNavComponent(
-                title = "Настройки",
+                title = strings.SettingsScreen_Title,
                 showBackButton = false
             )
         },
@@ -48,7 +49,7 @@ internal fun SettingsScreen(
         ) {
             SpacerComponent { x3 }
             Text(
-                text = "Валюта по умолчанию",
+                text = strings.Core_DefaultCurrency,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.headingMedium,
                 modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
@@ -57,7 +58,7 @@ internal fun SettingsScreen(
             TextSelectorComponent(
                 modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
                 label = "",
-                hint = "Валюта по умолчанию в которой будут создаваться все счета и тд и тп",
+                hint = strings.Core_DefaultCurrencyHint,
                 text = viewState.currency?.code.orEmpty(),
                 onClick = {
                     onChangeCurrencyClick()
@@ -65,7 +66,7 @@ internal fun SettingsScreen(
             )
             SpacerComponent { x4 }
             Text(
-                text = "Избранные валюты",
+                text = strings.Core_FavCurrencies,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.headingMedium,
                 modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),

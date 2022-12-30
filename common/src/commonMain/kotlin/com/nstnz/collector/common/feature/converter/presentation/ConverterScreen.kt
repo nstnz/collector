@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.input.SumTextInputComponent
 import com.nstnz.collector.common.design.input.TextSelectorComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
@@ -37,7 +38,7 @@ internal fun ConverterScreen(
     GradientScaffold(
         topBar = {
             DefaultNavComponent(
-                title = "Обменник",
+                title = strings.ConverterScreen_Title,
                 showBackButton = false
             )
         },
@@ -58,6 +59,13 @@ internal fun ConverterScreen(
             val textValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }
 
             SpacerComponent { x3 }
+            Text(
+                text = strings.ConverterScreen_Desc,
+                style = AppTheme.typography.bodyMedium,
+                color = AppTheme.colors.secondaryBackgroundText(),
+                modifier = Modifier.padding(horizontal = AppTheme.indents.x3)
+            )
+            SpacerComponent { x2 }
             Row(Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth()) {
                 SumTextInputComponent(
                     modifier = Modifier.weight(1f),

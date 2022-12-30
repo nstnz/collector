@@ -2,13 +2,18 @@ package com.nstnz.collector.common.feature.main.presentation
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.AccountBalance
+import androidx.compose.material.icons.rounded.AddCircleOutline
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Savings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.nstnz.collector.common.basic.texts.MainScreen_Title
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.emptystate.EmptyStateComponent
 import com.nstnz.collector.common.design.navbar.NavigationBarComponent
 import com.nstnz.collector.common.design.scaffold.GradientScaffold
@@ -33,7 +38,7 @@ internal fun MainScreen(
     GradientScaffold(
         topBar = {
             DefaultNavComponent(
-                title = MainScreen_Title,
+                title = strings.MainScreen_Title,
                 showBackButton = false
             )
         },
@@ -75,21 +80,21 @@ private fun MainScreenStateDefault(
         SumResultPanel(
             name = viewState.sourcesMainModel.favoriteCurrencies.first().name,
             sum = viewState.sourcesMainModel.originalFormattedSum,
-            title = "Сумма в валюте по умолчанию",
+            title = strings.MainScreen_SumInDefault,
             onEditClick = null
         )
         CurrenciesBlock(viewState.sourcesMainModel.favoriteSums, onAddCurrency)
 
         SpacerComponent { x3 }
         TitleComponent(
-            title = "Аккаунты",
+            title = strings.MainScreen_SourcesTitle,
             onAddClick = onAddSource
         )
         SpacerComponent { x1 }
         if (viewState.sourcesMainModel.sources.isEmpty()) {
             SpacerComponent { x2 }
             EmptyStateComponent(
-                text = "Добавляйте свой первый аккаунт скорее скорее"
+                text = strings.MainScreen_EmptySourcesTitle
             )
         } else {
             viewState.sourcesMainModel.sources.forEach {
@@ -112,7 +117,7 @@ internal fun CurrenciesBlock(
 ) {
     Column(Modifier.fillMaxWidth()) {
         Text(
-            text = "Сумма в избранных валютах",
+            text = strings.MainScreen_SumInFavs,
             color = AppTheme.colors.primaryBackgroundText(),
             style = AppTheme.typography.headingMedium,
             maxLines = 1,
@@ -182,7 +187,7 @@ internal fun CurrencyMainBlock(
         )
         SpacerComponent { x0_5 }
         Text(
-            text = "Добавить валюту",
+            text = strings.Core_AddFavCurrency,
             color = AppTheme.colors.secondaryBackgroundText(),
             style = AppTheme.typography.bodySmall,
             maxLines = 1

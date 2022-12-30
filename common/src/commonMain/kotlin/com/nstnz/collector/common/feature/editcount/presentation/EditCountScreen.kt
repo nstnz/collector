@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.input.SumTextInputComponent
 import com.nstnz.collector.common.design.scaffold.BottomSheetComponent
 import com.nstnz.collector.common.design.spacer.SpacerComponent
@@ -50,8 +51,8 @@ internal fun EditCountScreen(
 
     LaunchedEffect(viewState::class) { invokeOnCompletion { focusRequester.requestFocus() } }
     BottomSheetComponent(
-        title = if (viewState.isAdding) "Пополнить счет" else "Списать со счета",
-        description = if (viewState.isAdding) "Введите сумму пополнения:" else "Введите сумму списания:",
+        title = if (viewState.isAdding) strings.Count_AddToCountTitle else strings.Count_RemoveFromCountTitle,
+        description = if (viewState.isAdding) strings.Count_AddToCountDesc else strings.Count_RemoveFromCountDesc,
         onCloseClick = onBackActionClick,
         onOkClick = onSaveFieldsClick
     ) {
@@ -73,7 +74,7 @@ internal fun EditCountScreen(
             SpacerComponent { x3 }
 
             Text(
-                text = "Текущая сумма на счету:",
+                text = strings.Count_CurrentSumOnCount,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.bodySmall,
                 textAlign = TextAlign.Center
@@ -87,7 +88,7 @@ internal fun EditCountScreen(
             SpacerComponent { x2 }
 
             Text(
-                text = "Сумма после изменения:",
+                text = strings.Count_FutureSumOnCount,
                 color = AppTheme.colors.primaryBackgroundText(),
                 style = AppTheme.typography.bodySmall,
                 textAlign = TextAlign.Center

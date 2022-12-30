@@ -25,6 +25,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import com.nstnz.collector.common.basic.di.strings
 import com.nstnz.collector.common.design.button.BottomButtonComponent
 import com.nstnz.collector.common.design.card.CardComponent
 import com.nstnz.collector.common.design.dialog.DialogComponent
@@ -64,8 +65,8 @@ internal fun AddCountScreen(
         invokeOnCompletion { focusRequester.requestFocus() }
     }
     BottomSheetComponent(
-        title = "Добавить счет",
-        description = "JKHkjshfk jahfkjahf kjahfk jahfkajfhkajhfkajshf",
+        title = strings.Count_AddCountTitle,
+        description = strings.Count_AddCountDesc,
         onCloseClick = onBackActionClick,
         onOkClick = onSaveFieldsClick
     ) {
@@ -85,7 +86,7 @@ internal fun AddCountScreen(
             SpacerComponent { x2 }
             TextSelectorComponent(
                 modifier = Modifier.fillMaxWidth(),
-                label = "Валюта",
+                label = strings.Core_Currency,
                 text = viewState.currency.code,
                 onClick = {
                     onSelectCurrencyClick()
