@@ -14,14 +14,18 @@ object En_Strings : Strings {
         get() = "Sources"
     override val MainScreen_EmptySourcesTitle: String
         get() = "No sources yet. Use plus button to add a bank or a crypto source"
+
     override val CurrenciesScreen_Title: String
         get() = "Currencies"
+
     override val ConverterScreen_Title: String
         get() = "Converter"
     override val ConverterScreen_Desc: String
         get() = "You can convert any sum you want from one currency to another. Just enter the sum and select desirable currencies"
+
     override val SettingsScreen_Title: String
         get() = "Settings"
+
     override val Source_GraphNoData: String
         get() = "No data"
     override val Source_GraphYearCource: String
@@ -57,10 +61,24 @@ object En_Strings : Strings {
         get() = "Edit account balance"
     override val Count_ChangeBalanceDesc: String
         get() = "Please choose the operation you want to be done"
+    override val Count_CurrentSumOnCount: String
+        get() = "Current sum:"
+    override val Count_FutureSumOnCount: String
+        get() = "New sum:"
+    override val Count_AddToCountTitle: String
+        get() = "Add money to account"
+    override val Count_RemoveFromCountTitle: String
+        get() = "Remove maoney from account"
+    override val Count_AddToCountDesc: String
+        get() = "Enter the sum you want to add to your account balance:"
+    override val Count_RemoveFromCountDesc: String
+        get() = "Enter the sum you want to substract from your account balance:"
+
     override val Welcome_Title: String
         get() = "Welcome to $Core_AppName!"
     override val Welcome_Desc: String
         get() = "Please, choose currency you want to use as default"
+
     override val Core_AppName: String
         get() = "Collector"
     override val Core_AppSlogan: String
@@ -83,17 +101,4 @@ object En_Strings : Strings {
         get() = "Favorite currencies"
     override val Core_AddFavCurrency: String
         get() = "Add currency"
-
-    override val Count_CurrentSumOnCount: String
-        get() = "Current sum:"
-    override val Count_FutureSumOnCount: String
-        get() = "New sum:"
-    override val Count_AddToCountTitle: String
-        get() = "Add money to account"
-    override val Count_RemoveFromCountTitle: String
-        get() = "Remove maoney from account"
-    override val Count_AddToCountDesc: String
-        get() = "Enter the sum you want to add to your account balance:"
-    override val Count_RemoveFromCountDesc: String
-        get() = "Enter the sum you want to substract from your account balance:"
 }
