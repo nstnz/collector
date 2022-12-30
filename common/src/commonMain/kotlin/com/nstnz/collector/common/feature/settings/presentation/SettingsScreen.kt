@@ -16,6 +16,7 @@ import com.nstnz.collector.common.design.scaffold.GradientScaffold
 import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.topbar.DefaultNavComponent
+import com.nstnz.collector.common.feature.currencies.presentation.CurrencyCell
 
 @Composable
 internal fun SettingsScreen(
@@ -46,15 +47,39 @@ internal fun SettingsScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             SpacerComponent { x3 }
+            Text(
+                text = "Валюта по умолчанию",
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.headingMedium,
+                modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
+            )
+            SpacerComponent { x1 }
             TextSelectorComponent(
                 modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
-                label = "Валюта по умолчанию",
+                label = "",
                 hint = "Валюта по умолчанию в которой будут создаваться все счета и тд и тп",
                 text = viewState.currency?.code.orEmpty(),
                 onClick = {
                     onChangeCurrencyClick()
                 }
             )
+            SpacerComponent { x4 }
+            Text(
+                text = "Избранные валюты",
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.headingMedium,
+                modifier = Modifier.padding(horizontal = AppTheme.indents.x3).fillMaxWidth(),
+            )
+            SpacerComponent { x2 }
+            viewState.favoriteCurrencies.forEach {
+                CurrencyCell(
+                    it,
+                    false,
+                    false,
+                    {}
+                )
+                SpacerComponent { x2 }
+            }
             SpacerComponent { x3 }
         }
     }

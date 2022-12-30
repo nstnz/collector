@@ -15,7 +15,10 @@ internal sealed interface SettingsScreenIntent : Intent {
     object ShowMainScreen : SettingsScreenIntent
     object ChangeCurrency : SettingsScreenIntent
     object OnResume : SettingsScreenIntent
-    data class Update(val currency: CurrencyDomainModel?) : SettingsScreenIntent
+    data class Update(
+        val currency: CurrencyDomainModel?,
+        val favoriteCurrencies: List<CurrencyDomainModel>
+    ) : SettingsScreenIntent
 }
 
 internal sealed class SettingsScreenSingleEvent : SingleEvent

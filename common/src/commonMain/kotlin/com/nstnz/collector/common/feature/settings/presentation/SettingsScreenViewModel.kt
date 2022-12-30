@@ -12,6 +12,7 @@ import com.nstnz.collector.common.feature.currencies.domain.usecase.RefreshCurre
 internal class SettingsScreenViewModel(
     private val router: Router,
     private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
+    private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
     private val saveDefaultCurrencyUseCase: SaveDefaultCurrencyUseCase,
 ) : CoroutinesViewModel<SettingsScreenState, SettingsScreenIntent, SettingsScreenSingleEvent>() {
 
@@ -23,7 +24,10 @@ internal class SettingsScreenViewModel(
         intent: SettingsScreenIntent,
         prevState: SettingsScreenState
     ): SettingsScreenState = when (intent) {
-        is SettingsScreenIntent.Update -> prevState.copy(currency = intent.currency)
+        is SettingsScreenIntent.Update -> prevState.copy(
+            currency = intent.currency,
+            favoriteCurrencies = intent.favoriteCurrencies
+        )
         else -> prevState
     }
 
@@ -45,7 +49,9 @@ internal class SettingsScreenViewModel(
                 saveDefaultCurrencyUseCase(currency)
             }
             val defaultCurrency = currency ?: getDefaultCurrencyUseCase()
-            SettingsScreenIntent.Update(defaultCurrency)
+            SettingsScreenIntent.Update(
+                defaultCurrency,
+                getFavoriteCurrenciesUseCase().filter { !it.isDefault })
         }
         is SettingsScreenIntent.Update -> null
         SettingsScreenIntent.ChangeCurrency -> {
