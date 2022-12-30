@@ -86,7 +86,7 @@ internal class SourceScreenViewModel(
             null
         }
         is SourceScreenIntent.ShowCount -> {
-            router.navigateToEditCountScreen(intent.sourceFundId, isAdding = true)
+            router.showEditCountModeDialog(intent.sourceFundId)
             null
         }
         is SourceScreenIntent.ShowAddCurrency -> {

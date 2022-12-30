@@ -16,6 +16,7 @@ import com.nstnz.collector.common.feature.editcount.presentation.EditCountScreen
 import com.nstnz.collector.common.feature.editsource.presentation.EditSourceScreenHolder
 import com.nstnz.collector.common.feature.main.presentation.MainScreenHolder
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenHolder
+import com.nstnz.collector.common.feature.source.presentation.SelectCountEditModeDialog
 import com.nstnz.collector.common.feature.source.presentation.SourceScreenHolder
 import com.nstnz.collector.common.feature.splash.presentation.SplashScreenHolder
 import com.nstnz.collector.common.feature.welcome.presentation.WelcomeScreenHolder
@@ -62,11 +63,22 @@ internal fun App() {
                         Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty(), arg2.orEmpty())
                         Routes.EditSource -> EditSourceScreenHolder(arg1.orEmpty())
                         Routes.EditCount -> EditCountScreenHolder(arg1.orEmpty(), arg2.toBoolean())
+                        Routes.EditCountMode -> SelectCountEditModeDialog(
+                            { router.navigateToEditCountScreen(arg1.orEmpty(), isAdding = true) },
+                            { router.navigateToEditCountScreen(arg1.orEmpty(), isAdding = false) },
+                            { router.back() },
+                        )
                     }
                 }
 
-                scene(route.name) {
-                    content(it)
+                if (route.floating) {
+                    floating(route.name) {
+                        content(it)
+                    }
+                } else {
+                    scene(route.name) {
+                        content(it)
+                    }
                 }
             }
         }

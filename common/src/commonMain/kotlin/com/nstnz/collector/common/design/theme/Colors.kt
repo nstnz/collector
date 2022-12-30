@@ -28,6 +28,10 @@ internal fun Colors.overlayColor(): Color = Color(0x22000000)
 
 @Composable
 @ReadOnlyComposable
+internal fun Colors.overlay2Color(): Color = Color(0x88FFFFFF)
+
+@Composable
+@ReadOnlyComposable
 internal fun Colors.accentColor(): Color = Color(0xff18A0FB)
 
 @Composable

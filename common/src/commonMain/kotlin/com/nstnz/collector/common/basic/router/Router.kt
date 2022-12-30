@@ -52,6 +52,10 @@ internal class Router() {
         navigator.navigate(Routes.EditSource, null, sourceId)
     }
 
+    fun showEditCountModeDialog(sourceFundId: String?) {
+        navigator.navigate(Routes.EditCountMode, null, sourceFundId)
+    }
+
     fun navigateToEditCountScreen(sourceFundId: String?, isAdding: Boolean) {
         navigator.navigate(Routes.EditCount, null, sourceFundId, isAdding)
     }
