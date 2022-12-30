@@ -52,8 +52,8 @@ internal class Router() {
         navigator.navigate(Routes.EditSource, null, sourceId)
     }
 
-    fun navigateToEditSourceFundScreen(sourceFundId: String?) {
-        navigator.navigate(Routes.EditCount, null, sourceFundId)
+    fun navigateToEditCountScreen(sourceFundId: String?, isAdding: Boolean) {
+        navigator.navigate(Routes.EditCount, null, sourceFundId, isAdding)
     }
 
     fun navigateToCurrenciesScreen(multiCheck: Boolean, saveChanges: Boolean, currency: String?) {

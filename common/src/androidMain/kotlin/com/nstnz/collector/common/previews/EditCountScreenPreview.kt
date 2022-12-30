@@ -17,7 +17,9 @@ private fun EditCountScreenPreview() {
             EditCountScreenState.Default(
                 getMockSourceListDomainModel().sources.first().counts.first(),
                 getMockCurrencyDomainModel("USD"),
-                sum = "35345"
+                sum = "35345",
+                isAdding = true,
+                futureTotal = 193.0
             )
         )
     }

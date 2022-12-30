@@ -61,7 +61,7 @@ internal fun App() {
                         Routes.AddSource -> AddSourceScreenHolder()
                         Routes.AddCount -> AddCountScreenHolder(arg1.orEmpty(), arg2.orEmpty())
                         Routes.EditSource -> EditSourceScreenHolder(arg1.orEmpty())
-                        Routes.EditCount -> EditCountScreenHolder(arg1.orEmpty())
+                        Routes.EditCount -> EditCountScreenHolder(arg1.orEmpty(), arg2.toBoolean())
                     }
                 }
 

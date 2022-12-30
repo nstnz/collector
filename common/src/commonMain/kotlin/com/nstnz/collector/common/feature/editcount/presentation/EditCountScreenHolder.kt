@@ -10,9 +10,12 @@ import moe.tlaster.precompose.lifecycle.Lifecycle
 import org.kodein.di.instance
 
 @Composable
-internal fun EditCountScreenHolder(sourceFundId: String?) {
+internal fun EditCountScreenHolder(sourceFundId: String?, adding: Boolean) {
     val viewModel: EditCountScreenViewModel by SharedDI.di.instance(
-        arg = sourceFundId.orEmpty()
+        arg = EditCountViewModelParams(
+            sourceFundId.orEmpty(),
+            adding
+        )
     )
     val viewState by viewModel.viewState.collectAsStateLifecycleAware()
 
@@ -28,6 +31,5 @@ internal fun EditCountScreenHolder(sourceFundId: String?) {
         onBackClick = { viewModel.sendIntent(EditCountScreenIntent.GoBack) },
         onSaveClick = { viewModel.sendIntent(EditCountScreenIntent.Save) },
         onChangeSum = { viewModel.sendIntent(EditCountScreenIntent.ChangeSum(it)) },
-        onAddSum = { viewModel.sendIntent(EditCountScreenIntent.AddSum(it)) },
     )
 }

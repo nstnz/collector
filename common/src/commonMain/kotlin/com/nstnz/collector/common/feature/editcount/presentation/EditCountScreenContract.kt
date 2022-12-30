@@ -7,11 +7,18 @@ import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.model.SourceCountDomainModel
 
 internal sealed interface EditCountScreenState : State {
-    object Loading : EditCountScreenState
+    val isAdding: Boolean
+
+    data class Loading(
+        override val isAdding: Boolean
+    ) : EditCountScreenState
+
     data class Default(
         val sourceModel: SourceCountDomainModel?,
         val currency: CurrencyDomainModel,
         val sum: String,
+        val futureTotal: Double,
+        override val isAdding: Boolean
     ) : EditCountScreenState
 }
 
@@ -20,11 +27,11 @@ internal sealed interface EditCountScreenIntent : Intent {
     object Load : EditCountScreenIntent
     object OnResume : EditCountScreenIntent
     data class ChangeSum(val sum: String) : EditCountScreenIntent
-    data class AddSum(val sum: Double) : EditCountScreenIntent
     data class Update(
         val sourceModel: SourceCountDomainModel?,
         val currency: CurrencyDomainModel,
         val sum: String,
+        val isAdding: Boolean
     ) : EditCountScreenIntent
 
     object Save : EditCountScreenIntent

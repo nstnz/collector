@@ -7,6 +7,7 @@ import com.nstnz.collector.common.feature.converter.presentation.ConverterScreen
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesScreenViewModel
 import com.nstnz.collector.common.feature.currencies.presentation.CurrenciesViewModelParams
 import com.nstnz.collector.common.feature.editcount.presentation.EditCountScreenViewModel
+import com.nstnz.collector.common.feature.editcount.presentation.EditCountViewModelParams
 import com.nstnz.collector.common.feature.editsource.presentation.EditSourceScreenViewModel
 import com.nstnz.collector.common.feature.main.presentation.MainScreenViewModel
 import com.nstnz.collector.common.feature.settings.presentation.SettingsScreenViewModel
@@ -81,9 +82,9 @@ internal val viewModelsDi = DI.Module(name = "ViewModels") {
             instance(),
         )
     }
-    bind<EditCountScreenViewModel>() with scoped(editCountScope).multiton { sourceFundId: String ->
+    bind<EditCountScreenViewModel>() with scoped(editCountScope).multiton { params: EditCountViewModelParams ->
         EditCountScreenViewModel(
-            sourceFundId,
+            params,
             instance(),
             instance(),
             instance(),

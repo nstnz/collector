@@ -27,6 +27,7 @@ import com.nstnz.collector.common.design.spacer.SpacerComponent
 import com.nstnz.collector.common.design.theme.*
 import com.nstnz.collector.common.design.theme.AppTheme
 import com.nstnz.collector.common.design.theme.invokeOnCompletion
+import com.nstnz.collector.common.format
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -35,7 +36,6 @@ internal fun EditCountScreen(
     onBackClick: () -> Unit = {},
     onSaveClick: () -> Unit = {},
     onChangeSum: (String) -> Unit = {},
-    onAddSum: (Double) -> Unit = {},
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = remember { FocusRequester() }
@@ -50,14 +50,15 @@ internal fun EditCountScreen(
 
     LaunchedEffect(viewState::class) { invokeOnCompletion { focusRequester.requestFocus() } }
     BottomSheetComponent(
-        title = "Редактировать счет",
-        description = "JKHkjshfk jahfkjahf kjahfk jahfkajfhkajhfkajshf",
+        title = if (viewState.isAdding) "Пополнить счет" else "Списать со счета",
+        description = if (viewState.isAdding) "Введите сумму пополнения:" else "Введите сумму списания:",
         onCloseClick = onBackActionClick,
         onOkClick = onSaveFieldsClick
     ) {
         if (viewState is EditCountScreenState.Default) {
             val textValue = remember { mutableStateOf(TextFieldValue(viewState.sum)) }
-            textValue.value = TextFieldValue(viewState.sum, selection = TextRange(viewState.sum.length))
+            textValue.value =
+                TextFieldValue(viewState.sum, selection = TextRange(viewState.sum.length))
 
             SumTextInputComponent(
                 modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
@@ -70,42 +71,36 @@ internal fun EditCountScreen(
                 currencyStr = viewState.currency.name
             )
             SpacerComponent { x3 }
-            Row(modifier = Modifier.fillMaxWidth()) {
-                AddSumButton("500", Modifier.weight(1f), onAddSum)
-                SpacerComponent { x2 }
-                AddSumButton("1000", Modifier.weight(1f), onAddSum)
-            }
-            SpacerComponent { x2 }
-            Row(modifier = Modifier.fillMaxWidth()) {
-                AddSumButton("5000", Modifier.weight(1f), onAddSum)
-                SpacerComponent { x2 }
-                AddSumButton("10000", Modifier.weight(1f), onAddSum)
-            }
-        }
-    }
-}
 
-@Composable
-private fun AddSumButton(
-    sum: String,
-    modifier: Modifier,
-    onClick: (Double) -> Unit
-) {
-    Box(
-        modifier.background(
-            AppTheme.colors.backgroundSecondary(),
-            AppTheme.shapes.x2
-        ).height(AppTheme.indents.x8)
-            .clickable {
-                onClick(sum.toDoubleOrNull() ?: 0.0)
-            }
-    ) {
-        Text(
-            text = "+ $sum",
-            color = AppTheme.colors.primaryBackgroundText(),
-            style = AppTheme.typography.headingMedium,
-            modifier = Modifier.align(Alignment.Center),
-            textAlign = TextAlign.Center
-        )
+            Text(
+                text = "Текущая сумма на счету:",
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.bodySmall,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = viewState.sourceModel?.originalFormattedSum.orEmpty(),
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.headingMedium,
+                textAlign = TextAlign.Center
+            )
+            SpacerComponent { x2 }
+
+            Text(
+                text = "Сумма после изменения:",
+                color = AppTheme.colors.primaryBackgroundText(),
+                style = AppTheme.typography.bodySmall,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = format(viewState.futureTotal) + " ${viewState.sourceModel?.originalSum?.currency?.codeToShow}",
+                color = if (viewState.futureTotal == (viewState.sourceModel?.originalSum?.sum
+                        ?: 0.0)
+                ) AppTheme.colors.primaryBackgroundText()
+                else AppTheme.colors.accentColor(),
+                style = AppTheme.typography.headingMedium,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }

@@ -6,9 +6,6 @@ import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
 import com.nstnz.collector.common.feature.core.domain.usecase.DeleteCountDataUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetDefaultCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetSourcePointsUseCase
-import com.nstnz.collector.common.feature.main.presentation.MainScreenIntent
-import kotlinx.coroutines.launch
-import moe.tlaster.precompose.viewmodel.viewModelScope
 
 internal class SourceScreenViewModel(
     private val sourceId: String,
@@ -89,7 +86,7 @@ internal class SourceScreenViewModel(
             null
         }
         is SourceScreenIntent.ShowCount -> {
-            router.navigateToEditSourceFundScreen(intent.sourceFundId)
+            router.navigateToEditCountScreen(intent.sourceFundId, isAdding = true)
             null
         }
         is SourceScreenIntent.ShowAddCurrency -> {

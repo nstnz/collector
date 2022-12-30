@@ -8,17 +8,24 @@ import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountSce
 import com.nstnz.collector.common.format
 
 internal class EditCountScreenViewModel(
-    private val sourceFundId: String,
+    private val params: EditCountViewModelParams,
     private val router: Router,
     private val getSourceCountDataUseCase: GetSourceCountScenario,
     private val editCountDataUseCase: EditCountDataUseCase,
 ) : CoroutinesViewModel<EditCountScreenState, EditCountScreenIntent, EditCountScreenSingleEvent>() {
 
+    private val sourceFundId: String
+        get() = params.countId.orEmpty()
+    private val isAdding: Boolean
+        get() = params.isAdding
+
     init {
         sendIntent(EditCountScreenIntent.Load)
     }
 
-    override fun initialState(): EditCountScreenState = EditCountScreenState.Loading
+    override fun initialState(): EditCountScreenState = EditCountScreenState.Loading(
+        isAdding = isAdding
+    )
 
     override fun reduce(
         intent: EditCountScreenIntent,
@@ -28,6 +35,18 @@ internal class EditCountScreenViewModel(
             intent.sourceModel,
             intent.currency,
             intent.sum,
+            isAdding = isAdding,
+            futureTotal = if (isAdding) {
+                (intent.sourceModel?.originalSum?.sum ?: 0.0) + (intent.sum.replace(
+                    " ",
+                    ""
+                ).toDoubleOrNull() ?: 0.0)
+            } else {
+                ((intent.sourceModel?.originalSum?.sum ?: 0.0) - (intent.sum.replace(
+                    " ",
+                    ""
+                ).toDoubleOrNull() ?: 0.0)).takeIf { it >= 0.0 } ?: 0.0
+            }
         )
         else -> prevState
     }
@@ -44,7 +63,8 @@ internal class EditCountScreenViewModel(
             val sourceFund = getSourceCountDataUseCase(sourceFundId, null)
             sourceFund?.let { fund ->
                 EditCountScreenIntent.Update(
-                    fund, fund.originalSum.currency,  format(fund.originalSum.sum)
+                    fund, fund.originalSum.currency, "",
+                    isAdding = isAdding
                 )
             }
         }
@@ -54,7 +74,8 @@ internal class EditCountScreenViewModel(
                 EditCountScreenIntent.Update(
                     state.sourceModel,
                     state.currency,
-                    intent.sum
+                    intent.sum,
+                    isAdding = isAdding
                 )
             } else {
                 null
@@ -66,7 +87,7 @@ internal class EditCountScreenViewModel(
                     sourceFundId = sourceFundId,
                     sourceId = state.sourceModel?.sourceId.orEmpty(),
                     currency = state.currency.code,
-                    sum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0,
+                    sum = state.futureTotal,
                     name = "",
                     default = state.sourceModel?.isDefault ?: false,
                 )
@@ -82,18 +103,11 @@ internal class EditCountScreenViewModel(
                         state.sourceModel,
                         newCurrency,
                         state.sum,
+                        isAdding = isAdding
                     )
                 } else {
                     null
                 }
-            } else {
-                null
-            }
-        }
-        is EditCountScreenIntent.AddSum -> {
-            if (state is EditCountScreenState.Default) {
-                val currentSum = state.sum.replace(" ", "").toDoubleOrNull() ?: 0.0
-                EditCountScreenIntent.ChangeSum((currentSum + intent.sum).toString())
             } else {
                 null
             }
