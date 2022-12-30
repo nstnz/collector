@@ -18,6 +18,6 @@ internal class GetSourceCountsScenario(
         val counts = sourcesRepository.getAllSourceFunds(sourceId)
         return@withContext counts.map {
             getSourceCountScenario(it, sourceCurrencyCode)
-        }
+        }.sortedBy { it.originalSum.currency.code }
     }
 }
