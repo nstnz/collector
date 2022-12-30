@@ -1,6 +1,9 @@
 package com.nstnz.collector.common.basic.texts
 
-object En_Strings : IStrings {
+object En_Strings : Strings {
+    override val locale: String
+        get() = "en"
+
     override val MainScreen_Title: String
         get() = "Main"
     override val MainScreen_SumInFavs: String

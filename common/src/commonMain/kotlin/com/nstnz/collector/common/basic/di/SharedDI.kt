@@ -4,7 +4,7 @@ import com.nstnz.collector.AppDatabase
 import com.nstnz.collector.AppDatabaseQueries
 import com.nstnz.collector.common.basic.router.Router
 import com.nstnz.collector.common.basic.texts.En_Strings
-import com.nstnz.collector.common.basic.texts.IStrings
+import com.nstnz.collector.common.basic.texts.Strings
 import com.nstnz.collector.common.feature.core.di.coreDi
 import com.nstnz.collector.common.feature.core.di.viewModelsDi
 import com.nstnz.collector.common.feature.currencies.di.currenciesDi
@@ -18,7 +18,7 @@ import kotlinx.serialization.json.Json
 import org.kodein.di.*
 import kotlin.native.concurrent.ThreadLocal
 
-internal val strings: IStrings by SharedDI.di.instance()
+internal val strings: Strings by SharedDI.di.instance()
 
 @ThreadLocal
 object SharedDI {
@@ -37,7 +37,7 @@ object SharedDI {
 
     internal val di = DI {
         bind<Router>() with singleton { Router() }
-        bind<IStrings>() with singleton { En_Strings }
+        bind<Strings>() with singleton { En_Strings }
         bind<CoroutineDispatcher>() with singleton { Dispatchers.Default }
         bind<AppDatabaseQueries>() with singleton {
             val database = AppDatabase(databaseDriver)

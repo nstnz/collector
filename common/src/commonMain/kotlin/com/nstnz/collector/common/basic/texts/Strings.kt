@@ -1,6 +1,8 @@
 package com.nstnz.collector.common.basic.texts
 
-interface IStrings {
+interface Strings {
+    val locale: String
+
     val MainScreen_Title: String
     val MainScreen_SumInFavs: String
     val MainScreen_SumInDefault: String
