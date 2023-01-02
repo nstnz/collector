@@ -17,6 +17,6 @@ internal class GetSourcesScenario(
         val sources = sourcesRepository.getAllSources()
         return@withContext sources.map {
             getSourceScenario(it)
-        }.sortedBy { it.name }
+        }.sortedBy { it.id.toLongOrNull() }
     }
 }

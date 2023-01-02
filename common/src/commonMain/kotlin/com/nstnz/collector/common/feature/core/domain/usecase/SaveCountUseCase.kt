@@ -4,6 +4,7 @@ import com.nstnz.collector.common.feature.currencies.data.db.model.CurrencyEntit
 import com.nstnz.collector.common.feature.source.data.SourcesRepository
 import com.nstnz.collector.common.feature.source.data.db.model.SourceFundEntity
 import com.nstnz.collector.common.randomUUID
+import io.ktor.util.date.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -19,7 +20,7 @@ internal class SaveCountUseCase(
     ) = withContext(dispatcher) {
         sourcesRepository.createOrUpdateSourceFund(
             SourceFundEntity(
-                id = randomUUID(),
+                id = getTimeMillis().toString(),
                 sourceId = sourceId,
                 currencyCode = currency,
                 sum = sum,

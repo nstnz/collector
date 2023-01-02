@@ -77,7 +77,7 @@ internal class Router() {
         navigator.goBack()
     }
 
-    fun <T> getLastResult(key: String? = null): T? {
+    fun <T> getLastResult(key: String = ""): T? {
         val current = resultHandler?.second?.takeIf { resultHandler?.first == key }
         return (current as? T).also {
             if (it != null || resultHandler?.first == key) {
