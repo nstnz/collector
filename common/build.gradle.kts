@@ -7,6 +7,7 @@ plugins {
     id("kotlinx-serialization")
     id("com.squareup.sqldelight")
     id("org.jetbrains.compose") version Version.compose
+    id("com.google.gms.google-services")
 }
 
 version = "0.0.1"
@@ -59,6 +60,7 @@ kotlin {
                 implementation(SqlDelight.sql_runtime)
                 implementation(Prefs.prefs)
                 api(precompose)
+                implementation("dev.gitlive:firebase-auth:1.6.2")
             }
         }
         val androidMain by getting {
@@ -78,6 +80,8 @@ kotlin {
                 implementation(Kodein.kodein_android)
                 implementation("androidx.customview:customview:1.2.0-alpha02")
                 implementation("androidx.customview:customview-poolingcontainer:1.0.0")
+
+                implementation("com.google.android.gms:play-services-auth:20.4.0")
             }
         }
         val iosMain by getting {

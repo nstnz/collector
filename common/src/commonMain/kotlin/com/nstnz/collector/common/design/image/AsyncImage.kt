@@ -1,14 +1,9 @@
-package com.rouge41.kmm.compose.test.demos
+package com.nstnz.collector.common.design.image
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.unit.dp
-import com.nstnz.collector.common.imageResource
 import com.nstnz.collector.common.toImageBitmap
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -16,29 +11,15 @@ import io.ktor.client.request.*
 import io.ktor.utils.io.core.*
 
 @Composable
-internal fun Images() {
-    Column {
-        Image(
-            imageResource("logo"),
-            null,
-            modifier = Modifier.width(200.dp).height(300.dp).background(
-                Color.LightGray
-            )
-        )
-
-        AsyncImage(
-            url = "https://loremflickr.com/320/320/ocean",
-            modifier = Modifier.size(200.dp).background(Color.Black)
-        )
-    }
-}
-
-@Composable
 internal fun AsyncImage(
     url: String,
     contentDescription: String? = "",
     modifier: Modifier = Modifier
 ) {
+    if (!url.startsWith("http")) {
+        return
+    }
+
     var image by remember { mutableStateOf<ImageBitmap?>(null) }
     image?.let {
         androidx.compose.foundation.Image(

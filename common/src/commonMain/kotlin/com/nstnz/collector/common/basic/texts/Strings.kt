@@ -15,6 +15,9 @@ interface Strings {
     val ConverterScreen_Desc: String
 
     val SettingsScreen_Title: String
+    val SettingsScreen_AddLogin: String
+    val SettingsScreen_GoogleLogin: String
+    val SettingsScreen_Logout: String
 
     val Source_GraphNoData: String
     val Source_GraphYearCource: String

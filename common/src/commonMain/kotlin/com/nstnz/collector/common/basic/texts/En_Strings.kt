@@ -25,6 +25,13 @@ object En_Strings : Strings {
 
     override val SettingsScreen_Title: String
         get() = "Settings"
+    override val SettingsScreen_AddLogin: String
+        get() = "Login to your Google account to save or restore all your personal information. " +
+                "If you already have an account, all your current data will be replaced with data from your account"
+    override val SettingsScreen_GoogleLogin: String
+        get() = "Login with Google"
+    override val SettingsScreen_Logout: String
+        get() = "Logout"
 
     override val Source_GraphNoData: String
         get() = "No data"

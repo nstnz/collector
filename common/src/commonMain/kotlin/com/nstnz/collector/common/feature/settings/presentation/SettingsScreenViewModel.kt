@@ -6,18 +6,21 @@ import com.nstnz.collector.common.feature.core.domain.model.CurrencyDomainModel
 import com.nstnz.collector.common.feature.core.domain.usecase.GetDefaultCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetFavoriteCurrenciesUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.SaveDefaultCurrencyUseCase
-import com.nstnz.collector.common.feature.currencies.domain.usecase.GetCurrenciesUseCase
-import com.nstnz.collector.common.feature.currencies.domain.usecase.RefreshCurrenciesUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.auth.GetAccountModelUseCase
+import com.nstnz.collector.common.launchGoogleSignIn
+import com.nstnz.collector.common.logout
 
 internal class SettingsScreenViewModel(
     private val router: Router,
     private val getDefaultCurrencyUseCase: GetDefaultCurrencyUseCase,
     private val getFavoriteCurrenciesUseCase: GetFavoriteCurrenciesUseCase,
     private val saveDefaultCurrencyUseCase: SaveDefaultCurrencyUseCase,
+    private val getGoogleAuthTokenUseCase: GetAccountModelUseCase
 ) : CoroutinesViewModel<SettingsScreenState, SettingsScreenIntent, SettingsScreenSingleEvent>() {
 
     override fun initialState(): SettingsScreenState = SettingsScreenState(
-        currency = null, favoriteCurrencies = emptyList()
+        currency = null, favoriteCurrencies = emptyList(),
+        account = getGoogleAuthTokenUseCase().takeIf { !it.googleAuthToken.isNullOrEmpty() }
     )
 
     override fun reduce(
@@ -26,7 +29,8 @@ internal class SettingsScreenViewModel(
     ): SettingsScreenState = when (intent) {
         is SettingsScreenIntent.Update -> prevState.copy(
             currency = intent.currency,
-            favoriteCurrencies = intent.favoriteCurrencies
+            favoriteCurrencies = intent.favoriteCurrencies,
+            account = getGoogleAuthTokenUseCase().takeIf { !it.googleAuthToken.isNullOrEmpty() }
         )
         else -> prevState
     }
@@ -61,6 +65,14 @@ internal class SettingsScreenViewModel(
                 currency = state.currency?.code
             )
             null
+        }
+        SettingsScreenIntent.Login -> {
+            launchGoogleSignIn()
+            null
+        }
+        SettingsScreenIntent.Logout -> {
+            logout()
+            SettingsScreenIntent.Update(state.currency, state.favoriteCurrencies)
         }
     }
 }

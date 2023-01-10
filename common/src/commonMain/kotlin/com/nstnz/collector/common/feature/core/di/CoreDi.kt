@@ -1,5 +1,6 @@
 package com.nstnz.collector.common.feature.core.di
 
+import com.nstnz.collector.common.feature.core.data.prefs.UserPrefs
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountScenario
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceCountsScenario
 import com.nstnz.collector.common.feature.core.domain.scenario.GetSourceScenario
@@ -8,6 +9,7 @@ import com.nstnz.collector.common.feature.core.domain.scenario.GetSourcesScenari
 import com.nstnz.collector.common.feature.core.domain.usecase.*
 import com.nstnz.collector.common.feature.core.domain.usecase.GetCurrencyUseCase
 import com.nstnz.collector.common.feature.core.domain.usecase.GetExchangeRatesUseCase
+import com.nstnz.collector.common.feature.core.domain.usecase.auth.SaveGoogleAuthTokenUseCase
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance

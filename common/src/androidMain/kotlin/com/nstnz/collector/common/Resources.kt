@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
+import com.nstnz.collector.common.basic.data.BaseActivity
 import org.kodein.di.android.x.AndroidLifecycleScope
 
 @Composable
@@ -24,4 +25,5 @@ internal actual fun imageVector(id: String): ImageVector {
 
 object Android {
     lateinit var context: Context
+    lateinit var activity: BaseActivity
 }
